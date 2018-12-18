@@ -4,11 +4,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import { AppComponent } from './app.component';
+import { TradePanelComponent } from './trade-panel/trade-panel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TradePanelComponent
   ],
   imports: [
     BrowserModule,

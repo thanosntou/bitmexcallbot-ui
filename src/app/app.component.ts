@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent {
   hidden2 = false;
   hidden3 = false;
   faCoffee = faCoffee;
+  faNewspaper = faNewspaper;
 
   hideOrAppear1() {
     this.hidden1 = !this.hidden1;

@@ -1,20 +1,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2" id="sidenavbar">
-      <div class="row">
-        <button type="button" class="btn btn-primary" (click)="hideOrAppear1()">Primary</button>
-      </div>
-      <br>
-      <div class="row">
-        <button type="button" class="btn btn-primary" (click)="hideOrAppear2()">Primary</button>
-      </div>
-      <br>
-      <div class="row">
-        <button type="button" class="btn btn-primary" (click)="hideOrAppear3()">Primary</button>
-      </div>
-      <br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
       <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical" >
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/news" role="button"><i class="fa fa-newspaper-o" style="content: 'f1ea';"><span class="icon">&#xf1ea;</span></i> News</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/user/news" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
         <a class="nav-link" href="${pageContext.request.contextPath}/dashboard/" role="button" aria-selected="true"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
         <a class="nav-link" href="" role="button"><i class="fas fa-chart-line"></i> Follow a Trader</a>
         <a class="nav-link" href="" role="button"><i class="fas fa-history"></i> Transaction History</a>
@@ -25,6 +18,7 @@
       </div>
     </div>
     <div class="col-md-10">
+      <app-trade-panel></app-trade-panel>
       <!--<app-main-card *ngIf="hidden1; else ishidden1"></app-main-card>-->
       <!--<ng-template #ishidden1>-->
         <!--<br>You hided the 1!<br>-->
