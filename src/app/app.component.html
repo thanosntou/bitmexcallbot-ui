@@ -9,15 +9,15 @@
       <br><br>
       <hr id="hr1"/>
       <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical" >
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
-        <a class="nav-link" href="" role="button" aria-selected="true"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faWallet"></fa-icon> Wallet</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-        <a class="nav-link" href="" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
+        <a class="nav-link" [class.active]="activeNews" (click)="showNews()" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
+        <a class="nav-link" [class.active]="activeDashboard" (click)="showDashboard()" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
+        <a class="nav-link" [class.active]="activeFollow" (click)="showFollow()" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
+        <a class="nav-link" [class.active]="activeFollowers" (click)="showFollowers()" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
+        <a class="nav-link" [class.active]="activeTrade" (click)="showTrade()" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
+        <a class="nav-link" [class.active]="activeTX" (click)="showTX()" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
+        <a class="nav-link" [class.active]="activeWallet" (click)="showWallet()" role="button"><fa-icon [icon]="faWallet"></fa-icon> Wallet</a>
+        <a class="nav-link" [class.active]="activeSettings" (click)="showSettings()" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
+        <a class="nav-link" [class.active]="activeAdmin" (click)="showAdmin()" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
       </div>
     </div>
     <div class="col-md-10">

@@ -34,6 +34,52 @@ export class AppComponent {
   faSatelliteDish = faSatelliteDish;
   faSolarPanel = faSolarPanel;
   faSignOutAlt = faSignOutAlt;
+  activeNews = false;
+  activeDashboard = false;
+  activeFollow = false;
+  activeFollowers = false;
+  activeTrade = false;
+  activeTX = true;
+  activeWallet = false;
+  activeSettings = false;
+  activeAdmin = false;
+
+  showNews() {
+    this.deactivateSidebarTabs();
+    this.activeNews = true;
+  }
+  showDashboard() {
+    this.deactivateSidebarTabs();
+    this.activeDashboard = true;
+  }
+  showFollow() {
+    this.deactivateSidebarTabs();
+    this.activeFollow = true;
+  }
+  showFollowers() {
+    this.deactivateSidebarTabs();
+    this.activeFollowers = true;
+  }
+  showTX() {
+    this.deactivateSidebarTabs();
+    this.activeTX = true;
+  }
+  showWallet() {
+    this.deactivateSidebarTabs();
+    this.activeWallet = true;
+  }
+  showTrade() {
+    this.deactivateSidebarTabs();
+    this.activeTrade = true;
+  }
+  showSettings() {
+    this.deactivateSidebarTabs();
+    this.activeSettings = true;
+  }
+  showAdmin() {
+    this.deactivateSidebarTabs();
+    this.activeAdmin = true;
+  }
 
   hideOrAppear1() {
     this.hidden1 = !this.hidden1;
@@ -45,5 +91,16 @@ export class AppComponent {
 
   hideOrAppear3() {
     this.hidden3 = !this.hidden3;
+  }
+  deactivateSidebarTabs() {
+    this.activeNews = false;
+    this.activeDashboard = false;
+    this.activeFollow = false;
+    this.activeFollowers = false;
+    this.activeTrade = false;
+    this.activeTX = false;
+    this.activeSettings = false;
+    this.activeWallet = false;
+    this.activeAdmin = false;
   }
 }
