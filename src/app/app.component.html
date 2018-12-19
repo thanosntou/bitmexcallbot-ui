@@ -2,16 +2,15 @@
   <div class="row">
     <div class="col-md-2" id="sidenavbar">
       <br><br>
-      <h5>Username:</h5>
-      <h5>Email:</h5>
+      <h5><fa-icon [icon]="faUser"></fa-icon> Username: Athan</h5><br>
+      <h5><fa-icon [icon]="faAt"></fa-icon> Email: thanosntouzidis@gmail.com</h5>
       <br><br>
+      <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
       <br><br>
-      <br><br>
-      <br><br>
-      <hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+      <hr id="hr1"/>
       <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical" >
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/news" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
-        <a class="nav-link" href="${pageContext.request.contextPath}/dashboard/" role="button" aria-selected="true"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
+        <a class="nav-link" href="" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
+        <a class="nav-link" href="" role="button" aria-selected="true"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
         <a class="nav-link" href="" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
         <a class="nav-link" href="" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
         <a class="nav-link" href="" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>

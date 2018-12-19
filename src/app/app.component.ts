@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
 import { faNewspaper } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { faHistory } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +10,7 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons';
 import { faSolarPanel } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +23,17 @@ export class AppComponent {
   hidden2 = false;
   hidden3 = false;
   faCoffee = faCoffee;
+  faAt = faAt;
   faNewspaper = faNewspaper;
   faUsers = faUsers;
+  faUser = faUser;
   faHandshake = faHandshake;
   faHistory = faHistory;
   faWallet = faWallet;
   faCogs = faCogs;
   faSatelliteDish = faSatelliteDish;
   faSolarPanel = faSolarPanel;
+  faSignOutAlt = faSignOutAlt;
 
   hideOrAppear1() {
     this.hidden1 = !this.hidden1;
