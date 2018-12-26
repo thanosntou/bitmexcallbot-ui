@@ -1,5 +1,5 @@
 .card{
-  height: 100vh;
+  min-height: 100vh;
   margin: 15px 0;
 }
 

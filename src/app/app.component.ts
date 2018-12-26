@@ -38,11 +38,11 @@ export class AppComponent {
   activeDashboard = false;
   activeFollow = false;
   activeFollowers = false;
-  activeTrade = false;
+  activeTradePanel = false;
   activeTX = true;
   activeWallet = false;
   activeSettings = false;
-  activeAdmin = false;
+  activeAdminPanel = false;
 
   showNews() {
     this.deactivateSidebarTabs();
@@ -70,7 +70,7 @@ export class AppComponent {
   }
   showTrade() {
     this.deactivateSidebarTabs();
-    this.activeTrade = true;
+    this.activeTradePanel = true;
   }
   showSettings() {
     this.deactivateSidebarTabs();
@@ -78,7 +78,7 @@ export class AppComponent {
   }
   showAdmin() {
     this.deactivateSidebarTabs();
-    this.activeAdmin = true;
+    this.activeAdminPanel = true;
   }
 
   hideOrAppear1() {
@@ -97,10 +97,10 @@ export class AppComponent {
     this.activeDashboard = false;
     this.activeFollow = false;
     this.activeFollowers = false;
-    this.activeTrade = false;
+    this.activeTradePanel = false;
     this.activeTX = false;
     this.activeSettings = false;
     this.activeWallet = false;
-    this.activeAdmin = false;
+    this.activeAdminPanel = false;
   }
 }

@@ -3,9 +3,8 @@
 }
 
 #sidenavbar{
+  min-height: 100vh;
   background-color: #3b5264;
-  max-height: 100vh;
-  height: 100vh;
   color: #eeeeee;
 }
 
