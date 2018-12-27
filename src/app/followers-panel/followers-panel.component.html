@@ -1,6 +1,26 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title">Followers</h3>
-
+    <div class="row">
+      <table class="table table-hover table-sm">
+        <thead class="thead bg-info">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">User</th>
+          <th scope="col">Email</th>
+          <th scope="col">Enabled</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let follower of followers2">
+          <th scope="row">{{ follower.id }}</th>
+          <td>{{ follower.username }}</td>
+          <td>{{ follower.email }}</td>
+          <td><span *ngIf="follower.enabled"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
+            <span *ngIf="!follower.enabled"><fa-icon [icon]="faMinus"></fa-icon></span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
