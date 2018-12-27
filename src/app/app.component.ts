@@ -38,8 +38,8 @@ export class AppComponent {
   activeDashboard = false;
   activeFollow = false;
   activeFollowers = false;
-  activeTradePanel = false;
-  activeTX = true;
+  activeTradePanel = true;
+  activeTX = false;
   activeWallet = false;
   activeSettings = false;
   activeAdminPanel = false;

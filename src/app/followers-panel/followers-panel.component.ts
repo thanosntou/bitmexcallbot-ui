@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Follower} from './follower.model';
-import {Follower2} from './Follower2';
+import { FollowerModel } from './follower.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,18 +12,13 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
 export class FollowersPanelComponent implements OnInit {
   faCheckedCircle = faCheckCircle;
   faMinus = faMinus;
-  followers: Follower[] = [
-    new Follower('botaki1', 'otinane@mail.com'),
-    new Follower('botaki2', 'denkserw@mail.com')
-  ];
-
-  followers2: Follower2[];
+  followers: FollowerModel[];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-   this.http.get<Follower[]>('https://www.bitmexcallbot.com/api/v1/trader/followers')
-     .subscribe((data: Follower2[]) => this.followers2 = data);
+   this.http.get<FollowerModel[]>('https://www.bitmexcallbot.com/api/v1/trader/followers')
+     .subscribe((data: FollowerModel[]) => this.followers = data);
    console.log('Followers list fetched');
   }
 }

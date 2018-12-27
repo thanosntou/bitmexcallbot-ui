@@ -1,9 +1,9 @@
-export class Follower {
-  public username: string;
-  public email: string;
-
-  constructor(username: string, email: string) {
-    this.username = username;
-    this.email = email;
-  }
+export interface FollowerModel {
+  id: number;
+  username: string;
+  email: string;
+  enabled: boolean;
+  create_date: string;
+  api_key: string;
+  api_secret: string;
 }

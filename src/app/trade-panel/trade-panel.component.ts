@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trade-panel.component.css']
 })
 export class TradePanelComponent implements OnInit {
-  isHidden1 = false;
-  isHidden2 = false;
+  isHidden1 = true;
+  isHidden2 = true;
 
   constructor() { }
 
