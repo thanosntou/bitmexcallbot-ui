@@ -1,0 +1,20 @@
+<div class="row" id="sidenavbar">
+  <br>
+  <h6><fa-icon [icon]="faUser"></fa-icon> Username: Athan</h6>
+  <h6 style="word-wrap:break-word;"><fa-icon [icon]="faAt"></fa-icon> Email: thanosntouzidis@gmail.com</h6>
+  <br>
+  <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
+  <br>
+  <hr id="hr1"/>
+  <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
+    <a class="nav-link" [class.active]="activeTab == 'dashboard'" (click)="onSelect('dashboard')" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
+    <a class="nav-link" [class.active]="activeTab == 'follow'" (click)="onSelect('follow')" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
+    <a class="nav-link" [class.active]="activeTab == 'followers'" (click)="onSelect('followers')" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
+    <a class="nav-link" [class.active]="activeTab == 'trade'" (click)="onSelect('trade')" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
+    <a class="nav-link" [class.active]="activeTab == 'tx'" (click)="onSelect('tx')" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
+    <a class="nav-link" [class.active]="activeTab == 'wallet'" (click)="onSelect('wallet')" role="button"><fa-icon [icon]="faWallet"></fa-icon> Wallet</a>
+    <a class="nav-link" [class.active]="activeTab == 'settings'" (click)="onSelect('settings')" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
+    <a class="nav-link" [class.active]="activeTab == 'admin'" (click)="onSelect('admin')" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
+  </div>
+</div>
+

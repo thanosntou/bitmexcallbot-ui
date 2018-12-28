@@ -1,37 +1,18 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2" id="sidenavbar">
-      <br>
-        <h6><fa-icon [icon]="faUser"></fa-icon> Username: Athan</h6>
-      <br>
-      <h6 style="word-wrap:break-word;"><fa-icon [icon]="faAt"></fa-icon> Email: thanosntouzidis@gmail.com</h6>
-      <br>
-      <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
-      <br>
-      <hr id="hr1"/>
-      <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical" >
-        <a class="nav-link" [class.active]="activeNews" (click)="showNews()" role="button"><fa-icon [icon]="faNewspaper"></fa-icon> News</a>
-        <a class="nav-link" [class.active]="activeDashboard" (click)="showDashboard()" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
-        <a class="nav-link" [class.active]="activeFollow" (click)="showFollow()" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
-        <a class="nav-link" [class.active]="activeFollowers" (click)="showFollowers()" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
-        <a class="nav-link" [class.active]="activeTradePanel" (click)="showTrade()" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
-        <a class="nav-link" [class.active]="activeTX" (click)="showTX()" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
-        <a class="nav-link" [class.active]="activeWallet" (click)="showWallet()" role="button"><fa-icon [icon]="faWallet"></fa-icon> Wallet</a>
-        <a class="nav-link" [class.active]="activeSettings" (click)="showSettings()" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-        <a class="nav-link" [class.active]="activeAdminPanel" (click)="showAdmin()" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
-      </div>
+    <div class="col-md-2">
+      <app-navbar (tabSelected)="onNavigate($event)"></app-navbar>
     </div>
 
     <div class="col-md-10">
-      <app-news *ngIf="activeNews"></app-news>
-      <app-dashboard *ngIf="activeDashboard"></app-dashboard>
-      <app-follow-panel *ngIf="activeFollow"></app-follow-panel>
-      <app-followers-panel *ngIf="activeFollowers"></app-followers-panel>
-      <app-tx *ngIf="activeTX"></app-tx>
-      <app-trade-panel *ngIf="activeTradePanel" id="trade-panel"></app-trade-panel>
-      <app-admin-panel *ngIf="activeAdminPanel"></app-admin-panel>
-      <app-wallet *ngIf="activeWallet"></app-wallet>
-      <app-settings *ngIf="activeSettings"></app-settings>
+      <app-dashboard *ngIf="activeTab == 'dashboard'"></app-dashboard>
+      <app-follow-panel *ngIf="activeTab == 'follow'"></app-follow-panel>
+      <app-followers-panel *ngIf="activeTab == 'followers'"></app-followers-panel>
+      <app-tx *ngIf="activeTab == 'tx'"></app-tx>
+      <app-trade-panel *ngIf="activeTab == 'trade'" id="trade-panel"></app-trade-panel>
+      <app-admin-panel *ngIf="activeTab == 'admin'"></app-admin-panel>
+      <app-wallet *ngIf="activeTab == 'wallet'"></app-wallet>
+      <app-settings *ngIf="activeTab == 'settings'"></app-settings>
     </div>
   </div>
 </div>
