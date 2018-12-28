@@ -1,12 +1,14 @@
-<div class="row" id="sidenavbar">
+<div class="container-fluid" id="sidenavbar">
   <br>
-  <h6><fa-icon [icon]="faUser"></fa-icon> Username: Athan</h6>
-  <h6 style="word-wrap:break-word;"><fa-icon [icon]="faAt"></fa-icon> Email: thanosntouzidis@gmail.com</h6>
+  <div class="row">
+    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, Athan</h5>
+  </div>
   <br>
-  <fa-icon [icon]="faSignOutAlt"></fa-icon> Logout
-  <br>
+  <div class="row">
+    <button class="btn btn-dark" type="submit"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
+  </div>
   <hr id="hr1"/>
-  <div class="nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
+  <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
     <a class="nav-link" [class.active]="activeTab == 'dashboard'" (click)="onSelect('dashboard')" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
     <a class="nav-link" [class.active]="activeTab == 'follow'" (click)="onSelect('follow')" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
     <a class="nav-link" [class.active]="activeTab == 'followers'" (click)="onSelect('followers')" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
@@ -17,4 +19,5 @@
     <a class="nav-link" [class.active]="activeTab == 'admin'" (click)="onSelect('admin')" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
   </div>
 </div>
+
 

@@ -1,6 +1,5 @@
 #sidenavbar{
   min-height: 100vh;
-  background-color: #3b5264;
   color: #eeeeee;
 }
 
@@ -14,6 +13,6 @@
 #hr1{
   height: 1px;
   border: none;
-  color: #333;
+  /*color: #333;*/
   background-color: #333;
 }
