@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   activeTab = 'trade';
   @Output() tabSelected = new EventEmitter<string>();
 
-  faCoffee = faCoffee; faAt = faAt; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
+  faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faWallet = faWallet; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
