@@ -14,6 +14,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FollowersPanelComponent } from './followers-panel/followers-panel.component';
+import { UnlessDirective } from './unless.directive';
+import {DropdownDirective} from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FollowersPanelComponent } from './followers-panel/followers-panel.compo
     SettingsComponent,
     AdminPanelComponent,
     DashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    UnlessDirective,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

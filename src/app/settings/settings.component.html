@@ -3,21 +3,215 @@
     <div class="row">
       <h3 class="card-title">Settings</h3>
     </div>
+    <br>
+    <div *ngIf="user">
+      <div class="row">
+        <div class="col-xl-1">
+          <strong>Api Key:</strong>
+        </div>
+        <div class="col-xl-3">
+          {{ user.apiKey }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-1">
+          <strong>Api Secret:</strong>
+        </div>
+        <div class="col-xl-4">
+          {{ user.apiSecret }}
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        XBTUSD: {{ user.fixedQtyXBTUSD }}
+      </div>
+      <div class="row">
+        ETHUSD: {{ user.fixedQtyETHUSD }}
+      </div>
+      <div class="row">
+        ADA: {{ user.fixedQtyADAZ18 }}
+      </div>
+      <div class="row">
+        BCH: {{ user.fixedQtyBCHZ18 }}
+      </div>
+      <div class="row">
+        EOS: {{ user.fixedQtyEOSZ18 }}
+      </div>
+      <div class="row">
+        ETH: {{ user.fixedQtyETHZ18 }}
+      </div>
+      <div class="row">
+        LTC: {{ user.fixedQtyLTCZ18 }}
+      </div>
+      <div class="row">
+        TRX: {{ user.fixedQtyTRXZ18 }}
+      </div>
+      <div class="row">
+        XRP: {{ user.fixedQtyXRPZ18 }}
+      </div>
+    </div>
+    <hr>
     <div class="row">
+      <h4 (click)="showOrHideKeys()"> <span *ngIf="hiddenKeys;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Api Keys </h4>
+    </div>
+    <div *ngIf="!hiddenKeys">
       <form>
         <div class="form-group">
-          <label for="api_key">Api Key</label>
-          <input type="text" name="api_key" id="api_key" class="form-control" #apiKeyInput>
-          <label for="api_secret">Api Secret</label>
-          <input type="text" name="api_secret" id="api_secret" class="form-control" #apiSecretInput>
+          <div class="row">
+            <label for="api_key">Api Key</label>
+            <input
+              type="text"
+              id="api_key"
+              class="form-control"
+              #apiKeyInput
+            >
+          </div>
+          <div class="row">
+            <label for="api_secret">Api Secret</label>
+            <input
+              type="text"
+              id="api_secret"
+              class="form-control"
+              #apiSecretInput
+            >
+          </div>
+          <div class="row">
+            <button class="btn btn-success" (click)="onSaveKeys()">Save</button>
+          </div>
         </div>
+
       </form>
     </div>
+    <br>
     <div class="row">
-      <button class="btn btn-success" (click)="onSaveKeys()">Save</button>
+      <h4 (click)="showOrHideQties()"> <span *ngIf="hiddenQties;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Fixed Quantities </h4>
+        <ng-template #dropedDownIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
     </div>
-    <div class="row">
-      <p>{{ kati }}</p>
+    <div class="row" *ngIf="!hiddenQties">
+      <form>
+        <div class="form-group">
+          <div class="col-md">
+            <div class="row">
+              <label for="api_key">XBTUSD</label>
+              <input
+                type="number"
+                id="fixedQtyXBTUSD"
+                class="form-control"
+                #fixedQtyXBTUSD
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyXBTUSD()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">ETHUSD</label>
+              <input
+                type="number"
+                id="fixedQtyETHUSD"
+                class="form-control"
+                #fixedQtyETHUSD
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyETHUSD()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">ADA</label>
+              <input
+                type="number"
+                id="fixedQtyADAZ18"
+                class="form-control"
+                #fixedQtyADAZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyADA()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">BCH</label>
+              <input
+                type="number"
+                id="fixedQtyBCHZ18"
+                class="form-control"
+                #fixedQtyBCHZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyBCH()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">EOS</label>
+              <input
+                type="number"
+                id="fixedQtyEOSZ18"
+                class="form-control"
+                #fixedQtyEOSZ18
+              >
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyEOS()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">ETH</label>
+              <input
+                type="number"
+                id="fixedQtyETHZ18"
+                class="form-control"
+                #fixedQtyETHZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyETH()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">LTC</label>
+              <input
+                type="number"
+                id="fixedQtyLTCZ18"
+                class="form-control"
+                #fixedQtyLTCZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyLTC()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">TRX</label>
+              <input
+                type="number"
+                id="fixedQtyTRXZ18"
+                class="form-control"
+                #fixedQtyTRXZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyTRX()">Save</button>
+            </div>
+            <br>
+            <div class="row">
+              <label for="api_secret">XRP</label>
+              <input
+                type="number"
+                id="fixedQtyXRPZ18"
+                class="form-control"
+                #fixedQtyXRPZ18
+              >
+            </div>
+            <div class="row">
+              <button class="btn btn-success" (click)="onSavefixedQtyXRP()">Save</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

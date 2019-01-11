@@ -1,9 +1,17 @@
-export interface FollowerModel {
+export class FollowerModel {
   id: number;
   username: string;
   email: string;
   enabled: boolean;
-  create_date: string;
-  api_key: string;
-  api_secret: string;
+  apiKey: string;
+  apiSecret: string;
+  fixedQtyXBTUSD: string;
+  fixedQtyETHUSD: string;
+  fixedQtyADAZ18: string;
+  fixedQtyBCHZ18: string;
+  fixedQtyEOSZ18: string;
+  fixedQtyETHZ18: string;
+  fixedQtyLTCZ18: string;
+  fixedQtyTRXZ18: string;
+  fixedQtyXRPZ18: string;
 }
