@@ -1,6 +1,25 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title">Admin Panel</h3>
-
+    <br>
+    <div class="container-fluid">
+      <div class="row" style="overflow-x: scroll">
+        <h4> User Logins </h4>
+        <table class="table table-hover table-sm">
+          <thead class="thead bg-info">
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let login of logins">
+              <th scope="row">{{ login.user.username }}</th>
+              <td>{{ login.create_date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

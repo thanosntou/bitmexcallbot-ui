@@ -15,7 +15,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FollowersPanelComponent } from './followers-panel/followers-panel.component';
 import { UnlessDirective } from './unless.directive';
-import {DropdownDirective} from './shared/dropdown.directive';
+import { DropdownDirective } from './shared/dropdown.directive';
+import { NewAccountComponent } from './new-account/new-account.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {DropdownDirective} from './shared/dropdown.directive';
     DashboardComponent,
     NavbarComponent,
     UnlessDirective,
-    DropdownDirective
+    DropdownDirective,
+    NewAccountComponent
   ],
   imports: [
     BrowserModule,

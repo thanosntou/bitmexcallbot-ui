@@ -27,11 +27,12 @@ export class SettingsComponent implements OnInit {
   user: FollowerModel;
   hiddenKeys = false;
   hiddenQties = true;
+  baseUrl = 'https://www.bitmexcallbot.com';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<FollowerModel>('http://localhost:8082/BioUnion/api/v1/user')
+    this.http.get<FollowerModel>(this.baseUrl + '/api/v1/user')
       .subscribe((data: FollowerModel) => {
         this.user = data;
       });
@@ -42,7 +43,7 @@ export class SettingsComponent implements OnInit {
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
+      this.baseUrl + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -57,7 +58,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyXBTUSD.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -67,7 +68,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyETHUSD.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -77,7 +78,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyADAZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -87,7 +88,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyBCHZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -97,7 +98,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyEOSZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -107,7 +108,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyETHZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -117,7 +118,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyLTCZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -127,7 +128,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyTRXZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
@@ -137,7 +138,7 @@ export class SettingsComponent implements OnInit {
     const qty = this.fixedQtyXRPZ18.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      'http://localhost:8082/BioUnion/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18',
+      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18',
       '')
       .subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
