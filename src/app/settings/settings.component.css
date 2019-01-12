@@ -2,3 +2,12 @@
   min-height: 100vh;
   margin: 15px 0;
 }
+
+/*.elemento {*/
+  /*-webkit-transition: 2s;*/
+  /*transition: 2s;*/
+/*}*/
+/*.elemento:hover { !* .element.hidden *!*/
+  /*opacity: 0;*/
+  /*pointer-events: none; !* <-- This one *!*/
+/*}*/
