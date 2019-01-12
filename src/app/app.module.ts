@@ -17,6 +17,7 @@ import { FollowersPanelComponent } from './followers-panel/followers-panel.compo
 import { UnlessDirective } from './unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NewAccountComponent } from './new-account/new-account.component';
+import { AdminService } from './admin.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { NewAccountComponent } from './new-account/new-account.component';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

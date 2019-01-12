@@ -4,13 +4,13 @@
       <h3 class="card-title">Settings</h3>
     </div>
     <br>
-    <div class="container-fluid" *ngIf="user">
+    <div class="container-fluid">
       <div class="container-fluid">
         <div class="row">
           <div class="col">
             <strong>Api Key:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.apiKey }}
           </div>
         </div>
@@ -18,7 +18,7 @@
           <div class="col">
             <strong>Api Secret:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.apiSecret }}
           </div>
         </div>
@@ -26,12 +26,12 @@
 
       <br>
 
-      <div class="container-fluid"  >
+      <div class="container-fluid">
         <div class="row justify-content-md-start">
           <div class="col" style="">
             <strong>XBTUSD:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyXBTUSD }}
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="col" style="">
             <strong>ETHUSD:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyETHUSD }}
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="col" style="">
             <strong>ADA:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyADAZ18 }}
           </div>
         </div>
@@ -55,7 +55,7 @@
           <div class="col" style="">
             <strong>BCH:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyBCHZ18 }}
           </div>
         </div>
@@ -63,7 +63,7 @@
           <div class="col" style="">
             <strong>EOS:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyEOSZ18 }}
           </div>
         </div>
@@ -71,7 +71,7 @@
           <div class="col" style="">
             <strong>ETH:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyETHZ18 }}
           </div>
         </div>
@@ -79,7 +79,7 @@
           <div class="col" style="">
             <strong>LTC:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyLTCZ18 }}
           </div>
         </div>
@@ -87,7 +87,7 @@
           <div class="col" style="">
             <strong>TRX:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyTRXZ18 }}
           </div>
         </div>
@@ -95,7 +95,7 @@
           <div class="col" style="">
             <strong>XRP:</strong>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="user">
             {{ user.fixedQtyXRPZ18 }}
           </div>
         </div>

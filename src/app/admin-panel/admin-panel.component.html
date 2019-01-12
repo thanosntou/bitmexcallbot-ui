@@ -8,12 +8,12 @@
         <table class="table table-hover table-sm">
           <thead class="thead bg-info">
             <tr>
-              <th scope="col">User</th>
-              <th scope="col">Date</th>
+              <th scope="col">User </th>
+              <th scope="col">Date <fa-icon [icon]="faSortDown" (click)="revertDateSort()"></fa-icon></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let login of logins">
+            <tr *ngFor="let login of adminService.logins">
               <th scope="row">{{ login.user.username }}</th>
               <td>{{ login.create_date }}</td>
             </tr>
