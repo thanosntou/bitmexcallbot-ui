@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {
-  faAt,
   faCoffee,
   faCogs,
   faHandshake,
@@ -8,7 +7,6 @@ import {
   faSatelliteDish, faSignOutAlt, faSolarPanel,
   faUser,
   faUsers,
-  faWallet
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -21,7 +19,7 @@ export class NavbarComponent implements OnInit {
   @Output() tabSelected = new EventEmitter<string>();
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
-  faHandshake = faHandshake; faHistory = faHistory; faWallet = faWallet; faCogs = faCogs;
+  faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
   constructor() { }
