@@ -12,7 +12,7 @@ export class TxComponent implements OnInit {
   tx: TxModel[];
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
-  baseUrl = 'http://localhost:8082/BioUnion';
+  baseUrl = 'https://www.bitmexcallbot.com';
 
   constructor(private http: HttpClient) { }
 
