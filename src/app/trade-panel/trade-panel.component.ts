@@ -25,12 +25,12 @@ export class TradePanelComponent implements OnInit {
       .subscribe((data: PositionModel[]) => this.activePositions = data.reverse());
   }
 
-  // hideOrShow1() {
-  //   this.isHidden1 = !this.isHidden1;
-  // }
-  //
-  // hideOrShow2() {
-  //   this.isHidden2 = !this.isHidden2;
-  // }
+  hideOrShow1() {
+    this.isHidden1 = !this.isHidden1;
+  }
+
+  hideOrShow2() {
+    this.isHidden2 = !this.isHidden2;
+  }
 
 }
