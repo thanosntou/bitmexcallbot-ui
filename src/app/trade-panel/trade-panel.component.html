@@ -332,27 +332,25 @@
               <th scope="col">Price</th>
               <th scope="col">Stop Price</th>
               <th scope="col">Transaction Time</th>
-              <th scope="col">
+              <!--<th scope="col">-->
                 <!--<%&#45;&#45;<c:if test="${randomActiveOrders.size() > 1}">&#45;&#45;%>-->
                 <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">-->
                   <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
                   <!--<input type="submit" class="btn btn-danger" value="Cancel All"/>-->
                 <!--</form:form>-->
                 <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
-              </th>
             </tr>
             </thead>
             <tbody>
-            <!--<c:forEach var="tempMap" items="${randomActiveOrders}">-->
-              <tr>
-                <!--<th scope="row">${tempMap['symbol']}</th>-->
-                <!--<td>${tempMap['side']}</td>-->
-                <!--<td>${tempMap['ordStatus']}</td>-->
-                <!--<td>${tempMap['ordType']}</td>-->
+              <tr *ngFor="let order of activeOrders">
+                <th scope="row"> {{ order.symbol }}</th>
+                <td>{{ order.side }}</td>
+                <td>{{ order.ordStatus }}</td>
+                <td>{{ order.ordType }}</td>
                 <!--<%&#45;&#45;<td>${tempMap['orderQty']}</td>&#45;&#45;%>-->
-                <!--<td>${tempMap['price']}</td>-->
-                <!--<td>${tempMap['stopPx']}</td>-->
-                <!--<td>${tempMap['transactTime']}</td>-->
+                <td>{{ order.price }}</td>
+                <td>{{ order.stopPx }}</td>
+                <td>{{ order.transactTime }}</td>
                 <!--<td>-->
                   <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancel" method="POST">-->
                     <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
@@ -361,7 +359,6 @@
                   <!--</form:form>-->
                 <!--</td>-->
               </tr>
-            <!--</c:forEach>-->
             </tbody>
           </table>
         </div>
@@ -375,7 +372,7 @@
           <thead class="thead bg-info">
           <tr>
             <th scope="col">Symbol</th>
-            <th scope="col">Sum Size</th>
+            <!--<th scope="col">Sum Size</th>-->
             <th scope="col">Entry Price</th>
             <th scope="col">Mark Price</th>
             <th scope="col">Liq. Price</th>
@@ -436,6 +433,33 @@
             <th scope="col"></th>
           </tr>
           </thead>
+          <tbody>
+          <tr *ngFor="let position of activePositions">
+            <th scope="row"> {{ position.symbol }}</th>
+            <td>{{ position.avgEntryPrice }}</td>
+            <td>{{ position.markPrice }}</td>
+            <td>{{ position.maintMargin }}</td>
+            <td>{{ position.unrealisedPnl }}</td>
+            <td>{{ position.unrealisedRoePcnt }}</td>
+            <td>{{ position.realisedPnl }}</td>
+            <td>{{ position.execCost }}</td>
+            <td>{{ position.currentCost }}</td>
+            <td>{{ position.unrealisedCost }}</td>
+            <td>{{ position.posMargin }}</td>
+            <!--<td>{{ position.ordType }}</td>-->
+            <!--<%&#45;&#45;<td>${tempMap['orderQty']}</td>&#45;&#45;%>-->
+            <!--<td>{{ position.price }}</td>-->
+            <!--<td>{{ position.stopPx }}</td>-->
+            <!--<td>{{ position.transactTime }}</td>-->
+            <!--<td>-->
+            <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancel" method="POST">-->
+            <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
+            <!--<input type="hidden" name="orderID" value="${tempMap['orderID']}" />-->
+            <!--<input type="submit" class="btn btn-danger" value="Cancel"/>-->
+            <!--</form:form>-->
+            <!--</td>-->
+          </tr>
+          </tbody>
         </table>
 
       </div>
