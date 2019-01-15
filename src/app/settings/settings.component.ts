@@ -33,9 +33,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<FollowerModel>(this.baseUrl + '/api/v1/user')
-      .subscribe((data: FollowerModel) => {
-        this.user = data;
-      });
+      .subscribe((data: FollowerModel) => { this.user = data; });
   }
 
   onSaveKeys() {
@@ -59,8 +57,8 @@ export class SettingsComponent implements OnInit {
 
     this.http.post<FollowerModel>(
       this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
+      ''
+    ).subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
     this.fixedQtyXBTUSD.nativeElement.value = '';
   }

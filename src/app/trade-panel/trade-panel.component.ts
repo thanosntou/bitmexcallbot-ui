@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
 import {HttpClient} from '@angular/common/http';
 import {PositionModel} from '../position.model';
+import {FollowerModel} from '../followers-panel/follower.model';
 
 @Component({
   selector: 'app-trade-panel',
@@ -9,6 +10,7 @@ import {PositionModel} from '../position.model';
   styleUrls: ['./trade-panel.component.css']
 })
 export class TradePanelComponent implements OnInit {
+  symbolGlobal = 'XBTUSD';
   @ViewChild('symbol') symbol: ElementRef;
   @ViewChild('side') side: ElementRef;
   @ViewChild('stopLoss') stopLoss: ElementRef;
@@ -18,6 +20,7 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('stopLossManual') stopLossManual: ElementRef;
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
+  // baseUrl = 'https://www.bitmexcallbot.com';
   baseUrl = 'https://www.bitmexcallbot.com';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
@@ -48,6 +51,22 @@ export class TradePanelComponent implements OnInit {
     console.log(this.stopLoss.nativeElement.value);
     console.log(this.profitTrigger.nativeElement.value);
     console.log(this.leverage.nativeElement.value);
+
+    const symbol = this.symbol.nativeElement.value;
+    const side = this.side.nativeElement.value;
+    const stopLoss = this.stopLoss.nativeElement.value;
+    const profit = this.profitTrigger.nativeElement.value;
+    const leverage = this.leverage.nativeElement.value;
+
+    this.http.post<void>(
+      this.baseUrl + '/api/v1/trader/signal?'
+      + 'symbol=' + symbol
+      + '&side=' + side
+      + '&stopLoss=' + stopLoss
+      + '&profit=' + profit
+      + '&leverage=' + leverage,
+      ''
+    ).subscribe((data) => console.log(data));
   }
 
   onPlaceOrder() {
