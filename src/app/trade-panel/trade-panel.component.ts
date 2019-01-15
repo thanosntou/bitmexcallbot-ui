@@ -1,8 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
-import {FollowerModel} from '../followers-panel/follower.model';
 
 @Component({
   selector: 'app-trade-panel',
@@ -21,7 +20,7 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
   // baseUrl = 'https://www.bitmexcallbot.com';
-  baseUrl = 'https://www.bitmexcallbot.com';
+  baseUrl = 'http://localhost:8082/BioUnion';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
   isHidden1 = true;
@@ -58,19 +57,31 @@ export class TradePanelComponent implements OnInit {
     const profitTrigger = this.profitTrigger.nativeElement.value;
     const leverage = this.leverage.nativeElement.value;
 
-    this.http.post<void>(
-      this.baseUrl + '/api/v1/trader/signal?'
-      + 'symbol=' + symbol
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+
+    const body = 'symbol=' + symbol
       + '&side=' + side
       + '&stopLoss=' + stopLoss
       + '&profitTrigger=' + profitTrigger
-      + '&leverage=' + leverage,
-      ''
+      + '&leverage=' + leverage;
+
+    this.http.post<void>(
+      this.baseUrl + '/api/v1/trader/signal',
+      body,
+      httpOptions
     ).subscribe((data) => console.log(data));
   }
 
   onPlaceOrder() {
 
+  }
+
+  changeGlobalSymbol(symbol: string) {
+    this.symbolGlobal = symbol;
   }
 
 }

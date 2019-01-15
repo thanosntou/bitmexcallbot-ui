@@ -5,15 +5,15 @@
       <div class="row">
         <div class="container" id="coinlist">
           <div class="row justify-content-left">
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/XBTUSD" role="button">Bitcoin</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/ETHUSD" role="button">Ethereum</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/ADA" role="button">Cardano</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/BCH" role="button">Bitcoin Cash</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/EOS" role="button">EOS Token</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/ETH" role="button">ETH</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/LTC" role="button">Litecoin</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/TRX" role="button">Tron</a>
-              <a  class="btn btn-outline-info" href="${pageContext.request.contextPath}/trade/XRP" role="button">Ripple</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('XBTUSD')" role="button">Bitcoin</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('ETHUSD')" role="button">Ethereum</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('ADA')" role="button">Cardano</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('BCH')" role="button">Bitcoin Cash</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('EOS')" role="button">EOS Token</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('ETH')" role="button">ETH</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('LTC')" role="button">Litecoin</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('TRX')" role="button">Tron</a>
+              <a  class="btn btn-outline-info" (click)="changeGlobalSymbol('XRP')" role="button">Ripple</a>
           </div>
         </div>
       </div>
