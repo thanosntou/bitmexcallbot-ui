@@ -1,4 +1,4 @@
-  <div class="card">
+  <div class="card" id="main-card">
     <div class="card-body">
       <h3 class="card-title">Trade Panel</h3>
       <hr>
@@ -6,312 +6,374 @@
       <div class="row">
         <div class="col-md-4">
           <div class="container" id="signal-form">
-            <div class="row">
-              <h4 (click)="hideOrShow1()">Signal For All</h4>
-            </div>
-            <br>
-            <div class="row" *ngIf="isHidden1">
-              <!--<form:form action="${pageContext.request.contextPath}/trade/signal" method="POST" oninput="x.value=parseInt(a.value)">-->
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm">
-                    Contract
-                  </div>
-                  <div class="col-sm">
-                    <input type="hidden" name="symbol" value="${symbol}" >
-                    <input type="text" value="${symbol}" disabled >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    Side
-                  </div>
-                  <div class="col-sm">
-                    <select name="side">
-                      <option value="Buy">Long</option>
-                      <option value="Sell">Short</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    Stop Loss
-                  </div>
-                  <div class="col-sm">
-                    <input type="text" name="stopLoss" >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    Profit Trigger
-                  </div>
-                  <div class="col-sm">
-                    <input type="text" name="profitTrigger" >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    Leverage
-                  </div>
-                  <div class="col-sm">
-                    <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
-                    <output name="x" for="a"></output>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-sm">
-                  </div>
-                  <div class="col-sm">
-                    <input type="submit" value="Create Signal">
-                  </div>
-                </div>
-                <br>
+            <div class="card" id="SignalForAll">
+              <div class="card-header" (click)="hideOrShow1()">
+                <h5>Signal For All</h5>
               </div>
-              <!--</form:form>-->
+              <div class="card-body" *ngIf="isHidden1">
+                <div class="row" >
+                  <div class="container-fluid">
+                    <form>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col">
+                            <strong>Contract</strong>
+                          </div>
+                          <div class="col">
+                            <input
+                              type="text"
+                              class="form-control"
+                              #symbol
+                              disabled
+                            >
+                        </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <strong>Side</strong>
+                          </div>
+                          <div class="col">
+                            <div class="row justify-content-center">
+                              <select name="side" #side>
+                                <option value="Buy">Long</option>
+                                <option value="Sell">Short</option>
+                              </select>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <strong>Stop Loss</strong>
+                          </div>
+                          <div class="col">
+                            <input
+                              type="text"
+                              class="form-control"
+                              #stopLoss
+                            >
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <strong>Profit Trigger</strong>
+                          </div>
+                          <div class="col">
+                        <input
+                          type="text"
+                          class="form-control"
+                          #profitTrigger
+                        >
+                      </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <strong>Leverage</strong>
+                          </div>
+                          <div class="col">
+                        <!--<input-->
+                          <!--type="number"-->
+                          <!--name="leverage"-->
+                          <!--value="" min="0" max=""-->
+                        <!--&gt;-->
+                        <input
+                          type="text"
+                          class="form-control"
+                          #leverage
+                        >
+                        <output name="x" for="a"></output>
+                      </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col">
+                            <div class="row justify-content-center">
+                              <button class="btn btn-primary" (click)="onSendSignal()">Send signal</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="container" id="manual-form">
-            <div class="row">
-              <h4 (click)="hideOrShow2()">Manual For All</h4>
-            </div>
-            <br>
-            <div class="row" *ngIf="isHidden2">
-              <ul class="nav nav-pills mb-3"  id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="pills-limit-tab" data-toggle="pill" href="#pills-limit" role="tab" aria-controls="pills-limit" aria-selected="true">Limit</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pills-market-tab" data-toggle="pill" href="#pills-market" role="tab" aria-controls="pills-market" aria-selected="false">Market</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pills-stopMarket-tab" data-toggle="pill" href="#pills-stopMarket" role="tab" aria-controls="pills-stopMarket" aria-selected="false">Stop Market</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pills-stopLimit-tab" data-toggle="pill" href="#pills-stopLimit" role="tab" aria-controls="pills-stopLimit" aria-selected="false">Stop Limit</a>
-                </li>
-              </ul>
-            </div>
-            <div class="row" *ngIf="isHidden2">
-              <div class="tab-content" id="pills-tabContent">
-                <!--LIMIT -->
-                <div class="tab-pane fade show active" id="pills-limit" role="tabpanel" aria-labelledby="pills-limit-tab">
-                  <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="limit-form" oninput="x.value=parseInt(aa.value)">-->
-                  <div class="col-sm-12">
-                    <input type="text" name="ordType" value="Limit" hidden />
-                    <input type="text" name="symbol" value="${symbol}" hidden />
-                    <div class="row">
-                      <div class="col-sm">
-                        Contract
+            <div class="card" id="ManualForAll">
+              <div class="card-header" (click)="hideOrShow2()">
+                  <h5>Manual For All</h5>
+              </div>
+              <div class="card-body" *ngIf="isHidden2">
+                <div class="container-fluid">
+                  <form>
+                    <div class="form-group">
+                      <div class="row">
+                        <ul class="nav nav-tabs mb-3"  id="pills-tab" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" id="pills-limit-tab" data-toggle="pill" href="#pills-limit" role="tab" aria-controls="pills-limit" aria-selected="true">Limit</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="pills-market-tab" data-toggle="pill" href="#pills-market" role="tab" aria-controls="pills-market" aria-selected="false">Market</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="pills-stopMarket-tab" data-toggle="pill" href="#pills-stopMarket" role="tab" aria-controls="pills-stopMarket" aria-selected="false">Stop Market</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="pills-stopLimit-tab" data-toggle="pill" href="#pills-stopLimit" role="tab" aria-controls="pills-stopLimit" aria-selected="false">Stop Limit</a>
+                          </li>
+                        </ul>
                       </div>
-                      <div class="col-sm">
-                        <input type="text" name="symbol" value="${symbol}" disabled/>
+                      <div class="row">
+                        <div class="tab-content" id="pills-tabContent">
+                          <!--LIMIT -->
+                          <div class="tab-pane fade show active" id="pills-limit" role="tabpanel" aria-labelledby="pills-limit-tab">
+                            <div class="col-sm-12">
+                              <input type="text" name="ordType" value="Limit" hidden />
+                              <input type="text" name="symbol" value="${symbol}" hidden />
+                              <div class="row">
+                                <div class="col">
+                                  <strong>Contract</strong>
+                                </div>
+                                <div class="col">
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    disabled
+                                    #symbol
+                                  >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <strong>Side</strong>
+                                </div>
+                                <div class="col">
+                                  <div class="row justify-content-center">
+                                    <select name="side" #sideManual>
+                                      <option value="Buy">Long</option>
+                                      <option value="Sell">Short</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <strong>Limit Price</strong>
+                                </div>
+                                <div class="col">
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    step="${currentCoinPriceStep}"
+                                    #limitPrice
+                                  >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <strong>Leverage</strong>
+                                </div>
+                                <div class="col">
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    value="${currentCoinLeverage}"
+                                    min="0" max="${currentCoinMaxLeverage}"
+                                    #leverage
+                                  >
+                                  <output name="x" for="a"></output>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col">
+                                </div>
+                                <div class="col">
+                                  <div class="row justify-content-center">
+                                    <button class="btn btn-primary" (click)="onPlaceOrder()">Place Order</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--</form:form>-->
+                          </div>
+                          <!--MARKET TAB -->
+                          <div class="tab-pane fade" id="pills-market" role="tabpanel" aria-labelledby="pills-market-tab">
+                            <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="market-form" oninput="x.value=parseInt(a2.value)">-->
+                            <div class="col-sm-12">
+                              <input type="text" name="ordType" value="Market" hidden />
+                              <input type="text" name="symbol" value="${symbol}" hidden />
+                              <div class="row">
+                                <div class="col-sm">
+                                  Contract
+                                </div>
+                                <div class="col-sm">
+                                  <input
+                                    type="text"
+                                    name="symbol"
+                                    value="" disabled/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Side
+                                </div>
+                                <div class="col-sm">
+                                  <select name="side">
+                                    <option value="Buy">Buy</option>
+                                    <option value="Sell">Sell</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Leverage
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
+                                  <%--<output name="x" for="a"></output>--%>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-sm">
+                                </div>
+                                <div class="col-sm">
+                                  <input type="submit" value="Place Order" />
+                                </div>
+                              </div>
+                            </div>
+                            <!--</form:form>-->
+                          </div>
+                          <!--STOP MARKET TAB -->
+                          <div class="tab-pane fade" id="pills-stopMarket" role="tabpanel" aria-labelledby="pills-stopMarket-tab">
+                            <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="stop-form" oninput="x.value=parseInt(a3.value)">-->
+                            <div class="col-sm-12">
+                              <input type="text" name="symbol" value="${symbol}" hidden />
+                              <input type="text" name="execInst" value="Close,LastPrice" hidden />
+                              <input type="text" name="ordType" value="Stop" hidden />
+                              <div class="row">
+                                <div class="col-sm">
+                                  Contract
+                                </div>
+                                <div class="col-sm">
+                                  <input type="text" name="symbol" value="${symbol}" disabled/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Side
+                                </div>
+                                <div class="col-sm">
+                                  <select name="side">
+                                    <option value="Buy">Buy</option>
+                                    <option value="Sell">Sell</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Stop Price
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" step="${currentCoinPriceStep}" name="stopPx"/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Leverage
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
+                                  <%--<output name="x" for="a"></output>--%>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-sm">
+                                </div>
+                                <div class="col-sm">
+                                  <input type="submit" value="Place Order" />
+                                </div>
+                              </div>
+                            </div>
+                            <!--</form:form>-->
+                          </div>
+                          <!--STOP LIMIT TAB -->
+                          <div class="tab-pane fade" id="pills-stopLimit" role="tabpanel" aria-labelledby="pills-stopLimit-tab">
+                            <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="stop-form" oninput="x.value=parseInt(a3.value)">-->
+                            <div class="col-sm-12">
+                              <input type="text" name="symbol" value="${symbol}" hidden />
+                              <input type="text" name="execInst" value="Close,LastPrice" hidden />
+                              <input type="text" name="ordType" value="StopLimit" hidden />
+                              <div class="row">
+                                <div class="col-sm">
+                                  Contract
+                                </div>
+                                <div class="col-sm">
+                                  <input type="text" name="symbol" value="${symbol}" disabled/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Side
+                                </div>
+                                <div class="col-sm">
+                                  <select name="side">
+                                    <option value="Buy">Buy</option>
+                                    <option value="Sell">Sell</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Limit Price
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" step="${currentCoinPriceStep}" name="price"/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Stop Price
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" step="${currentCoinPriceStep}" name="stopPx"/>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm">
+                                  Leverage
+                                </div>
+                                <div class="col-sm">
+                                  <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
+                                  <%--<output name="x" for="a"></output>--%>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-sm">
+                                </div>
+                                <div class="col-sm">
+                                  <input type="submit" value="Place Order" />
+                                </div>
+                              </div>
+                            </div>
+                            <!--</form:form>-->
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Side
-                      </div>
-                      <div class="col-sm">
-                        <select name="side">
-                          <option value="Buy">Buy</option>
-                          <option value="Sell">Sell</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Limit Price
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" step="${currentCoinPriceStep}" name="price"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Leverage
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
-                        <output name="x" for="a"></output>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-sm">
-                      </div>
-                      <div class="col-sm">
-                        <input type="submit" value="Place Order" />
-                      </div>
-                    </div>
-                  </div>
-                  <!--</form:form>-->
+                  </form>
                 </div>
-                <!--MARKET TAB -->
-                <div class="tab-pane fade" id="pills-market" role="tabpanel" aria-labelledby="pills-market-tab">
-                  <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="market-form" oninput="x.value=parseInt(a2.value)">-->
-                  <div class="col-sm-12">
-                    <input type="text" name="ordType" value="Market" hidden />
-                    <input type="text" name="symbol" value="${symbol}" hidden />
-                    <div class="row">
-                      <div class="col-sm">
-                        Contract
-                      </div>
-                      <div class="col-sm">
-                        <input type="text" name="symbol" value="${symbol}" disabled/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Side
-                      </div>
-                      <div class="col-sm">
-                        <select name="side">
-                          <option value="Buy">Buy</option>
-                          <option value="Sell">Sell</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Leverage
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
-                        <%--<output name="x" for="a"></output>--%>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-sm">
-                      </div>
-                      <div class="col-sm">
-                        <input type="submit" value="Place Order" />
-                      </div>
-                    </div>
-                  </div>
-                  <!--</form:form>-->
-                </div>
-                <!--STOP MARKET TAB -->
-                <div class="tab-pane fade" id="pills-stopMarket" role="tabpanel" aria-labelledby="pills-stopMarket-tab">
-                  <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="stop-form" oninput="x.value=parseInt(a3.value)">-->
-                  <div class="col-sm-12">
-                    <input type="text" name="symbol" value="${symbol}" hidden />
-                    <input type="text" name="execInst" value="Close,LastPrice" hidden />
-                    <input type="text" name="ordType" value="Stop" hidden />
-                    <div class="row">
-                      <div class="col-sm">
-                        Contract
-                      </div>
-                      <div class="col-sm">
-                        <input type="text" name="symbol" value="${symbol}" disabled/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Side
-                      </div>
-                      <div class="col-sm">
-                        <select name="side">
-                          <option value="Buy">Buy</option>
-                          <option value="Sell">Sell</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Stop Price
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" step="${currentCoinPriceStep}" name="stopPx"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Leverage
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
-                        <%--<output name="x" for="a"></output>--%>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-sm">
-                      </div>
-                      <div class="col-sm">
-                        <input type="submit" value="Place Order" />
-                      </div>
-                    </div>
-                  </div>
-                  <!--</form:form>-->
-                </div>
-                <!--STOP LIMIT TAB -->
-                <div class="tab-pane fade" id="pills-stopLimit" role="tabpanel" aria-labelledby="pills-stopLimit-tab">
-                  <!--<form:form action="${pageContext.request.contextPath}/trade/orderAll" method="POST" id="stop-form" oninput="x.value=parseInt(a3.value)">-->
-                  <div class="col-sm-12">
-                    <input type="text" name="symbol" value="${symbol}" hidden />
-                    <input type="text" name="execInst" value="Close,LastPrice" hidden />
-                    <input type="text" name="ordType" value="StopLimit" hidden />
-                    <div class="row">
-                      <div class="col-sm">
-                        Contract
-                      </div>
-                      <div class="col-sm">
-                        <input type="text" name="symbol" value="${symbol}" disabled/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Side
-                      </div>
-                      <div class="col-sm">
-                        <select name="side">
-                          <option value="Buy">Buy</option>
-                          <option value="Sell">Sell</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Limit Price
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" step="${currentCoinPriceStep}" name="price"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Stop Price
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" step="${currentCoinPriceStep}" name="stopPx"/>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm">
-                        Leverage
-                      </div>
-                      <div class="col-sm">
-                        <input type="number" name="leverage" value="${currentCoinLeverage}" min="0" max="${currentCoinMaxLeverage}">
-                        <%--<output name="x" for="a"></output>--%>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="col-sm">
-                      </div>
-                      <div class="col-sm">
-                        <input type="submit" value="Place Order" />
-                      </div>
-                    </div>
-                  </div>
-                  <!--</form:form>-->
-                </div>
+
               </div>
             </div>
+
+
           </div>
         </div>
       </div>

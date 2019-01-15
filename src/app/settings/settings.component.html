@@ -99,12 +99,6 @@
             {{ user.fixedQtyXRPZ18 }}
           </div>
         </div>
-        <div class="row">
-
-        </div>
-        <div class="row">
-
-        </div>
       </div>
     </div>
 
@@ -145,6 +139,7 @@
     </div>
 
     <br>
+
     <div class="container-fluid">
       <div class="row">
         <h4 (click)="showOrHideQties()"> <span *ngIf="hiddenQties;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Fixed Quantities </h4>
@@ -163,11 +158,11 @@
                       class="form-control"
                       #fixedQtyXBTUSD
                     >
-                  </div>
+                </div>
                 <div class="row">
                     <button class="btn btn-success" (click)="onSavefixedQtyXBTUSD()">Save</button>
-                  </div>
                 </div>
+              </div>
               <div class="col">
                 <div class="row">
                     <label for="api_secret">ETHUSD</label>
@@ -177,24 +172,24 @@
                       class="form-control"
                       #fixedQtyETHUSD
                     >
-                  </div>
+                </div>
                 <div class="row">
                     <button class="btn btn-success" (click)="onSavefixedQtyETHUSD()">Save</button>
-                  </div>
                 </div>
+              </div>
               <div class="col">
                 <div class="row">
-                    <label for="api_secret">ADA</label>
-                    <input
-                      type="number"
-                      id="fixedQtyADAZ18"
-                      class="form-control"
-                      #fixedQtyADAZ18
-                    >
-                  </div>
+                  <label for="api_secret">ADA</label>
+                  <input
+                    type="number"
+                    id="fixedQtyADAZ18"
+                    class="form-control"
+                    #fixedQtyADAZ18
+                  >
+                </div>
                 <div class="row">
                     <button class="btn btn-success" (click)="onSavefixedQtyADA()">Save</button>
-                  </div>
+                </div>
               </div>
             </div>
             <br>
@@ -291,5 +286,6 @@
         </form>
       </div>
     </div>
+
   </div>
 </div>
