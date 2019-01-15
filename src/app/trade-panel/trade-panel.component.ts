@@ -55,7 +55,7 @@ export class TradePanelComponent implements OnInit {
     const symbol = this.symbol.nativeElement.value;
     const side = this.side.nativeElement.value;
     const stopLoss = this.stopLoss.nativeElement.value;
-    const profit = this.profitTrigger.nativeElement.value;
+    const profitTrigger = this.profitTrigger.nativeElement.value;
     const leverage = this.leverage.nativeElement.value;
 
     this.http.post<void>(
@@ -63,7 +63,7 @@ export class TradePanelComponent implements OnInit {
       + 'symbol=' + symbol
       + '&side=' + side
       + '&stopLoss=' + stopLoss
-      + '&profit=' + profit
+      + '&profitTrigger=' + profitTrigger
       + '&leverage=' + leverage,
       ''
     ).subscribe((data) => console.log(data));
