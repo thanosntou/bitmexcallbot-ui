@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
+import {Symbol} from '../Symbol.enum';
 
 @Component({
   selector: 'app-trade-panel',
@@ -9,18 +10,23 @@ import {PositionModel} from '../position.model';
   styleUrls: ['./trade-panel.component.css']
 })
 export class TradePanelComponent implements OnInit {
+  manualTab = 'Limit';
   symbolGlobal = 'XBTUSD';
   @ViewChild('symbol') symbol: ElementRef;
   @ViewChild('side') side: ElementRef;
   @ViewChild('stopLoss') stopLoss: ElementRef;
   @ViewChild('profitTrigger') profitTrigger: ElementRef;
   @ViewChild('leverage') leverage: ElementRef;
+
   @ViewChild('sideManual') sideManual: ElementRef;
+  @ViewChild('price') price: ElementRef;
+  @ViewChild('stopPxManual') stopPxManual: ElementRef;
   @ViewChild('stopLossManual') stopLossManual: ElementRef;
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
-  // baseUrl = 'https://www.bitmexcallbot.com';
-  baseUrl = 'http://localhost:8082/BioUnion';
+
+  baseUrl = 'https://www.bitmexcallbot.com';
+  // baseUrl = 'http://localhost:8082/BioUnion';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
   isHidden1 = true;
@@ -45,22 +51,14 @@ export class TradePanelComponent implements OnInit {
   }
 
   onSendSignal() {
-    console.log(this.symbol.nativeElement.value);
-    console.log(this.side.nativeElement.value);
-    console.log(this.stopLoss.nativeElement.value);
-    console.log(this.profitTrigger.nativeElement.value);
-    console.log(this.leverage.nativeElement.value);
-
-    const symbol = this.symbol.nativeElement.value;
+    const symbol = this.symbolGlobal;
     const side = this.side.nativeElement.value;
     const stopLoss = this.stopLoss.nativeElement.value;
     const profitTrigger = this.profitTrigger.nativeElement.value;
     const leverage = this.leverage.nativeElement.value;
 
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
 
     const body = 'symbol=' + symbol
@@ -77,11 +75,37 @@ export class TradePanelComponent implements OnInit {
   }
 
   onPlaceOrder() {
+    const symbol = this.symbolGlobal;
+    const side = this.sideManual.nativeElement.value;
+    const ordType = this.manualTab;
+    const price = this.price.nativeElement.value;
+    const execInst = this.symbolGlobal === 'Stop' || 'StopLimit' ? 'Close,LastPrice' : null;
+    const stopPx = this.stopPxManual.nativeElement.value;
+    const leverage = this.leverageManual.nativeElement.value;
 
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+    };
+
+    const body = 'symbol=' + symbol
+      + '&side=' + side
+      + 'ordType' + ordType
+      + 'price' + price
+      + '&execInst=' + execInst
+      + '&stopPx=' + stopPx
+      + '&leverage=' + leverage;
+
+    this.http.post<void>(
+      this.baseUrl + '/api/v1/trader/orderAll', body, httpOptions
+    );
   }
 
   changeGlobalSymbol(symbol: string) {
     this.symbolGlobal = symbol;
+  }
+
+  showManualTab(manualTab: string) {
+    this.manualTab = manualTab;
   }
 
 }
