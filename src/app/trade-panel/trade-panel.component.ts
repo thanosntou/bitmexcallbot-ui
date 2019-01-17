@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
-import {Symbol} from '../Symbol.enum';
 
 @Component({
   selector: 'app-trade-panel',
@@ -19,14 +18,14 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('leverage') leverage: ElementRef;
 
   @ViewChild('sideManual') sideManual: ElementRef;
-  @ViewChild('price') price: ElementRef;
+  @ViewChild('priceManual') priceManual: ElementRef;
   @ViewChild('stopPxManual') stopPxManual: ElementRef;
   @ViewChild('stopLossManual') stopLossManual: ElementRef;
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
-  baseUrl = 'https://www.bitmexcallbot.com';
-  // baseUrl = 'http://localhost:8082/BioUnion';
+  // baseUrl = 'https://www.bitmexcallbot.com';
+  baseUrl = 'http://localhost:8082/BioUnion';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
   isHidden1 = true;
@@ -78,26 +77,44 @@ export class TradePanelComponent implements OnInit {
     const symbol = this.symbolGlobal;
     const side = this.sideManual.nativeElement.value;
     const ordType = this.manualTab;
-    const price = this.price.nativeElement.value;
-    const execInst = this.symbolGlobal === 'Stop' || 'StopLimit' ? 'Close,LastPrice' : null;
-    const stopPx = this.stopPxManual.nativeElement.value;
+    let price;
+    let stopPx;
+    let execInst;
     const leverage = this.leverageManual.nativeElement.value;
+
+    let body = 'symbol=' + symbol
+      + '&side=' + side
+      + '&ordType=' + ordType
+      + '&leverage=' + leverage;
+
+    if (ordType === 'Limit') {
+      price = this.priceManual.nativeElement.value;
+      body += '&price=' + price;
+
+    } else if (ordType === 'Stop') {
+      stopPx = this.stopPxManual.nativeElement.value;
+      execInst = 'Close,LastPrice';
+      body += '&execInst=' + execInst + '&stopPx=' + stopPx;
+
+    } else if (ordType === 'StopLimit') {
+      price = this.priceManual.nativeElement.value;
+      stopPx = this.stopPxManual.nativeElement.value;
+      execInst = 'Close,LastPrice';
+      body += '&price=' + price + '&stopPx=' + stopPx + '&execInst=' + execInst;
+    }
 
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
 
-    const body = 'symbol=' + symbol
-      + '&side=' + side
-      + 'ordType' + ordType
-      + 'price' + price
-      + '&execInst=' + execInst
-      + '&stopPx=' + stopPx
-      + '&leverage=' + leverage;
+    console.log(body);
 
     this.http.post<void>(
       this.baseUrl + '/api/v1/trader/orderAll', body, httpOptions
-    );
+    ).subscribe((data) => {
+      console.log(data);
+      alert('What!!!');
+    });
   }
 
   changeGlobalSymbol(symbol: string) {

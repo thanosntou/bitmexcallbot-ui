@@ -126,7 +126,7 @@
                             <a class="nav-link" [className]="'Market' == manualTab? 'nav-link active' : 'nav-link'" (click)="showManualTab('Market')">Market</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" [className]="'StopMarket' == manualTab? 'nav-link active' : 'nav-link'" (click)="showManualTab('StopMarket')">Stop Market</a>
+                            <a class="nav-link" [className]="'Stop' == manualTab? 'nav-link active' : 'nav-link'" (click)="showManualTab('Stop')">Stop Market</a>
                           </li>
                           <li class="nav-item">
                             <a class="nav-link" [className]="'StopLimit' == manualTab? 'nav-link active' : 'nav-link'" (click)="showManualTab('StopLimit')">Stop Limit</a>
@@ -336,8 +336,8 @@
                               <input
                                 type="number"
                                 class="form-control"
-                                step="${currentCoinPriceStep}"
-                                #price
+                                step=""
+                                #priceManual
                               >
                             </div>
                           </div>
@@ -349,9 +349,8 @@
                               <input
                                 type="number"
                                 class="form-control"
-                                step="${currentCoinPriceStep}"
-                                name="stopPx"
-                                #stopPx
+                                step=""
+                                #stopPxManual
                               >
                             </div>
                           </div>
@@ -366,7 +365,7 @@
                                 name="leverage"
                                 value="${currentCoinLeverage}"
                                 min="0" max="${currentCoinMaxLeverage}"
-                                #leverage
+                                #leverageManual
                               >
                             </div>
                           </div>
