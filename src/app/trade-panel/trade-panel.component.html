@@ -50,7 +50,7 @@
                           </div>
                           <div class="col">
                             <div class="row justify-content-center">
-                              <select name="side" #side>
+                              <select name="side" class="form-control" #side>
                                 <option value="Buy">Long</option>
                                 <option value="Sell">Short</option>
                               </select>
@@ -159,7 +159,7 @@
                             </div>
                             <div class="col">
                               <div class="row justify-content-center">
-                                <select name="side" #sideManual>
+                                <select name="side" class="form-control" #sideManual>
                                   <option value="Buy">Long</option>
                                   <option value="Sell">Short</option>
                                 </select>
@@ -170,7 +170,7 @@
                             <div class="col">
                               <strong>Limit Price</strong>
                             </div>
-                            <div class="col">
+                            <div class="col" >
                               <input
                                 type="number"
                                 class="form-control"
@@ -241,6 +241,9 @@
               <th scope="col">Price</th>
               <th scope="col">Stop Price</th>
               <th scope="col">Transaction Time</th>
+              <th scope="col">
+                <button class="btn btn-danger" (click)="onCancelAll()">Cancel All</button>
+              </th>
               <!--<th scope="col">-->
                 <!--<%&#45;&#45;<c:if test="${randomActiveOrders.size() > 1}">&#45;&#45;%>-->
                 <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">-->

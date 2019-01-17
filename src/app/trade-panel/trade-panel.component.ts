@@ -111,10 +111,7 @@ export class TradePanelComponent implements OnInit {
 
     this.http.post<void>(
       this.baseUrl + '/api/v1/trader/orderAll', body, httpOptions
-    ).subscribe((data) => {
-      console.log(data);
-      alert('What!!!');
-    });
+    ).subscribe((data) => console.log(data));
   }
 
   changeGlobalSymbol(symbol: string) {
@@ -123,6 +120,20 @@ export class TradePanelComponent implements OnInit {
 
   showManualTab(manualTab: string) {
     this.manualTab = manualTab;
+  }
+
+  onCancelAll() {
+    const symbol = this.symbolGlobal;
+    const body = 'symbol=' + symbol;
+
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+    };
+
+    this.http.post<void>(
+      this.baseUrl + '/api/v1/trader/order/cancelAll', body, httpOptions
+    ).subscribe(() => alert('ok'),
+        error => console.log(JSON.stringify(error.json())));
   }
 
 }
