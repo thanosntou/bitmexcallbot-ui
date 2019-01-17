@@ -24,8 +24,8 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
-  // baseUrl = 'https://www.bitmexcallbot.com';
-  baseUrl = 'http://localhost:8082/BioUnion';
+  baseUrl = 'https://www.bitmexcallbot.com';
+  // baseUrl = 'http://localhost:8082/BioUnion';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
   isHidden1 = true;
