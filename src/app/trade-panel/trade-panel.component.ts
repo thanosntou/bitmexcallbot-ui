@@ -107,8 +107,6 @@ export class TradePanelComponent implements OnInit {
       headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
     };
 
-    console.log(body);
-
     this.http.post<void>(
       this.baseUrl + '/api/v1/trader/orderAll', body, httpOptions
     ).subscribe((data) => console.log(data));

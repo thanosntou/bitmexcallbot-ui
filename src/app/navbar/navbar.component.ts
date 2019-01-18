@@ -8,6 +8,7 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,14 +16,15 @@ import {
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  activeTab = 'trade';
+  @Output() userLogged = new EventEmitter<{loggedIn: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
+  activeTab = 'trade';
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
   }
@@ -30,5 +32,9 @@ export class NavbarComponent implements OnInit {
   onSelect(tab: string) {
     this.tabSelected.emit(tab);
     this.activeTab = tab;
+  }
+
+  onSignOut() {
+    this.userLogged.emit({loggedIn: false});
   }
 }

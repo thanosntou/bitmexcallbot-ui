@@ -1,11 +1,12 @@
 <div class="container-fluid" id="sidenavbar">
   <br>
   <div class="row">
-    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, Athan</h5>
+    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="userService.loggedUser">{{  userService.loggedUser.username }}</span></h5>
   </div>
   <br>
   <div class="row">
-    <button class="btn btn-dark" type="submit"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
+    <!--<button class="btn btn-primary" (click)="onSignIn()">Send signal</button>-->
+    <button class="btn btn-dark" (click)="onSignOut()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
   </div>
   <hr id="hr1"/>
   <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">

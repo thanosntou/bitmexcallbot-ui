@@ -3,6 +3,7 @@ export enum Symbol {
   ETHUSD,
   ADA,
   BCH,
+  EOS,
   ETH,
   LTC,
   TRX,

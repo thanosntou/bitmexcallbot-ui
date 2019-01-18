@@ -18,6 +18,8 @@ import { UnlessDirective } from './unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NewAccountComponent } from './new-account/new-account.component';
 import { AdminService } from './admin.service';
+import {UserService} from './user.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { AdminService } from './admin.service';
     NavbarComponent,
     UnlessDirective,
     DropdownDirective,
-    NewAccountComponent
+    NewAccountComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { AdminService } from './admin.service';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [AdminService],
+  providers: [AdminService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
