@@ -10,20 +10,20 @@ export class UserService {
 
 
   constructor(private http: HttpClient) {
-    const token = (<AccessTokenModel>JSON.parse(localStorage.getItem('accessToken')));
-    const accessToken = token.token_type + ' ' + token.access_token;
-
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': accessToken})
-    };
-
-    this.http.get<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/authenticate',
-      httpOptions
-    ).subscribe((data: UserModel) => {
-      this.loggedUser = data;
-      localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
-    });
+    // const token = (<AccessTokenModel>JSON.parse(localStorage.getItem('accessToken')));
+    // const accessToken = token.token_type + ' ' + token.access_token;
+    //
+    // const httpOptions = {
+    //   headers: new HttpHeaders({'Authorization': accessToken})
+    // };
+    //
+    // this.http.get<UserModel>(
+    //   BaseUrl.BASEURL + '/api/v1/user/authenticate',
+    //   httpOptions
+    // ).subscribe((data: UserModel) => {
+    //   this.loggedUser = data;
+    //   localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
+    // });
   }
 
   authenticate(token: AccessTokenModel) {
