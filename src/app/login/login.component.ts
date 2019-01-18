@@ -1,9 +1,8 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrlEnum} from '../BaseUrl.enum';
+import {BaseUrl} from '../BaseUrl.enum';
 import {AccessTokenModel} from '../access-token.model';
 import {UserService} from '../user.service';
-import {UserModel} from '../user.model';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
       + '&grant_type=' + 'password';
 
     this.http.post<AccessTokenModel>(
-      BaseUrlEnum.BASEURL + '/oauth/token',
+      BaseUrl.BASEURL + '/oauth/token',
       body,
       httpOptions
     ).subscribe((data: AccessTokenModel) => {

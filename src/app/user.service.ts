@@ -2,7 +2,7 @@ import {UserModel} from './user.model';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AccessTokenModel} from './access-token.model';
-import {BaseUrlEnum} from './BaseUrl.enum';
+import {BaseUrl} from './BaseUrl.enum';
 
 @Injectable()
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
     };
 
     this.http.get<UserModel>(
-      BaseUrlEnum.BASEURL + '/api/v1/user/authenticate',
+      BaseUrl.BASEURL + '/api/v1/user/authenticate',
       httpOptions
     ).subscribe((data: UserModel) => {
       this.loggedUser = data;
@@ -35,7 +35,7 @@ export class UserService {
     };
 
     this.http.get<UserModel>(
-      BaseUrlEnum.BASEURL + '/api/v1/user/authenticate',
+      BaseUrl.BASEURL + '/api/v1/user/authenticate',
       httpOptions
     ).subscribe((data: UserModel) => {
       this.loggedUser = data;
