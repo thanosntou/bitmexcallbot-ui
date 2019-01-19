@@ -15,7 +15,7 @@ export class TxComponent implements OnInit {
   sortByDateIcon = faSortAmountDown;
   baseUrl = 'https://www.bitmexcallbot.com';
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;

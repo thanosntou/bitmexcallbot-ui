@@ -8,7 +8,7 @@ import {AuthenticationService} from './authentication.service';
 export class AdminService implements OnInit {
   logins: LoginModel[];
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, public authService: AuthenticationService) {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,

@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
   hiddenKeys = false;
   hiddenQties = true;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;

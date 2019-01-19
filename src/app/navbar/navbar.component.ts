@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
-  constructor(public userService: UserService, private authService: AuthenticationService) { }
+  constructor(public userService: UserService, public authService: AuthenticationService) { }
 
   ngOnInit() {
   }

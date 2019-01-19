@@ -31,7 +31,7 @@ export class TradePanelComponent implements OnInit {
   isHidden1 = true;
   isHidden2 = true;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;

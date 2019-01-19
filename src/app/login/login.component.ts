@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('password') password: ElementRef;
 
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
   }

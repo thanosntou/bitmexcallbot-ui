@@ -16,7 +16,7 @@ export class FollowersPanelComponent implements OnInit {
   faMinus = faMinus;
   followers: FollowerModel[];
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
