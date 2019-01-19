@@ -8,7 +8,6 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import {UserService} from '../user.service';
 import {AuthenticationService} from '../authentication.service';
 
 @Component({
@@ -17,7 +16,7 @@ import {AuthenticationService} from '../authentication.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Output() userLogged = new EventEmitter<{loggedIn: boolean}>();
+  @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
   activeTab = 'trade';
 
@@ -37,6 +36,7 @@ export class NavbarComponent implements OnInit {
 
   onSignOut() {
     localStorage.clear();
-    this.authService.loggedUser = undefined;
+    this.userSignedOut.emit({ signedOut: true });
+    this.authService.userDetails = undefined;
   }
 }

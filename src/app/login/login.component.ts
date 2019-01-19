@@ -1,5 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 
 @Component({
@@ -8,12 +7,10 @@ import {AuthenticationService} from '../authentication.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @Output() userLogged = new EventEmitter<{loggedIn: boolean}>();
   @ViewChild('username') username: ElementRef;
   @ViewChild('password') password: ElementRef;
 
-
-  constructor(private http: HttpClient, public authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -23,9 +20,6 @@ export class LoginComponent implements OnInit {
     const password = this.password.nativeElement.value;
 
     this.authService.getAndSetAccessToken(username, password);
-    this.userLogged.emit({
-      loggedIn: true
-    });
   }
 }
 
