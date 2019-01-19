@@ -9,6 +9,7 @@
           <th scope="col">User</th>
           <th scope="col">Email</th>
           <th scope="col">Enabled</th>
+          <th scope="col"> </th>
         </tr>
         </thead>
         <tbody>
@@ -17,7 +18,14 @@
           <td>{{ follower.username }}</td>
           <td>{{ follower.email }}</td>
           <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
-            <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template></td>
+            <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
+          </td>
+          <td>
+            <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
+            <ng-template #enableButton>
+              <button class="btn btn-success" (click)="onEnable(follower.id)">Enable</button>
+            </ng-template>
+          </td>
         </tr>
         </tbody>
       </table>
