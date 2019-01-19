@@ -156,6 +156,19 @@ export class TradePanelComponent implements OnInit {
     ).subscribe((data) => console.log(data));
   }
 
+  onCancelOne(orderId: number) {
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
+
+    this.http.delete<void>(
+      BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + this.symbolGlobal + '&orderId=' + orderId, httpOptions
+    ).subscribe(() => alert('ok'),
+      error => console.log(JSON.stringify(error.json())));
+  }
+
   onCancelAll() {
       const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
       const httpOptions = { headers: new HttpHeaders({

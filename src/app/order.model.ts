@@ -1,5 +1,6 @@
 export class OrderModel {
-  orderId: number;
+  orderID: number;
+  clOrdID: number;
   symbol: string;
   side: string;
   ordStatus: string;
@@ -9,9 +10,10 @@ export class OrderModel {
   transactTime: string;
 
 
-  constructor(orderId: number, symbol: string, side: string, ordStatus: string,
+  constructor(orderId: number, clOrdID: number, symbol: string, side: string, ordStatus: string,
               ordType: string, price: number, stopPx: number, transactTime: string) {
-    this.orderId = orderId;
+    this.orderID = orderId;
+    this.clOrdID = clOrdID;
     this.symbol = symbol;
     this.side = side;
     this.ordStatus = ordStatus;

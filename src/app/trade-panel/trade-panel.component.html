@@ -272,6 +272,9 @@
                 <td>{{ order.price }}</td>
                 <td>{{ order.stopPx }}</td>
                 <td>{{ order.transactTime }}</td>
+                <td>
+                  <button class="btn btn-danger" (click)="onCancelOne(order.orderID)">Cancel</button>
+                </td>
                 <!--<td>-->
                   <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancel" method="POST">-->
                     <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
