@@ -6,6 +6,7 @@ import { LoggingService } from '../logging.service';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
+import {UserDetailsModel} from '../user-details.model';
 
 @Component({
   selector: 'app-settings',
@@ -26,7 +27,6 @@ export class SettingsComponent implements OnInit {
   @ViewChild('fixedQtyLTCZ18') fixedQtyLTCZ18: ElementRef;
   @ViewChild('fixedQtyTRXZ18') fixedQtyTRXZ18: ElementRef;
   @ViewChild('fixedQtyXRPZ18') fixedQtyXRPZ18: ElementRef;
-  user: UserModel;
   hiddenKeys = false;
   hiddenQties = true;
 
@@ -38,8 +38,8 @@ export class SettingsComponent implements OnInit {
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.get<UserModel>(BaseUrl.BASEURL + '/api/v1/user', httpOptions)
-      .subscribe((data: UserModel) => { this.user = data; });
+    this.http.get<UserDetailsModel>(BaseUrl.BASEURL + '/api/v1/user', httpOptions)
+      .subscribe((data: UserDetailsModel) => { this.authService.userDetails = data; });
   }
 
   onSaveKeys() {
@@ -52,16 +52,12 @@ export class SettingsComponent implements OnInit {
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
-    console.log(this.user);
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret, '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
+
     this.apiKeyRef.nativeElement.value = '';
     this.apiSecretRef.nativeElement.value = '';
-
-    const logService = new LoggingService();
-    logService.logStatusChange(this.user.email);
   }
 
   onSavefixedQtyXBTUSD() {
@@ -71,14 +67,13 @@ export class SettingsComponent implements OnInit {
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-
-    this.http.post<UserModel>(
+    this.http.post<UserDetailsModel>(
       BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
       '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
-    console.log(this.user);
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyXBTUSD.nativeElement.value = '';
   }
+
   onSavefixedQtyETHUSD() {
     const qty = this.fixedQtyETHUSD.nativeElement.value;
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
@@ -87,40 +82,37 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.post<UserModel>(
+    this.http.post<UserDetailsModel>(
       BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
       '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
-    console.log(this.user);
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyETHUSD.nativeElement.value = '';
   }
+
   onSavefixedQtyADA() {
     const qty = this.fixedQtyADAZ18.nativeElement.value;
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserModel>(
+    })};
+    this.http.post<UserDetailsModel>(
       BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
       '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
-    console.log(this.user);
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyADAZ18.nativeElement.value = '';
   }
+
   onSavefixedQtyBCH() {
     const qty = this.fixedQtyBCHZ18.nativeElement.value;
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    })};
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyBCHZ18.nativeElement.value = '';
   }
   onSavefixedQtyEOS() {
@@ -131,10 +123,9 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.apiKeyRef.nativeElement.value = '';
   }
   onSavefixedQtyETH() {
@@ -145,10 +136,9 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyETHZ18.nativeElement.value = '';
   }
   onSavefixedQtyLTC() {
@@ -159,38 +149,35 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyLTCZ18.nativeElement.value = '';
   }
+
   onSavefixedQtyTRX() {
     const qty = this.fixedQtyTRXZ18.nativeElement.value;
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    })};
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyTRXZ18.nativeElement.value = '';
   }
+
   onSavefixedQtyXRP() {
     const qty = this.fixedQtyXRPZ18.nativeElement.value;
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18',
-      '', httpOptions
-    ).subscribe((data: UserModel) => this.user = data);
+    })};
+    this.http.post<UserDetailsModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18', '', httpOptions
+    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
     this.fixedQtyXRPZ18.nativeElement.value = '';
   }
 
@@ -201,5 +188,4 @@ export class SettingsComponent implements OnInit {
   showOrHideKeys() {
     this.hiddenKeys = !this.hiddenKeys;
   }
-
 }

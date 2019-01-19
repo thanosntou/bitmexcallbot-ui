@@ -8,14 +8,14 @@ export class UserDetailsModel {
   enabled: boolean;
   apiKey: string;
   apiSecret: string;
-  fixedQtyXBTUSD: string;
-  fixedQtyETHUSD: string;
-  fixedQtyADAZ18: string;
-  fixedQtyBCHZ18: string;
-  fixedQtyEOSZ18: string;
-  fixedQtyETHZ18: string;
-  fixedQtyLTCZ18: string;
-  fixedQtyTRXZ18: string;
-  fixedQtyXRPZ18: string;
+  fixedQtyXBTUSD: number;
+  fixedQtyETHUSD: number;
+  fixedQtyADAZ18: number;
+  fixedQtyBCHZ18: number;
+  fixedQtyEOSZ18: number;
+  fixedQtyETHZ18: number;
+  fixedQtyLTCZ18: number;
+  fixedQtyTRXZ18: number;
+  fixedQtyXRPZ18: number;
   authorities: AuthorityModel[];
 }
