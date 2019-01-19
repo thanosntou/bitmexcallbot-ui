@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthenticationService} from './authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loggedIn = false;
   title = 'bitmexcallbot-ui';
   activeTab = 'trade';
+
+  constructor(public authService: AuthenticationService) {}
 
   onNavigate(tab: string) {
     this.activeTab = tab;

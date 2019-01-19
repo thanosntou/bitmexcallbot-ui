@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { FollowerModel } from './follower.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
+import {UserModel} from '../user.model';
 
 @Component({
   selector: 'app-followers-panel',
@@ -14,7 +14,7 @@ import {BaseUrl} from '../BaseUrl.enum';
 export class FollowersPanelComponent implements OnInit {
   faCheckedCircle = faCheckCircle;
   faMinus = faMinus;
-  followers: FollowerModel[];
+  followers: UserModel[];
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
@@ -25,8 +25,7 @@ export class FollowersPanelComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-   this.http.get<FollowerModel[]>(BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions)
-     .subscribe((data: FollowerModel[]) => this.followers = data);
-   console.log('Followers list fetched');
+   this.http.get<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions)
+     .subscribe((data: UserModel[]) => this.followers = data);
   }
 }

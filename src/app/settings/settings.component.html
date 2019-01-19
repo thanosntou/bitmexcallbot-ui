@@ -10,16 +10,16 @@
           <div class="col">
             <strong>Api Key:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.apiKey }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.apiKey }}
           </div>
         </div>
         <div class="row">
           <div class="col">
             <strong>Api Secret:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.apiSecret }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.apiSecret }}
           </div>
         </div>
       </div>
@@ -31,72 +31,72 @@
           <div class="col" style="">
             <strong>XBTUSD:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyXBTUSD }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyXBTUSD }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ETHUSD:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyETHUSD }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyETHUSD }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ADA:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyADAZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyADAZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>BCH:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyBCHZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyBCHZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>EOS:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyEOSZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyEOSZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ETH:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyETHZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyETHZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>LTC:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyLTCZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyLTCZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>TRX:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyTRXZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyTRXZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>XRP:</strong>
           </div>
-          <div class="col" *ngIf="user">
-            {{ user.fixedQtyXRPZ18 }}
+          <div class="col" *ngIf="authService.loggedUser">
+            {{ authService.loggedUser.fixedQtyXRPZ18 }}
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@
 
     <hr>
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
       <div class="row">
         <h4 (click)="showOrHideKeys()"> <span *ngIf="hiddenKeys;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Api Keys </h4>
       </div>

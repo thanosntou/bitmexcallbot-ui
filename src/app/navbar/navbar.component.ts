@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
-  constructor(public userService: UserService, public authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -37,6 +37,6 @@ export class NavbarComponent implements OnInit {
 
   onSignOut() {
     localStorage.clear();
-    this.userLogged.emit({loggedIn: false});
+    this.authService.loggedUser = undefined;
   }
 }

@@ -3,6 +3,7 @@ import {faSortAlphaDown, faSortAmountDown} from '@fortawesome/free-solid-svg-ico
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TxModel} from '../tx.model';
 import {AuthenticationService} from '../authentication.service';
+import {BaseUrl} from '../BaseUrl.enum';
 
 @Component({
   selector: 'app-tx',
@@ -13,7 +14,6 @@ export class TxComponent implements OnInit {
   tx: TxModel[];
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
-  baseUrl = 'https://www.bitmexcallbot.com';
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
@@ -24,7 +24,7 @@ export class TxComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
-    this.http.get<TxModel[]>(this.baseUrl + '/api/v1/user/tx', httpOptions)
+    this.http.get<TxModel[]>(BaseUrl.BASEURL + '/api/v1/user/tx', httpOptions)
       .subscribe((data: TxModel[]) => this.tx = data.reverse());
   }
 

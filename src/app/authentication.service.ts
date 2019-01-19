@@ -36,8 +36,8 @@ export class AuthenticationService {
       localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
 
       this.authenticate();
-
     }, error => console.log(error));
+
   }
 
   authenticate() {
@@ -51,9 +51,9 @@ export class AuthenticationService {
       BaseUrl.BASEURL + '/api/v1/user/authenticate',
       httpOptions
     ).subscribe((data: UserDetailsModel) => {
+      localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
       this.userDetails = data;
       this.loggedUser = this.userDetails.user;
-      localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
     });
   }
 }

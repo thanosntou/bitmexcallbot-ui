@@ -1,8 +1,8 @@
-import {FollowerModel} from './followers-panel/follower.model';
+import {UserModel} from './user.model';
 
 export class LoginModel {
   id: number;
-  user: FollowerModel;
+  user: UserModel;
   create_date: string;
 
   constructor(id: number, create_date: string) {

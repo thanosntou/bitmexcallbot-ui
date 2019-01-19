@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <div class="row" *ngIf="loggedIn">
+  <div class="row" *ngIf="authService.loggedUser">
     <div class="col-md-2" id="navbar">
       <app-navbar
-        (tabSelected)="onNavigate($event)" (userLogged)="loggedIn = $event.loggedIn"></app-navbar>
+        (tabSelected)="onNavigate($event)"></app-navbar>
     </div>
 
     <div class="col-md-10">
@@ -17,5 +17,5 @@
     </div>
   </div>
 
-  <app-login (userLogged)="loggedIn = $event.loggedIn" *ngIf="!loggedIn"></app-login>
+  <app-login *ngIf="!authService.loggedUser"></app-login>
 </div>
