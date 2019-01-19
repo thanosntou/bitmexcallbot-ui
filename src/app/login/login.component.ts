@@ -1,8 +1,6 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../BaseUrl.enum';
-import {AccessTokenModel} from '../access-token.model';
-import {UserService} from '../user.service';
+import {HttpClient} from '@angular/common/http';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -13,37 +11,22 @@ export class LoginComponent implements OnInit {
   @Output() userLogged = new EventEmitter<{loggedIn: boolean}>();
   @ViewChild('username') username: ElementRef;
   @ViewChild('password') password: ElementRef;
-  accessToken: AccessTokenModel;
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   onSignIn() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic dGVzdDprb2JpbmVz'})
-    };
+    const username = this.username.nativeElement.value;
+    const password = this.password.nativeElement.value;
 
-    const body = 'username=' + this.username.nativeElement.value
-      + '&password=' + this.password.nativeElement.value
-      + '&grant_type=' + 'password';
-
-    this.http.post<AccessTokenModel>(
-      BaseUrl.BASEURL + '/oauth/token',
-      body,
-      httpOptions
-    ).subscribe((data: AccessTokenModel) => {
-      this.userLogged.emit({loggedIn: true});
-      this.accessToken = data;
-      localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
-
-      this.userService.authenticate(this.accessToken);
-
-    }, error => console.log(error));
-
+    this.authService.getAndSetAccessToken(username, password);
+    this.authService.authenticate()
+    this.userLogged.emit({
+      loggedIn: true
+    });
   }
-
 }
+

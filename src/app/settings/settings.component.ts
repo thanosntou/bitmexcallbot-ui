@@ -1,9 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FollowerModel} from '../followers-panel/follower.model';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {faMinus} from '@fortawesome/free-solid-svg-icons';
 import { LoggingService } from '../logging.service';
+import {AuthenticationService} from '../authentication.service';
+import {BaseUrl} from '../BaseUrl.enum';
 
 @Component({
   selector: 'app-settings',
@@ -27,23 +29,33 @@ export class SettingsComponent implements OnInit {
   user: FollowerModel;
   hiddenKeys = false;
   hiddenQties = true;
-  baseUrl = 'https://www.bitmexcallbot.com';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get<FollowerModel>(this.baseUrl + '/api/v1/user')
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+    this.http.get<FollowerModel>(BaseUrl.BASEURL + '/api/v1/user', httpOptions)
       .subscribe((data: FollowerModel) => { this.user = data; });
   }
 
   onSaveKeys() {
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
+      BaseUrl.BASEURL + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
     this.apiKeyRef.nativeElement.value = '';
     this.apiSecretRef.nativeElement.value = '';
@@ -54,104 +66,133 @@ export class SettingsComponent implements OnInit {
 
   onSavefixedQtyXBTUSD() {
     const qty = this.fixedQtyXBTUSD.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
-      ''
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
+      '', httpOptions
     ).subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
     this.fixedQtyXBTUSD.nativeElement.value = '';
   }
   onSavefixedQtyETHUSD() {
     const qty = this.fixedQtyETHUSD.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
     this.fixedQtyETHUSD.nativeElement.value = '';
   }
   onSavefixedQtyADA() {
     const qty = this.fixedQtyADAZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     console.log(this.user);
     this.fixedQtyADAZ18.nativeElement.value = '';
   }
   onSavefixedQtyBCH() {
     const qty = this.fixedQtyBCHZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.fixedQtyBCHZ18.nativeElement.value = '';
   }
   onSavefixedQtyEOS() {
     const qty = this.fixedQtyEOSZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.apiKeyRef.nativeElement.value = '';
   }
   onSavefixedQtyETH() {
     const qty = this.fixedQtyETHZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.fixedQtyETHZ18.nativeElement.value = '';
   }
   onSavefixedQtyLTC() {
     const qty = this.fixedQtyLTCZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.fixedQtyLTCZ18.nativeElement.value = '';
   }
   onSavefixedQtyTRX() {
     const qty = this.fixedQtyTRXZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.fixedQtyTRXZ18.nativeElement.value = '';
   }
   onSavefixedQtyXRP() {
     const qty = this.fixedQtyXRPZ18.nativeElement.value;
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<FollowerModel>(
-      this.baseUrl + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18',
-      '')
-      .subscribe((data: FollowerModel) => this.user = data);
-    console.log(this.user);
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18',
+      '', httpOptions
+    ).subscribe((data: FollowerModel) => this.user = data);
     this.fixedQtyXRPZ18.nativeElement.value = '';
   }
-    // const apiKey = this.apiKeyRef.nativeElement.value;
-    // const apiSecret = this.apiSecretRef.nativeElement.value;
-    //
-    // this.http.post<FollowerModel>(
-    //   'http://localhost:8082/BioUnion/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret,
-    //   '')
-    //   .subscribe((data: FollowerModel) => this.user = data);
-    // console.log(this.user);
-    // this.apiKeyRef.nativeElement.value = '';
-    // this.apiSecretRef.nativeElement.value = '';
 
   showOrHideQties() {
     this.hiddenQties = !this.hiddenQties;

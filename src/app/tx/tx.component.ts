@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {faSortAlphaDown, faSortAmountDown} from '@fortawesome/free-solid-svg-icons';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TxModel} from '../tx.model';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-tx',
@@ -14,10 +15,16 @@ export class TxComponent implements OnInit {
   sortByDateIcon = faSortAmountDown;
   baseUrl = 'https://www.bitmexcallbot.com';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get<TxModel[]>(this.baseUrl + '/api/v1/user/tx')
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+
+    this.http.get<TxModel[]>(this.baseUrl + '/api/v1/user/tx', httpOptions)
       .subscribe((data: TxModel[]) => this.tx = data.reverse());
   }
 

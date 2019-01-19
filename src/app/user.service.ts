@@ -8,28 +8,27 @@ import {BaseUrl} from './BaseUrl.enum';
 export class UserService {
   loggedUser: UserModel;
 
-
   constructor(private http: HttpClient) {
   }
 
-  authenticate(token: AccessTokenModel) {
-    // const accessToken = (<AccessTokenModel>token);
-    const bearerToken = token.token_type + ' ' + token.access_token;
+  // authenticate(token: AccessTokenModel) {
+  //   // const accessToken = (<AccessTokenModel>token);
+  //   const bearerToken = token.token_type + ' ' + token.access_token;
+  //
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({'Authorization': bearerToken})
+  //   };
+  //
+  //   this.http.get<UserModel>(
+  //     BaseUrl.BASEURL + '/api/v1/user/authenticate',
+  //     httpOptions
+  //   ).subscribe((data: UserModel) => {
+  //     this.loggedUser = data;
+  //     localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
+  //   });
+  // }
 
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': bearerToken})
-    };
-
-    this.http.get<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/authenticate',
-      httpOptions
-    ).subscribe((data: UserModel) => {
-      this.loggedUser = data;
-      localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
-    });
-  }
-
-  clearLocalStorage() {
-    localStorage.clear();
-  }
+  // clearLocalStorage() {
+  //   localStorage.clear();
+  // }
 }

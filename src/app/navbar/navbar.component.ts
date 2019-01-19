@@ -9,6 +9,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../user.service';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -35,7 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSignOut() {
-    this.userService.clearLocalStorage();
+    this.authService.clearLocalStorage();
     this.userLogged.emit({loggedIn: false});
   }
 }

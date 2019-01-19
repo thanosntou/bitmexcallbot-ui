@@ -2,6 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
+import {BaseUrl} from '../BaseUrl.enum';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-trade-panel',
@@ -24,20 +26,24 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
-  baseUrl = 'https://www.bitmexcallbot.com';
-  // baseUrl = 'http://localhost:8082/BioUnion';
   activeOrders: OrderModel[];
   activePositions: PositionModel[];
   isHidden1 = true;
   isHidden2 = true;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get<OrderModel[]>(this.baseUrl + '/api/v1/trader/active_orders')
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
+
+    this.http.get<OrderModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions)
       .subscribe((data: OrderModel[]) => this.activeOrders = data.reverse());
 
-    this.http.get<PositionModel[]>(this.baseUrl + '/api/v1/trader/active_positions')
+    this.http.get<PositionModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_positions')
       .subscribe((data: PositionModel[]) => this.activePositions = data.reverse());
   }
 
@@ -56,9 +62,11 @@ export class TradePanelComponent implements OnInit {
     const profitTrigger = this.profitTrigger.nativeElement.value;
     const leverage = this.leverage.nativeElement.value;
 
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    };
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     const body = 'symbol=' + symbol
       + '&side=' + side
@@ -67,7 +75,7 @@ export class TradePanelComponent implements OnInit {
       + '&leverage=' + leverage;
 
     this.http.post<void>(
-      this.baseUrl + '/api/v1/trader/signal',
+      BaseUrl.BASEURL + '/api/v1/trader/signal',
       body,
       httpOptions
     ).subscribe((data) => console.log(data));
@@ -103,12 +111,14 @@ export class TradePanelComponent implements OnInit {
       body += '&price=' + price + '&stopPx=' + stopPx + '&execInst=' + execInst;
     }
 
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    };
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<void>(
-      this.baseUrl + '/api/v1/trader/orderAll', body, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trader/orderAll', body, httpOptions
     ).subscribe((data) => console.log(data));
   }
 
@@ -124,12 +134,14 @@ export class TradePanelComponent implements OnInit {
     const symbol = this.symbolGlobal;
     const body = 'symbol=' + symbol;
 
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    };
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
 
     this.http.post<void>(
-      this.baseUrl + '/api/v1/trader/order/cancelAll', body, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trader/order/cancelAll', body, httpOptions
     ).subscribe(() => alert('ok'),
         error => console.log(JSON.stringify(error.json())));
   }
