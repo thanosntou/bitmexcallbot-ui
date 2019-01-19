@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AccessTokenModel} from './access-token.model';
 import {BaseUrl} from './BaseUrl.enum';
 import {UserModel} from './user.model';
+import {UserDetailsModel} from './user-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {UserModel} from './user.model';
 export class AuthenticationService {
   accessToken: AccessTokenModel;
   loggedUser: UserModel;
+  userDetails: UserDetailsModel;
 
   constructor(private http: HttpClient) { }
 
@@ -45,11 +47,12 @@ export class AuthenticationService {
       headers: new HttpHeaders({'Authorization': bearerToken})
     };
 
-    this.http.get<UserModel>(
+    this.http.get<UserDetailsModel>(
       BaseUrl.BASEURL + '/api/v1/user/authenticate',
       httpOptions
-    ).subscribe((data: UserModel) => {
-      this.loggedUser = data;
+    ).subscribe((data: UserDetailsModel) => {
+      this.userDetails = data;
+      this.loggedUser = this.userDetails.user;
       localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
     });
   }

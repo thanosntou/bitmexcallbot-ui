@@ -43,7 +43,7 @@ export class TradePanelComponent implements OnInit {
     this.http.get<OrderModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions)
       .subscribe((data: OrderModel[]) => this.activeOrders = data.reverse());
 
-    this.http.get<PositionModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_positions')
+    this.http.get<PositionModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions)
       .subscribe((data: PositionModel[]) => this.activePositions = data.reverse());
   }
 
