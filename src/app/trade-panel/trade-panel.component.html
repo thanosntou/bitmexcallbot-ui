@@ -65,6 +65,8 @@
                           <div class="col">
                             <input
                               type="number"
+                              step="{{ priceSteps.get(symbolGlobal) }}"
+                              value="{{ defValues.get(symbolGlobal) }}"
                               class="form-control"
                               #stopLoss
                             >
@@ -77,6 +79,8 @@
                           <div class="col">
                             <input
                               type="number"
+                              step="{{ priceSteps.get(symbolGlobal) }}"
+                              value="{{ defValues.get(symbolGlobal) }}"
                               class="form-control"
                               #profitTrigger
                             >
@@ -89,6 +93,8 @@
                           <div class="col">
                             <input
                               type="number"
+                              value="0"
+                              min="0" max="{{ maxLeverages.get(symbolGlobal) }}"
                               class="form-control"
                               #leverage
                             >
@@ -173,6 +179,8 @@
                             <div class="col" >
                               <input
                                 type="number"
+                                step="{{ priceSteps.get(symbolGlobal) }}"
+                                value="{{ defValues.get(symbolGlobal) }}"
                                 class="form-control"
                                 step=""
                                 #priceManual
@@ -186,6 +194,8 @@
                             <div class="col">
                               <input
                                 type="number"
+                                step="{{ priceSteps.get(symbolGlobal) }}"
+                                value="{{ defValues.get(symbolGlobal) }}"
                                 class="form-control"
                                 step=""
                                 #stopPxManual
@@ -200,9 +210,8 @@
                               <input
                                 type="number"
                                 class="form-control"
-                                name="leverage"
-                                value="${currentCoinLeverage}"
-                                min="0" max="${currentCoinMaxLeverage}"
+                                value="0"
+                                min="0" max="{{ maxLeverages.get(symbolGlobal) }}"
                                 #leverageManual
                               >
                             </div>

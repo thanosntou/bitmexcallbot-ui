@@ -31,8 +31,41 @@ export class TradePanelComponent implements OnInit {
   activePositions: PositionModel[];
   isHidden1 = true;
   isHidden2 = true;
+  priceSteps = new Map<string>();
+  defValues = new Map<string>();
+  maxLeverages = new Map<string>();
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) { }
+  constructor(private http: HttpClient, public authService: AuthenticationService) {
+    this.priceSteps.set(Symbol.XBTUSD, 0.1);
+    this.priceSteps.set(Symbol.ETHUSD, 0.01);
+    this.priceSteps.set(Symbol.ADA, 0.00000001);
+    this.priceSteps.set(Symbol.BCH, 0.0001);
+    this.priceSteps.set(Symbol.EOS, 0.0000001);
+    this.priceSteps.set(Symbol.ETH, 0.00001);
+    this.priceSteps.set(Symbol.LTC, 0.00001);
+    this.priceSteps.set(Symbol.TRX, 0.00000001);
+    this.priceSteps.set(Symbol.XRP, 0.00000001);
+
+    this.defValues.set(Symbol.XBTUSD, 3698.0);
+    this.defValues.set(Symbol.ETHUSD, 0.01);
+    this.defValues.set(Symbol.ADA, 0.00001287);
+    this.defValues.set(Symbol.BCH, 0.0362);
+    this.defValues.set(Symbol.EOS, 0.0006878);
+    this.defValues.set(Symbol.ETH, 0.03474);
+    this.defValues.set(Symbol.LTC, 0.00907);
+    this.defValues.set(Symbol.TRX, 0.00000684);
+    this.defValues.set(Symbol.XRP, 0.00009198);
+
+    this.maxLeverages.set(Symbol.XBTUSD, 100);
+    this.maxLeverages.set(Symbol.ETHUSD, 50);
+    this.maxLeverages.set(Symbol.ADA, 20);
+    this.maxLeverages.set(Symbol.BCH, 20);
+    this.maxLeverages.set(Symbol.EOS, 20);
+    this.maxLeverages.set(Symbol.ETH, 50);
+    this.maxLeverages.set(Symbol.LTC, 33.3);
+    this.maxLeverages.set(Symbol.TRX, 20);
+    this.maxLeverages.set(Symbol.XRP, 20);
+  }
 
   ngOnInit() {
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
