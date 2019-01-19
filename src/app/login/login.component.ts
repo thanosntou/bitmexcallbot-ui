@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     const password = this.password.nativeElement.value;
 
     this.authService.getAndSetAccessToken(username, password);
-    this.authService.authenticate()
     this.userLogged.emit({
       loggedIn: true
     });

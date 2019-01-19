@@ -53,8 +53,4 @@ export class AuthenticationService {
       localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
     });
   }
-
-  clearLocalStorage() {
-    localStorage.clear();
-  }
 }

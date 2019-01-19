@@ -1,7 +1,7 @@
 <div class="container-fluid" id="sidenavbar">
   <br>
   <div class="row">
-    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="userService.loggedUser">{{  userService.loggedUser.username }}</span></h5>
+    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="authService.loggedUser">{{  authService.loggedUser.username }}</span></h5>
   </div>
   <br>
   <div class="row">
