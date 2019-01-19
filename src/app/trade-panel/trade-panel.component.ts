@@ -76,7 +76,7 @@ export class TradePanelComponent implements OnInit {
       + '&leverage=' + leverage;
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trader/signal',
+      BaseUrl.BASEURL + '/api/v1/trade/signal',
       body,
       httpOptions
     ).subscribe((data) => console.log(data));
@@ -119,35 +119,21 @@ export class TradePanelComponent implements OnInit {
       })};
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trader/orderAll', body, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
     ).subscribe((data) => console.log(data));
   }
 
-  changeGlobalSymbol(symbol: string) {
-    this.symbolGlobal = symbol;
-  }
-
-  showManualTab(manualTab: string) {
-    this.manualTab = manualTab;
-  }
-
   onCancelAll() {
-    const symbols = [Symbol.XBTUSD, Symbol.ETHUSD, Symbol.ADA, Symbol.BCH, Symbol.EOS, Symbol.ETHUSD, Symbol.LTC, Symbol.TRX, Symbol.XRP];
-
-    symbols.forEach(symbol => {
       const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
       const httpOptions = { headers: new HttpHeaders({
           'Authorization': bearerToken,
           'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-      const body = 'symbol=' + symbol;
-
-      this.http.post<void>(
-        BaseUrl.BASEURL + '/api/v1/trader/order/cancelAll', body, httpOptions
+      this.http.delete<void>(
+        BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
       ).subscribe(() => alert('ok'),
         error => console.log(JSON.stringify(error.json())));
-    });
   }
 
   onClosePosition(symbol: string) {
@@ -161,8 +147,16 @@ export class TradePanelComponent implements OnInit {
     };
     const param = 'symbol=' + symbol;
 
-    this.http.delete<void>(BaseUrl.BASEURL + '/api/v1/trader/position?' + param, httpOptions
+    this.http.delete<void>(BaseUrl.BASEURL + '/api/v1/trade/position?' + param, httpOptions
     ).subscribe(() => error => console.log(JSON.stringify(error.json())));
+  }
+
+  changeGlobalSymbol(symbol: string) {
+    this.symbolGlobal = symbol;
+  }
+
+  showManualTab(manualTab: string) {
+    this.manualTab = manualTab;
   }
 
 }
