@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSignOut() {
+    this.userService.clearLocalStorage();
     this.userLogged.emit({loggedIn: false});
   }
 }

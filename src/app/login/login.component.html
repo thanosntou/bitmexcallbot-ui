@@ -1,8 +1,9 @@
-<div class="row" >
+<div class="row" style="min-height: 100vh">
   <div class="container-fluid">
     <form>
       <div class="form-group">
-        <div class="row">
+        <br><br>
+        <div class="row justify-content-center">
           <div class="col-xs">
             <strong>Username </strong>
           </div>
@@ -14,21 +15,24 @@
             >
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-xs">
             <strong>Password </strong>
           </div>
           <div class="col-xs">
             <input
-              type="text"
+              type="password"
               class="form-control"
               #password
             >
           </div>
         </div>
         <br>
-        <div class="container-fluid justify-content-left">
-          <button class="btn btn-primary" (click)="onSignIn()">Send signal</button>
+        <div class="row">
+
+        </div>
+        <div class="row justify-content-center">
+          <button class="btn btn-primary" (click)="onSignIn()">Sign in</button>
         </div>
       </div>
     </form>
