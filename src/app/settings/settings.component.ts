@@ -2,10 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {faMinus} from '@fortawesome/free-solid-svg-icons';
-import { LoggingService } from '../logging.service';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
-import {UserModel} from '../user.model';
 import {UserDetailsModel} from '../user-details.model';
 
 @Component({

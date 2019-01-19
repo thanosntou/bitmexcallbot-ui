@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
+import {Symbol} from '../Symbol.enum';
 
 @Component({
   selector: 'app-trade-panel',
@@ -131,19 +132,22 @@ export class TradePanelComponent implements OnInit {
   }
 
   onCancelAll() {
-    const symbol = this.symbolGlobal;
-    const body = 'symbol=' + symbol;
+    const symbols = [Symbol.XBTUSD, Symbol.ETHUSD, Symbol.ADA, Symbol.BCH, Symbol.EOS, Symbol.ETHUSD, Symbol.LTC, Symbol.TRX, Symbol.XRP];
 
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
+    symbols.forEach(symbol => {
+      const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+      const httpOptions = { headers: new HttpHeaders({
+          'Authorization': bearerToken,
+          'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trader/order/cancelAll', body, httpOptions
-    ).subscribe(() => alert('ok'),
+      const body = 'symbol=' + symbol;
+
+      this.http.post<void>(
+        BaseUrl.BASEURL + '/api/v1/trader/order/cancelAll', body, httpOptions
+      ).subscribe(() => alert('ok'),
         error => console.log(JSON.stringify(error.json())));
+    });
   }
 
 }
