@@ -10,16 +10,16 @@
           <div class="col">
             <strong>Api Key:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.apiKey }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.apiKey }}
           </div>
         </div>
         <div class="row">
           <div class="col">
             <strong>Api Secret:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.apiSecret }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.apiSecret }}
           </div>
         </div>
       </div>
@@ -31,72 +31,72 @@
           <div class="col" style="">
             <strong>XBTUSD:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyXBTUSD }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyXBTUSD }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ETHUSD:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyETHUSD }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyETHUSD }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ADA:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyADAZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyADAZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>BCH:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyBCHZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyBCHZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>EOS:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyEOSZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyEOSZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>ETH:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyETHZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyETHZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>LTC:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyLTCZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyLTCZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>TRX:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyTRXZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyTRXZ18 }}
           </div>
         </div>
         <div class="row">
           <div class="col" style="">
             <strong>XRP:</strong>
           </div>
-          <div class="col" *ngIf="authService.loggedUser">
-            {{ authService.loggedUser.fixedQtyXRPZ18 }}
+          <div class="col" *ngIf="authService.userDetails">
+            {{ authService.userDetails.fixedQtyXRPZ18 }}
           </div>
         </div>
       </div>
