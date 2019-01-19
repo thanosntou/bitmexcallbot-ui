@@ -294,6 +294,7 @@
             <th scope="col">Current Cost</th>
             <th scope="col">Unrealised Cost</th>
             <th scope="col">Pos Margin</th>
+            <th scope="col"> </th>
           </tr>
           </thead>
           <tbody>
@@ -309,6 +310,9 @@
             <td>{{ position.currentCost }}</td>
             <td>{{ position.unrealisedCost }}</td>
             <td>{{ position.posMargin }}</td>
+            <th scope="col">
+              <button class="btn btn-danger" (click)="onClosePosition(position.symbol)">Cancel All</button>
+            </th>
           </tr>
           </tbody>
         </table>

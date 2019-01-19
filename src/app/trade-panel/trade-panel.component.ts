@@ -150,4 +150,19 @@ export class TradePanelComponent implements OnInit {
     });
   }
 
+  onClosePosition(symbol: string) {
+    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    const param = 'symbol=' + symbol;
+
+    this.http.delete<void>(BaseUrl.BASEURL + '/api/v1/trader/position?' + param, httpOptions
+    ).subscribe(() => error => console.log(JSON.stringify(error.json())));
+  }
+
 }
