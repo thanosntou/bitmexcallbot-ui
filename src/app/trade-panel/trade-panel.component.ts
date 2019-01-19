@@ -47,7 +47,7 @@ export class TradePanelComponent implements OnInit {
     this.priceSteps.set(Symbol.XRP, 0.00000001);
 
     this.defValues.set(Symbol.XBTUSD, 3698.0);
-    this.defValues.set(Symbol.ETHUSD, 0.01);
+    this.defValues.set(Symbol.ETHUSD, 123.00);
     this.defValues.set(Symbol.ADA, 0.00001287);
     this.defValues.set(Symbol.BCH, 0.0362);
     this.defValues.set(Symbol.EOS, 0.0006878);
