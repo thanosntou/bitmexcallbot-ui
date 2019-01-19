@@ -17,7 +17,7 @@
     <a class="nav-link" [class.active]="activeTab == 'tx'" (click)="onSelect('tx')" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
     <!--<a class="nav-link" [class.active]="activeTab == 'wallet'" (click)="onSelect('wallet')" role="button"><fa-icon [icon]="faWallet"></fa-icon> Wallet</a>-->
     <a class="nav-link" [class.active]="activeTab == 'settings'" (click)="onSelect('settings')" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-    <a class="nav-link" [class.active]="activeTab == 'admin'" (click)="onSelect('admin')" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
+    <a class="nav-link" *ngIf="isAdmin" [class.active]="activeTab == 'admin'" (click)="onSelect('admin')" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
   </div>
 </div>
 

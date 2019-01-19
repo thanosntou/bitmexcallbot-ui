@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
   activeTab = 'trade';
+  isAdmin: boolean;
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
@@ -27,6 +28,12 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.userDetails.authorities.forEach( (auth) => {
+      console.log(auth);
+      if (auth.authority === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+    });
   }
 
   onSelect(tab: string) {
