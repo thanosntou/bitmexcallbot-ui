@@ -5,15 +5,15 @@
       <div class="row">
         <div class="container" id="coinlist">
           <div class="row justify-content-left">
-              <a  class="btn btn-outline-info" [className]="'XBTUSD' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('XBTUSD')" role="button">Bitcoin</a>
-              <a  class="btn btn-outline-info" [className]="'ETHUSD' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ETHUSD')" role="button">Ethereum</a>
-              <a  class="btn btn-outline-info" [className]="'ADA' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ADA')" role="button">Cardano</a>
-              <a  class="btn btn-outline-info" [className]="'BCH' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('BCH')" role="button">Bitcoin Cash</a>
-              <a  class="btn btn-outline-info" [className]="'EOS' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('EOS')" role="button">EOS Token</a>
-              <a  class="btn btn-outline-info" [className]="'ETH' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ETH')" role="button">ETH</a>
-              <a  class="btn btn-outline-info" [className]="'LTC' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('LTC')" role="button">Litecoin</a>
-              <a  class="btn btn-outline-info" [className]="'TRX' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('TRX')" role="button">Tron</a>
-              <a  class="btn btn-outline-info" [className]="'XRP' == symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('XRP')" role="button">Ripple</a>
+              <a  class="btn btn-outline-info" [className]="'XBTUSD' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('XBTUSD')" role="button">Bitcoin</a>
+              <a  class="btn btn-outline-info" [className]="'ETHUSD' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ETHUSD')" role="button">Ethereum</a>
+              <a  class="btn btn-outline-info" [className]="'ADA' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ADA')" role="button">Cardano</a>
+              <a  class="btn btn-outline-info" [className]="'BCH' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('BCH')" role="button">Bitcoin Cash</a>
+              <a  class="btn btn-outline-info" [className]="'EOS' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('EOS')" role="button">EOS Token</a>
+              <a  class="btn btn-outline-info" [className]="'ETH' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('ETH')" role="button">ETH</a>
+              <a  class="btn btn-outline-info" [className]="'LTC' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('LTC')" role="button">Litecoin</a>
+              <a  class="btn btn-outline-info" [className]="'TRX' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('TRX')" role="button">Tron</a>
+              <a  class="btn btn-outline-info" [className]="'XRP' == symbolService.symbolGlobal ? 'btn btn-info' : 'btn btn-outline-info'" (click)="changeGlobalSymbol('XRP')" role="button">Ripple</a>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              value="{{ symbolGlobal }}"
+                              value="{{ symbolService.symbolGlobal }}"
                               #symbol
                               disabled
                             >
@@ -65,8 +65,8 @@
                           <div class="col">
                             <input
                               type="number"
-                              step="{{ priceSteps.get(symbolGlobal) }}"
-                              value="{{ defValues.get(symbolGlobal) }}"
+                              step="{{ priceSteps.get(symbolService.symbolGlobal) }}"
+                              value="{{ defValues.get(symbolService.symbolGlobal) }}"
                               class="form-control"
                               #stopLoss
                             >
@@ -79,8 +79,8 @@
                           <div class="col">
                             <input
                               type="number"
-                              step="{{ priceSteps.get(symbolGlobal) }}"
-                              value="{{ defValues.get(symbolGlobal) }}"
+                              step="{{ priceSteps.get(symbolService.symbolGlobal) }}"
+                              value="{{ defValues.get(symbolService.symbolGlobal) }}"
                               class="form-control"
                               #profitTrigger
                             >
@@ -94,7 +94,7 @@
                             <input
                               type="number"
                               value="0"
-                              min="0" max="{{ maxLeverages.get(symbolGlobal) }}"
+                              min="0" max="{{ maxLeverages.get(symbolService.symbolGlobal) }}"
                               class="form-control"
                               #leverage
                             >
@@ -154,7 +154,7 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                value="{{ symbolGlobal }}"
+                                value="{{ symbolService.symbolGlobal }}"
                                 disabled
                               >
                             </div>
@@ -179,8 +179,8 @@
                             <div class="col" >
                               <input
                                 type="number"
-                                step="{{ priceSteps.get(symbolGlobal) }}"
-                                value="{{ defValues.get(symbolGlobal) }}"
+                                step="{{ priceSteps.get(symbolService.symbolGlobal) }}"
+                                value="{{ defValues.get(symbolService.symbolGlobal) }}"
                                 class="form-control"
                                 step=""
                                 #priceManual
@@ -194,8 +194,8 @@
                             <div class="col">
                               <input
                                 type="number"
-                                step="{{ priceSteps.get(symbolGlobal) }}"
-                                value="{{ defValues.get(symbolGlobal) }}"
+                                step="{{ priceSteps.get(symbolService.symbolGlobal) }}"
+                                value="{{ defValues.get(symbolService.symbolGlobal) }}"
                                 class="form-control"
                                 step=""
                                 #stopPxManual
@@ -211,7 +211,7 @@
                                 type="number"
                                 class="form-control"
                                 value="0"
-                                min="0" max="{{ maxLeverages.get(symbolGlobal) }}"
+                                min="0" max="{{ maxLeverages.get(symbolService.symbolGlobal) }}"
                                 #leverageManual
                               >
                             </div>
