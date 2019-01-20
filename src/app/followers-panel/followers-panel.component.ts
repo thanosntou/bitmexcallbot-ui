@@ -18,9 +18,8 @@ export class FollowersPanelComponent implements OnInit {
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
@@ -29,41 +28,25 @@ export class FollowersPanelComponent implements OnInit {
   }
 
   onEnable(id: number) {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
-    const body = 'followerId=' + id;
-
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', body, httpOptions)
-      .subscribe((data: UserModel) => {
-        // const fol = this.followers.find(follower => follower.id === data.id);
-        // fol.enabled = data.enabled;
-        // this.followers.push(fol);
-      });
-
-    this.followers.find(follower => follower.id === id).enabled = true;
+    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
+      .subscribe((data: UserModel) =>
+        this.followers.find(follower => follower.id === id).enabled = data.enabled
+      );
   }
 
   onDisable(id: number) {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-
-    const body = 'followerId=' + id;
-
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', body, httpOptions)
-      .subscribe((data: UserModel) => {
-        // const fol = this.followers.find(follower => follower.id === data.id);
-        // fol.enabled = data.enabled;
-        // this.followers.push(fol);
-      });
-
-    this.followers.find(follower => follower.id === id).enabled = false;
-
+    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
+      .subscribe((data: UserModel) =>
+        this.followers.find(follower => follower.id === id).enabled = data.enabled
+      );
   }
 }

@@ -9,6 +9,7 @@ import {UserDetailsModel} from './user-details.model';
 })
 export class AuthenticationService {
   accessToken: AccessTokenModel;
+  bearerToken: string;
   userDetails: UserDetailsModel;
 
   constructor(private http: HttpClient) { }
@@ -31,6 +32,7 @@ export class AuthenticationService {
     ).subscribe((data: AccessTokenModel) => {
       console.log(data);
       this.accessToken = data;
+      this.bearerToken = data.token_type + ' ' + data.access_token;
       localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
 
       this.authenticate();
