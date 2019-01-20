@@ -5,6 +5,7 @@ import {PositionModel} from '../position.model';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Symbol} from '../Symbol.enum';
+import {SymbolService} from '../symbol.service';
 
 @Component({
   selector: 'app-trade-panel',
@@ -12,8 +13,6 @@ import {Symbol} from '../Symbol.enum';
   styleUrls: ['./trade-panel.component.css']
 })
 export class TradePanelComponent implements OnInit {
-  manualTab = 'Limit';
-  symbolGlobal = 'XBTUSD';
   @ViewChild('symbol') symbol: ElementRef;
   @ViewChild('side') side: ElementRef;
   @ViewChild('stopLoss') stopLoss: ElementRef;
@@ -27,15 +26,21 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
-  activeOrders: OrderModel[];
-  activePositions: PositionModel[];
   isHidden1 = true;
   isHidden2 = true;
-  priceSteps = new Map<string>();
+  manualTab = 'Limit';
+
   defValues = new Map<string>();
+  priceSteps = new Map<string>();
   maxLeverages = new Map<string>();
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) {
+  activeOrders: OrderModel[];
+  activePositions: PositionModel[];
+
+
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService,
+              public symbolService: SymbolService) {
     this.priceSteps.set(Symbol.XBTUSD, 0.1);
     this.priceSteps.set(Symbol.ETHUSD, 0.01);
     this.priceSteps.set(Symbol.ADA, 0.00000001);
@@ -68,55 +73,41 @@ export class TradePanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
 
-    this.http.get<OrderModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions)
-      .subscribe((data: OrderModel[]) => this.activeOrders = data.reverse());
+    this.http.get<OrderModel[]>(
+      BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions
+    ).subscribe((data: OrderModel[]) =>
+      this.activeOrders = data.reverse());
 
-    this.http.get<PositionModel[]>(BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions)
-      .subscribe((data: PositionModel[]) => this.activePositions = data.reverse());
-  }
-
-  hideOrShow1() {
-    this.isHidden1 = !this.isHidden1;
-  }
-
-  hideOrShow2() {
-    this.isHidden2 = !this.isHidden2;
+    this.http.get<PositionModel[]>(
+      BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions
+    ).subscribe((data: PositionModel[]) =>
+      this.activePositions = data.reverse());
   }
 
   onSendSignal() {
-    const symbol = this.symbolGlobal;
-    const side = this.side.nativeElement.value;
-    const stopLoss = this.stopLoss.nativeElement.value;
-    const profitTrigger = this.profitTrigger.nativeElement.value;
-    const leverage = this.leverage.nativeElement.value;
-
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    const body = 'symbol=' + symbol
-      + '&side=' + side
-      + '&stopLoss=' + stopLoss
-      + '&profitTrigger=' + profitTrigger
-      + '&leverage=' + leverage;
+    })};
+    const body = 'symbol=' + this.symbolService.symbolGlobal
+      + '&side=' + this.side.nativeElement.value
+      + '&stopLoss=' + this.stopLoss.nativeElement.value
+      + '&profitTrigger=' + this.profitTrigger.nativeElement.value
+      + '&leverage=' + this.leverage.nativeElement.value;
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/signal',
-      body,
-      httpOptions
-    ).subscribe((data) => console.log(data));
+      BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
+    ).subscribe((data) =>
+      console.log(data));
   }
 
   onPlaceOrder() {
-    const symbol = this.symbolGlobal;
+    const symbol = this.symbolService.symbolGlobal;
     const side = this.sideManual.nativeElement.value;
     const ordType = this.manualTab;
     let price;
@@ -145,64 +136,62 @@ export class TradePanelComponent implements OnInit {
       body += '&price=' + price + '&stopPx=' + stopPx + '&execInst=' + execInst;
     }
 
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+    const httpOptions = {headers: new HttpHeaders({
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
+    })};
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
     ).subscribe((data) => console.log(data));
   }
 
   onCancelOne(orderId: number) {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+    const httpOptions = {headers: new HttpHeaders({
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
+    })};
     this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + this.symbolGlobal + '&orderId=' + orderId, httpOptions
-    ).subscribe(() => alert('ok'),
+      BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + this.symbolService.symbolGlobal + '&orderId=' + orderId, httpOptions
+    ).subscribe(() =>
       error => console.log(JSON.stringify(error.json())));
   }
 
   onCancelAll() {
-      const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-      const httpOptions = { headers: new HttpHeaders({
-          'Authorization': bearerToken,
-          'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-      this.http.delete<void>(
-        BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
-      ).subscribe(() => alert('ok'),
-        error => console.log(JSON.stringify(error.json())));
+    const httpOptions = {headers: new HttpHeaders({
+        'Authorization': this.authService.bearerToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+    this.http.delete<void>(
+      BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
+    ).subscribe(() =>
+      error => console.log(JSON.stringify(error.json())));
   }
 
   onClosePosition(symbol: string) {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': bearerToken,
+    const httpOptions = {headers: new HttpHeaders({
+        'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
-    const param = 'symbol=' + symbol;
-
-    this.http.delete<void>(BaseUrl.BASEURL + '/api/v1/trade/position?' + param, httpOptions
-    ).subscribe(() => error => console.log(JSON.stringify(error.json())));
+    })};
+    this.http.delete<void>(
+      BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
+    ).subscribe(() =>
+        error => console.log(JSON.stringify(error.json()))
+    );
   }
 
   changeGlobalSymbol(symbol: string) {
-    this.symbolGlobal = symbol;
+    this.symbolService.symbolGlobal = symbol;
   }
 
   showManualTab(manualTab: string) {
     this.manualTab = manualTab;
   }
 
+  hideOrShow1() {
+    this.isHidden1 = !this.isHidden1;
+  }
+
+  hideOrShow2() {
+    this.isHidden2 = !this.isHidden2;
+  }
 }

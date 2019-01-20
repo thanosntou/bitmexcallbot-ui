@@ -1,13 +1,13 @@
-<div class="row" style="min-height: 100vh">
+<div class="row" style="min-height: 100vh" id="main">
   <div class="container-fluid">
     <form>
       <div class="form-group">
         <br><br>
         <div class="row justify-content-center">
-          <div class="col-xs">
+          <div class="col-sm-1">
             <strong>Username </strong>
           </div>
-          <div class="col-xs">
+          <div class="col-sm-2">
             <input
               type="text"
               class="form-control"
@@ -16,10 +16,10 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-xs">
+          <div class="col-sm-1">
             <strong>Password </strong>
           </div>
-          <div class="col-xs">
+          <div class="col-sm-2">
             <input
               type="password"
               class="form-control"
@@ -28,12 +28,79 @@
           </div>
         </div>
         <br>
-        <div class="row">
-
-        </div>
         <div class="row justify-content-center">
           <button class="btn btn-primary" (click)="onSignIn()">Sign in</button>
         </div>
+        <br>
+        <div class="row justify-content-center">
+          <a (click)="onShowSignUp()"><u>...or click here to Sign Up</u></a>
+        </div>
+        <br>
+        <br>
+      </div>
+    </form>
+    <br>
+    <form *ngIf="showSignUp">
+      <div class="form-group">
+        <br><br>
+        <div class="row justify-content-center">
+          <div class="col-sm-1">
+            <strong>Username </strong>
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="text"
+              class="form-control"
+              #username2
+            >
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-sm-1">
+            <strong>Email </strong>
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="email"
+              class="form-control"
+              #email
+            >
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-sm-1">
+            <strong>Password </strong>
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="password"
+              class="form-control"
+              #pass
+            >
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-sm-1">
+            <strong>Confirm Password </strong>
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="password"
+              class="form-control"
+              #confirmPass
+            >
+          </div>
+        </div>
+        <br>
+        <div class="row">
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-secondary" (click)="onSignUp()">Sign Up</button>
+          </div>
+        </div>
+        <br>
+        <br>
       </div>
     </form>
   </div>
