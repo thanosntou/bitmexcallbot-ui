@@ -1,16 +1,19 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderModel} from '../order.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {PositionModel} from '../position.model';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Symbol} from '../Symbol.enum';
 import {SymbolService} from '../symbol.service';
+import {OpenPositionsComponent} from './open-positions/open-positions.component';
+import {OpenPositionsService} from './open-positions.service';
+
 
 @Component({
   selector: 'app-trade-panel',
   templateUrl: './trade-panel.component.html',
-  styleUrls: ['./trade-panel.component.css']
+  styleUrls: ['./trade-panel.component.css'],
+  providers: [OpenPositionsService]
 })
 export class TradePanelComponent implements OnInit {
   @ViewChild('symbol') symbol: ElementRef;
@@ -26,6 +29,9 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
+  @ViewChild(OpenPositionsComponent) openPos: OpenPositionsComponent;
+
+
   isHidden1 = true;
   isHidden2 = true;
   manualTab = 'Limit';
@@ -35,65 +41,92 @@ export class TradePanelComponent implements OnInit {
   maxLeverages = new Map<string>();
 
   activeOrders: OrderModel[];
-  activePositions: PositionModel[];
+
+  exampleSocket: WebSocket;
+  markPriceXBTUSD: number;
 
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
+              private openPositionsService: OpenPositionsService,
               public symbolService: SymbolService) {
     this.priceSteps.set(Symbol.XBTUSD, 0.1);
     this.priceSteps.set(Symbol.ETHUSD, 0.01);
-    this.priceSteps.set(Symbol.ADA, 0.00000001);
-    this.priceSteps.set(Symbol.BCH, 0.0001);
-    this.priceSteps.set(Symbol.EOS, 0.0000001);
-    this.priceSteps.set(Symbol.ETH, 0.00001);
-    this.priceSteps.set(Symbol.LTC, 0.00001);
-    this.priceSteps.set(Symbol.TRX, 0.00000001);
-    this.priceSteps.set(Symbol.XRP, 0.00000001);
+    this.priceSteps.set(Symbol.ADAXXX, 0.00000001);
+    this.priceSteps.set(Symbol.BCHXXX, 0.0001);
+    this.priceSteps.set(Symbol.EOSXXX, 0.0000001);
+    this.priceSteps.set(Symbol.ETHXXX, 0.00001);
+    this.priceSteps.set(Symbol.LTCXXX, 0.00001);
+    this.priceSteps.set(Symbol.TRXXXX, 0.00000001);
+    this.priceSteps.set(Symbol.XRPXXX, 0.00000001);
 
     this.defValues.set(Symbol.XBTUSD, 3698.0);
     this.defValues.set(Symbol.ETHUSD, 123.00);
-    this.defValues.set(Symbol.ADA, 0.00001287);
-    this.defValues.set(Symbol.BCH, 0.0362);
-    this.defValues.set(Symbol.EOS, 0.0006878);
-    this.defValues.set(Symbol.ETH, 0.03474);
-    this.defValues.set(Symbol.LTC, 0.00907);
-    this.defValues.set(Symbol.TRX, 0.00000684);
-    this.defValues.set(Symbol.XRP, 0.00009198);
+    this.defValues.set(Symbol.ADAXXX, 0.00001287);
+    this.defValues.set(Symbol.BCHXXX, 0.0362);
+    this.defValues.set(Symbol.EOSXXX, 0.0006878);
+    this.defValues.set(Symbol.ETHXXX, 0.03474);
+    this.defValues.set(Symbol.LTCXXX, 0.00907);
+    this.defValues.set(Symbol.TRXXXX, 0.00000684);
+    this.defValues.set(Symbol.XRPXXX, 0.00009198);
 
     this.maxLeverages.set(Symbol.XBTUSD, 100);
     this.maxLeverages.set(Symbol.ETHUSD, 50);
-    this.maxLeverages.set(Symbol.ADA, 20);
-    this.maxLeverages.set(Symbol.BCH, 20);
-    this.maxLeverages.set(Symbol.EOS, 20);
-    this.maxLeverages.set(Symbol.ETH, 50);
-    this.maxLeverages.set(Symbol.LTC, 33.3);
-    this.maxLeverages.set(Symbol.TRX, 20);
-    this.maxLeverages.set(Symbol.XRP, 20);
+    this.maxLeverages.set(Symbol.ADAXXX, 20);
+    this.maxLeverages.set(Symbol.BCHXXX, 20);
+    this.maxLeverages.set(Symbol.EOSXXX, 20);
+    this.maxLeverages.set(Symbol.ETHXXX, 50);
+    this.maxLeverages.set(Symbol.LTCXXX, 33.3);
+    this.maxLeverages.set(Symbol.TRXXXX, 20);
+    this.maxLeverages.set(Symbol.XRPXXX, 20);
+
+    // const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
+    // exampleSocket.onopen = function () {
+    //   exampleSocket.send(
+    //       '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
+    //       '1600883067, ' +
+    //       '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
+    //   // exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
+    //   exampleSocket.send('{"op": "subscribe", "args": ["position:XBTUSD"]}');
+    //   exampleSocket.send('{"op": "subscribe", "args": ["position:ADAH19"]}');
+    // };
+    //
+    // this.exampleSocket = exampleSocket;
   }
 
   ngOnInit() {
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.get<OrderModel[]>(
-      BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions
-    ).subscribe((data: OrderModel[]) =>
-      this.activeOrders = data.reverse());
-
-    this.http.get<PositionModel[]>(
-      BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions
-    ).subscribe((data: PositionModel[]) =>
-      this.activePositions = data.reverse());
+    // this.exampleSocket.onmessage = event => {
+    //   const msg = JSON.parse(event.data);
+    //   this.markPriceXBTUSD = msg.data['0'].markPrice;
+    //   $(function () {
+    //     $('#markPriceTdXBTUSD').delay(150).animate({
+    //       'background-color': '#ffeb79'
+    //     }, 350, function () {
+    //       $('#markPriceTdXBTUSD').animate({
+    //         'background-color': '#fff'
+    //       }, 200);
+    //     });
+    //   });
+    //   console.log(msg.data['0']);
+    // };
+    // const httpOptions = { headers: new HttpHeaders({
+    //     'Authorization': this.authService.bearerToken,
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    // })};
+    //
+    // this.http.get<OrderModel[]>(
+    //   BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions
+    // ).subscribe((data: OrderModel[]) =>
+    //   this.activeOrders = data.reverse());
   }
 
   onSendSignal() {
-    const httpOptions = { headers: new HttpHeaders({
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
     const body = 'symbol=' + this.symbolService.symbolGlobal
       + '&side=' + this.side.nativeElement.value
       + '&stopLoss=' + this.stopLoss.nativeElement.value
@@ -102,8 +135,7 @@ export class TradePanelComponent implements OnInit {
 
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
-    ).subscribe((data) =>
-      console.log(data));
+    ).subscribe();
   }
 
   onPlaceOrder() {
@@ -142,7 +174,9 @@ export class TradePanelComponent implements OnInit {
     })};
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
-    ).subscribe((data) => console.log(data));
+    ).subscribe((data) => console.log(data),
+        error => console.log(error),
+      () => this.openPos.fetchOpenPositions());
   }
 
   onCancelOne(orderId: number) {
@@ -157,26 +191,16 @@ export class TradePanelComponent implements OnInit {
   }
 
   onCancelAll() {
-    const httpOptions = {headers: new HttpHeaders({
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
     ).subscribe(() =>
       error => console.log(JSON.stringify(error.json())));
-  }
-
-  onClosePosition(symbol: string) {
-    const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
-    ).subscribe(() =>
-        error => console.log(JSON.stringify(error.json()))
-    );
   }
 
   changeGlobalSymbol(symbol: string) {

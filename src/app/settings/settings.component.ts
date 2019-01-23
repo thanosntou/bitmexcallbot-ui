@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.get<UserDetailsModel>(BaseUrl.BASEURL + '/api/v1/user', httpOptions)
+    this.http.get<UserDetailsModel>(BaseUrl.BASEURL + '/api/v1/user?name=' + this.authService.userDetails.username, httpOptions)
       .subscribe((data: UserDetailsModel) => { this.authService.userDetails = data; });
   }
 

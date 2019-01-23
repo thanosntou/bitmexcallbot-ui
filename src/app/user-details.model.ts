@@ -1,4 +1,3 @@
-import {UserModel} from './user.model';
 import {AuthorityModel} from './authority.model';
 
 export class UserDetailsModel {

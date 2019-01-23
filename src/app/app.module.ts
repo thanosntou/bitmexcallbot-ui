@@ -20,6 +20,10 @@ import { NewAccountComponent } from './new-account/new-account.component';
 import { AdminService } from './admin.service';
 import {UserService} from './user.service';
 import { LoginComponent } from './login/login.component';
+import {OpenPositionDirective} from './trade-panel/open-position.directive';
+import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
+import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
+import {OpenPositionsService} from './trade-panel/open-positions.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import { LoginComponent } from './login/login.component';
     UnlessDirective,
     DropdownDirective,
     NewAccountComponent,
-    LoginComponent
+    LoginComponent,
+    OpenPositionDirective,
+    ActiveOrdersComponent,
+    OpenPositionsComponent,
   ],
   imports: [
     BrowserModule,

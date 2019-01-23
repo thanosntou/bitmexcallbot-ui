@@ -289,45 +289,6 @@
 
       <hr>
 
-      <!--open positions-->
-      <div class="row" style="overflow-x: scroll">
-        <h4> Open Positions </h4>
-        <table class="table table-hover table-sm">
-          <thead class="thead bg-info">
-          <tr>
-            <th scope="col">Symbol</th>
-            <th scope="col">Entry Price</th>
-            <th scope="col">Mark Price</th>
-            <th scope="col">Margin</th>
-            <th scope="col">Unrealised Pnl</th>
-            <th scope="col">Roe%</th>
-            <th scope="col">Realised Pnl</th>
-            <th scope="col">Exec Cost</th>
-            <th scope="col">Current Cost</th>
-            <th scope="col">Unrealised Cost</th>
-            <th scope="col">Pos Margin</th>
-            <th scope="col"> </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let position of activePositions">
-            <th scope="row"> {{ position.symbol }}</th>
-            <td>{{ position.avgEntryPrice }}</td>
-            <td>{{ position.markPrice }}</td>
-            <td>{{ position.maintMargin }}</td>
-            <td>{{ position.unrealisedPnl }}</td>
-            <td>{{ position.unrealisedRoePcnt }}</td>
-            <td>{{ position.realisedPnl }}</td>
-            <td>{{ position.execCost }}</td>
-            <td>{{ position.currentCost }}</td>
-            <td>{{ position.unrealisedCost }}</td>
-            <td>{{ position.posMargin }}</td>
-            <th scope="col">
-              <button class="btn btn-danger" (click)="onClosePosition(position.symbol)">Close</button>
-            </th>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+      <app-open-positions></app-open-positions>
     </div>
   </div>

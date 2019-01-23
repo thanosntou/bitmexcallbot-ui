@@ -4,7 +4,9 @@ import {Injectable, OnInit} from '@angular/core';
 import {BaseUrl} from './BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AdminService implements OnInit {
   logins: LoginModel[];
 
