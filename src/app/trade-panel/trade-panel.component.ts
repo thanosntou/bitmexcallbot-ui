@@ -42,43 +42,39 @@ export class TradePanelComponent implements OnInit {
 
   activeOrders: OrderModel[];
 
-  exampleSocket: WebSocket;
-  markPriceXBTUSD: number;
-
-
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
               private openPositionsService: OpenPositionsService,
               public symbolService: SymbolService) {
-    this.priceSteps.set(Symbol.XBTUSD, 0.1);
-    this.priceSteps.set(Symbol.ETHUSD, 0.01);
-    this.priceSteps.set(Symbol.ADAXXX, 0.00000001);
-    this.priceSteps.set(Symbol.BCHXXX, 0.0001);
-    this.priceSteps.set(Symbol.EOSXXX, 0.0000001);
-    this.priceSteps.set(Symbol.ETHXXX, 0.00001);
-    this.priceSteps.set(Symbol.LTCXXX, 0.00001);
-    this.priceSteps.set(Symbol.TRXXXX, 0.00000001);
-    this.priceSteps.set(Symbol.XRPXXX, 0.00000001);
+    this.priceSteps.set(Symbol.XBTUSD.valueOf(), 0.1);
+    this.priceSteps.set(Symbol.ETHUSD.valueOf(), 0.01);
+    this.priceSteps.set(Symbol.ADAXXX.valueOf(), 0.00000001);
+    this.priceSteps.set(Symbol.BCHXXX.valueOf(), 0.0001);
+    this.priceSteps.set(Symbol.EOSXXX.valueOf(), 0.0000001);
+    this.priceSteps.set(Symbol.ETHXXX.valueOf(), 0.00001);
+    this.priceSteps.set(Symbol.LTCXXX.valueOf(), 0.00001);
+    this.priceSteps.set(Symbol.TRXXXX.valueOf(), 0.00000001);
+    this.priceSteps.set(Symbol.XRPXXX.valueOf(), 0.00000001);
 
-    this.defValues.set(Symbol.XBTUSD, 3698.0);
-    this.defValues.set(Symbol.ETHUSD, 123.00);
-    this.defValues.set(Symbol.ADAXXX, 0.00001287);
-    this.defValues.set(Symbol.BCHXXX, 0.0362);
-    this.defValues.set(Symbol.EOSXXX, 0.0006878);
-    this.defValues.set(Symbol.ETHXXX, 0.03474);
-    this.defValues.set(Symbol.LTCXXX, 0.00907);
-    this.defValues.set(Symbol.TRXXXX, 0.00000684);
-    this.defValues.set(Symbol.XRPXXX, 0.00009198);
+    this.defValues.set(Symbol.XBTUSD.valueOf(), 3698.0);
+    this.defValues.set(Symbol.ETHUSD.valueOf(), 123.00);
+    this.defValues.set(Symbol.ADAXXX.valueOf(), 0.00001287);
+    this.defValues.set(Symbol.BCHXXX.valueOf(), 0.0362);
+    this.defValues.set(Symbol.EOSXXX.valueOf(), 0.0006878);
+    this.defValues.set(Symbol.ETHXXX.valueOf(), 0.03474);
+    this.defValues.set(Symbol.LTCXXX.valueOf(), 0.00907);
+    this.defValues.set(Symbol.TRXXXX.valueOf(), 0.00000684);
+    this.defValues.set(Symbol.XRPXXX.valueOf(), 0.00009198);
 
-    this.maxLeverages.set(Symbol.XBTUSD, 100);
-    this.maxLeverages.set(Symbol.ETHUSD, 50);
-    this.maxLeverages.set(Symbol.ADAXXX, 20);
-    this.maxLeverages.set(Symbol.BCHXXX, 20);
-    this.maxLeverages.set(Symbol.EOSXXX, 20);
-    this.maxLeverages.set(Symbol.ETHXXX, 50);
-    this.maxLeverages.set(Symbol.LTCXXX, 33.3);
-    this.maxLeverages.set(Symbol.TRXXXX, 20);
-    this.maxLeverages.set(Symbol.XRPXXX, 20);
+    this.maxLeverages.set(Symbol.XBTUSD.valueOf(), 100);
+    this.maxLeverages.set(Symbol.ETHUSD.valueOf(), 50);
+    this.maxLeverages.set(Symbol.ADAXXX.valueOf(), 20);
+    this.maxLeverages.set(Symbol.BCHXXX.valueOf(), 20);
+    this.maxLeverages.set(Symbol.EOSXXX.valueOf(), 20);
+    this.maxLeverages.set(Symbol.ETHXXX.valueOf(), 50);
+    this.maxLeverages.set(Symbol.LTCXXX.valueOf(), 33.3);
+    this.maxLeverages.set(Symbol.TRXXXX.valueOf(), 20);
+    this.maxLeverages.set(Symbol.XRPXXX.valueOf(), 20);
 
     // const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
     // exampleSocket.onopen = function () {
@@ -135,7 +131,9 @@ export class TradePanelComponent implements OnInit {
 
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
-    ).subscribe();
+    ).subscribe(() => {},
+        error => console.log(error),
+      () => this.openPos.fetchOpenPositions());
   }
 
   onPlaceOrder() {
@@ -204,7 +202,7 @@ export class TradePanelComponent implements OnInit {
   }
 
   changeGlobalSymbol(symbol: string) {
-    this.symbolService.symbolGlobal = symbol;
+    this.symbolService.symbolGlobal = Symbol[symbol];
   }
 
   showManualTab(manualTab: string) {
