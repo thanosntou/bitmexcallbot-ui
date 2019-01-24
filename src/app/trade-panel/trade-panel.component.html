@@ -143,9 +143,6 @@
                       <!--STOP LIMIT TAB -->
                       <div class="row" id="StopLimit">
                         <div class="container">
-                          <!--<input type="text" name="symbol" value="${symbol}" hidden />-->
-                          <!--<input type="text" name="execInst" value="Close,LastPrice" hidden />-->
-                          <!--<input type="text" name="ordType" value="StopLimit" hidden />-->
                           <div class="row">
                             <div class="col">
                               <strong>Contract</strong>
@@ -236,59 +233,11 @@
 
       <hr>
 
-      <!--active orders-->
-      <div class="row" style="overflow-x: scroll">
-          <h4> Active Orders </h4>
-          <table class="table table-hover table-sm">
-            <thead class="thead bg-info">
-            <tr>
-              <th scope="col">symbol</th>
-              <th scope="col">Side</th>
-              <th scope="col">Order Status</th>
-              <th scope="col">Order Type</th>
-              <!--<%&#45;&#45;<th scope="col">Order Qty</th>&#45;&#45;%>-->
-              <th scope="col">Price</th>
-              <th scope="col">Stop Price</th>
-              <th scope="col">Transaction Time</th>
-              <th scope="col">
-                <button class="btn btn-danger" (click)="onCancelAll()">Cancel All</button>
-              </th>
-              <!--<th scope="col">-->
-                <!--<%&#45;&#45;<c:if test="${randomActiveOrders.size() > 1}">&#45;&#45;%>-->
-                <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">-->
-                  <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
-                  <!--<input type="submit" class="btn btn-danger" value="Cancel All"/>-->
-                <!--</form:form>-->
-                <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
-            </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let order of activeOrders">
-                <th scope="row"> {{ order.symbol }}</th>
-                <td>{{ order.side }}</td>
-                <td>{{ order.ordStatus }}</td>
-                <td>{{ order.ordType }}</td>
-                <!--<%&#45;&#45;<td>${tempMap['orderQty']}</td>&#45;&#45;%>-->
-                <td>{{ order.price }}</td>
-                <td>{{ order.stopPx }}</td>
-                <td>{{ order.transactTime }}</td>
-                <td>
-                  <button class="btn btn-danger" (click)="onCancelOne(order.orderID)">Cancel</button>
-                </td>
-                <!--<td>-->
-                  <!--<form:form action="${pageContext.request.contextPath}/trade/order/cancel" method="POST">-->
-                    <!--<input type="hidden" name="symbol" value="${symbol}"/>-->
-                    <!--<input type="hidden" name="orderID" value="${tempMap['orderID']}" />-->
-                    <!--<input type="submit" class="btn btn-danger" value="Cancel"/>-->
-                  <!--</form:form>-->
-                <!--</td>-->
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <app-active-orders></app-active-orders>
 
       <hr>
 
       <app-open-positions></app-open-positions>
+
     </div>
   </div>

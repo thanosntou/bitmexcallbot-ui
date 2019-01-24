@@ -7,13 +7,15 @@ import {Symbol} from '../Symbol.enum';
 import {SymbolService} from '../symbol.service';
 import {OpenPositionsComponent} from './open-positions/open-positions.component';
 import {OpenPositionsService} from './open-positions.service';
+import {ActiveOrdersService} from './active-orders.service';
+import {ActiveOrdersComponent} from './active-orders/active-orders.component';
 
 
 @Component({
   selector: 'app-trade-panel',
   templateUrl: './trade-panel.component.html',
   styleUrls: ['./trade-panel.component.css'],
-  providers: [OpenPositionsService]
+  providers: [OpenPositionsService, ActiveOrdersService]
 })
 export class TradePanelComponent implements OnInit {
   @ViewChild('symbol') symbol: ElementRef;
@@ -30,6 +32,7 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
   @ViewChild(OpenPositionsComponent) openPos: OpenPositionsComponent;
+  @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
 
 
   isHidden1 = true;
@@ -45,6 +48,7 @@ export class TradePanelComponent implements OnInit {
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
               private openPositionsService: OpenPositionsService,
+              private activeOrdersService: ActiveOrdersService,
               public symbolService: SymbolService) {
     this.priceSteps.set(Symbol.XBTUSD.valueOf(), 0.1);
     this.priceSteps.set(Symbol.ETHUSD.valueOf(), 0.01);
@@ -131,9 +135,13 @@ export class TradePanelComponent implements OnInit {
 
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
-    ).subscribe(() => {},
-        error => console.log(error),
-      () => this.openPos.fetchOpenPositions());
+    ).subscribe(
+      (data) => console.log(data),
+      error => console.log(error),
+      () => {
+        this.openPos.fetchOpenPositions();
+        this.activeOrdersComp.fetchActiveOrders();
+      });
   }
 
   onPlaceOrder() {
@@ -170,11 +178,15 @@ export class TradePanelComponent implements OnInit {
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<void>(
+    this.http.post<any>(
       BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
-    ).subscribe((data) => console.log(data),
-        error => console.log(error),
-      () => this.openPos.fetchOpenPositions());
+    ).subscribe(
+      (data) => console.log(data),
+      error => console.log(error),
+      () => {
+        this.openPos.fetchOpenPositions();
+        this.activeOrdersComp.fetchActiveOrders();
+    });
   }
 
   onCancelOne(orderId: number) {

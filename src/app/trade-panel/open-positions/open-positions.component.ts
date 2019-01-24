@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from '../../authentication.service';
 import {OpenPositionsService} from '../open-positions.service';
 
@@ -10,16 +9,15 @@ import {OpenPositionsService} from '../open-positions.service';
 })
 export class OpenPositionsComponent implements OnInit {
 
-  constructor(private http: HttpClient,
-              public authService: AuthenticationService,
+  constructor(public authService: AuthenticationService,
               public openPositionService: OpenPositionsService) {}
 
   ngOnInit() {
-    this.openPositionService.orderPlaced.subscribe(
-      () => {
-        console.log('event caught. in service');
-        this.openPositionService.fetchOpenOrders();
-      });
+    // this.openPositionService.orderPlaced.subscribe(
+    //   () => {
+    //     console.log('event caught. in service');
+    //     this.openPositionService.fetchOpenOrders();
+    //   });
 
     this.openPositionService.fetchOpenOrders();
 

@@ -2,11 +2,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {PositionModel} from '../position.model';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
-import {EventEmitter, Injectable, OnInit} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 @Injectable()
 export class OpenPositionsService implements OnInit {
-  orderPlaced = new EventEmitter<void>();
+  webSocket: WebSocket;
   openPositions: PositionModel[];
   positionXBTUSD: PositionModel;
   positionETHUSD: PositionModel;
@@ -28,9 +28,25 @@ export class OpenPositionsService implements OnInit {
   openXRPH19 = false;
 
   constructor(private http: HttpClient, public authService: AuthenticationService) {
+    const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
+    exampleSocket.onopen = function () {
+      exampleSocket.send(
+        '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
+        '1600883067, ' +
+        '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
+      exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
+      // exampleSocket.send('{"op": "subscribe", "args": ["position:XBTUSD"]}');
+    };
+
+    this.webSocket = exampleSocket;
+
+    this.webSocket.onmessage = event => {
+      this.fetchOpenOrders();
+    };
   }
 
   ngOnInit() {
+
   }
 
   fetchOpenOrders() {
