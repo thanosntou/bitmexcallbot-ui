@@ -3,9 +3,11 @@ import {PositionModel} from '../position.model';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Injectable, OnInit} from '@angular/core';
+import {Symbol} from '../Symbol.enum';
 
 @Injectable()
 export class OpenPositionsService implements OnInit {
+  posMap = new Map<string, PositionModel>();
   webSocket: WebSocket;
   openPositions: PositionModel[];
   positionXBTUSD: PositionModel;
@@ -17,6 +19,7 @@ export class OpenPositionsService implements OnInit {
   positionLTCH19: PositionModel;
   positionTRXH19: PositionModel;
   positionXRPH19: PositionModel;
+  // temppos: PositionModel;
   openXBTUSD = false;
   openETHUSD = false;
   openADAH19 = false;
@@ -28,6 +31,9 @@ export class OpenPositionsService implements OnInit {
   openXRPH19 = false;
 
   constructor(private http: HttpClient, public authService: AuthenticationService) {
+    this.posMap = new Map<string, PositionModel>();
+    this.posMap.set(Symbol.XBTUSD.valueOf(), this.positionXBTUSD);
+
     const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
     exampleSocket.onopen = function () {
       exampleSocket.send(
@@ -53,7 +59,7 @@ export class OpenPositionsService implements OnInit {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/json'
-      })};
+    })};
 
     this.http.get<PositionModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions
@@ -110,39 +116,39 @@ export class OpenPositionsService implements OnInit {
     ).subscribe(
       () => {
         if (symbol === 'XBTUSD') {
-              this.positionXBTUSD = undefined;
+              this.positionXBTUSD = null;
               this.openXBTUSD = false;
             }
             if (symbol === 'ETHUSD') {
-              this.positionETHUSD = undefined;
+              this.positionETHUSD = null;
               this.openETHUSD = false;
             }
             if (symbol === 'ADAH19') {
-              this.positionADAH19 = undefined;
+              this.positionADAH19 = null;
               this.openADAH19 = false;
             }
             if (symbol === 'BCHH19') {
-              this.positionBCHH19 = undefined;
+              this.positionBCHH19 = null;
               this.openBCHH19 = false;
             }
             if (symbol === 'EOSH19') {
-              this.positionEOSH19 = undefined;
+              this.positionEOSH19 = null;
               this.openEOSH19 = false;
             }
             if (symbol === 'ETHH19') {
-              this.positionETHH19 = undefined;
+              this.positionETHH19 = null;
               this.openETHH19 = false;
             }
             if (symbol === 'LTCH19') {
-              this.positionLTCH19 = undefined;
+              this.positionLTCH19 = null;
               this.openLTCH19 = false;
             }
             if (symbol === 'TRXH19') {
-              this.positionTRXH19 = undefined;
+              this.positionTRXH19 = null;
               this.openTRXH19 = false;
             }
             if (symbol === 'XRPH19') {
-              this.positionXRPH19 = undefined;
+              this.positionXRPH19 = null;
               this.openXRPH19 = false;
             }
         },

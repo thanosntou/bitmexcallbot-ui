@@ -139,7 +139,7 @@ export class TradePanelComponent implements OnInit {
       (data) => console.log(data),
       error => console.log(error),
       () => {
-        this.openPos.fetchOpenPositions();
+        // this.openPos.fetchOpenPositions();
         this.activeOrdersComp.fetchActiveOrders();
       });
   }
@@ -184,8 +184,8 @@ export class TradePanelComponent implements OnInit {
       (data) => console.log(data),
       error => console.log(error),
       () => {
-        this.openPos.fetchOpenPositions();
         this.activeOrdersComp.fetchActiveOrders();
+        // this.openPos.fetchOpenPositions();
     });
   }
 
