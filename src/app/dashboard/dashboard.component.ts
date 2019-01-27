@@ -11,9 +11,9 @@ import {AuthenticationService} from '../authentication.service';
 export class DashboardComponent implements OnInit {
   data: {
     client: string,
-    walletBalance: string,
-    activeBalance: string,
-    availableMargin: string,
+    walletBalance: number,
+    activeBalance: number,
+    availableMargin: number,
     earned: number
   };
 
@@ -25,13 +25,18 @@ export class DashboardComponent implements OnInit {
         'Content-Type': 'application/json'
     })};
 
-    this.http.get<{client: string, walletBalance: string, activeBalance: string, availableMargin: string}>(
-      BaseUrl.BASEURL + '/api/v1/dashboard', httpOptions
+    this.http.get<{
+      client: string,
+      walletBalance: number,
+      activeBalance: number,
+      availableMargin: number,
+      earned: number
+    }>(BaseUrl.BASEURL + '/api/v1/dashboard', httpOptions
     ).subscribe((data: {
       client: string,
-      walletBalance: string,
-      activeBalance: string,
-      availableMargin: string,
+      walletBalance: number,
+      activeBalance: number,
+      availableMargin: number,
       earned: number
     }) => {
       this.data = data;
