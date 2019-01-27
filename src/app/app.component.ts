@@ -8,11 +8,6 @@ import {AuthenticationService} from './authentication.service';
 })
 export class AppComponent {
   title = 'bitmexcallbot-ui';
-  activeTab = 'trade';
 
   constructor(public authService: AuthenticationService) {}
-
-  onNavigate(tab: string) {
-    this.activeTab = tab;
-  }
 }

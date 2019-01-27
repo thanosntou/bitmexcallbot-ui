@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     const httpOptions = {headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
+    })};
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/new', body, httpOptions
     ).subscribe((data: UserModel) =>

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AccessTokenModel} from './access-token.model';
 import {BaseUrl} from './BaseUrl.enum';
 import {UserDetailsModel} from './user-details.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,14 @@ export class AuthenticationService {
   bearerToken: string;
   userDetails: UserDetailsModel;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const at = localStorage.getItem('accessToken');
+    if (at !== null) {
+      this.accessToken = <AccessTokenModel> JSON.parse(localStorage.getItem('accessToken'));
+      localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
+      this.authenticate();
+    }
+  }
 
   getAndSetAccessToken(username: string, password: string) {
     const httpOptions = {
@@ -36,6 +44,9 @@ export class AuthenticationService {
       localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
 
       this.authenticate();
+
+      this.router.navigate(['/trade']);
+
     }, error => console.log(error));
 
   }

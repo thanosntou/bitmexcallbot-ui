@@ -9,6 +9,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,14 +19,14 @@ import {AuthenticationService} from '../authentication.service';
 export class NavbarComponent implements OnInit {
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
-  activeTab = 'trade';
   isAdmin: boolean;
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
   faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
 
-  constructor(public authService: AuthenticationService) { }
+  constructor(private router: Router,
+              public authService: AuthenticationService) { }
 
   ngOnInit() {
     this.authService.userDetails.authorities.forEach( (auth) => {
@@ -36,14 +37,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  onSelect(tab: string) {
-    this.tabSelected.emit(tab);
-    this.activeTab = tab;
-  }
-
   onSignOut() {
     localStorage.clear();
-    this.userSignedOut.emit({ signedOut: true });
-    this.authService.userDetails = undefined;
+    // this.userSignedOut.emit({ signedOut: true });
+    this.authService.userDetails = null;
+    this.router.navigate(['/']);
   }
 }

@@ -1,19 +1,11 @@
 <div class="container-fluid">
+
   <div class="row" *ngIf="authService.userDetails">
     <div class="col-md-2" id="navbar">
-      <app-navbar
-        (tabSelected)="onNavigate($event)" (userSignedOut)="authService.userDetails = undefined"></app-navbar>
+      <app-navbar></app-navbar>
     </div>
-
     <div class="col-md-10">
-      <app-dashboard *ngIf="activeTab == 'dashboard'"></app-dashboard>
-      <app-follow-panel *ngIf="activeTab == 'follow'"></app-follow-panel>
-      <app-followers-panel *ngIf="activeTab == 'followers'"></app-followers-panel>
-      <app-tx *ngIf="activeTab == 'tx'"></app-tx>
-      <app-trade-panel *ngIf="activeTab == 'trade'" id="trade-panel"></app-trade-panel>
-      <app-admin-panel *ngIf="activeTab == 'admin'"></app-admin-panel>
-      <!--<app-wallet *ngIf="activeTab == 'wallet'"></app-wallet>-->
-      <app-settings *ngIf="activeTab == 'settings'"></app-settings>
+      <router-outlet></router-outlet>
     </div>
   </div>
 

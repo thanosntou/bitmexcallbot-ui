@@ -1,6 +1,223 @@
-<div class="card">
+<div class="card" id="main-card">
   <div class="card-body">
     <h3 class="card-title">Dashboard</h3>
+
+
+    <div class="col-12">
+      <!--<%&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; dashboard -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;%>-->
+      <!--<div class="row" style="margin: 20px 0px">-->
+        <!--<h2>Account Dashboard <a href="${pageContext.request.contextPath}/dashboard"><i class="fas fa-sync" class="button"></i></a></h2>-->
+      <!--</div>-->
+      <br>
+      <br>
+      <h4>Current client: {{ data.client }}</h4>
+      <br>
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 25rem;">
+            <ul class="list-group list-group-flush">
+
+              <li class="list-group-item">Balance: <strong>{{ 0 / 100000000 }} BTC</strong></li>
+              <li class="list-group-item">Earned: <strong>{{ data.earned / 100000000 }} BTC</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 25rem;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Bitmex Balance: <strong>{{ data.walletBalance / 100000000 }} BTC</strong></li>
+              <li class="list-group-item">Active Balance for Orders: <strong>{{ data.availableMargin / 100000000 }} BTC</strong></li>
+              <li class="list-group-item">Active on orders: <strong>{{ data.activeBalance }} ({{ data.activeBalance / 100000000 }} BTC)</strong></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <h3>-- Active Orders --</h3>
+      </div>
+      <div class="row">
+        <table class="table table-hover table-sm">
+          <thead class="thead bg-info">
+          <tr>
+            <th scope="col">symbol</th>
+            <th scope="col">Side</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Order Type</th>
+            <th scope="col">Order Qty</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stop Price</th>
+            <th scope="col">Transaction Time</th>
+            <!--<%&#45;&#45;<th scope="col">&#45;&#45;%>-->
+            <!--<%&#45;&#45;<c:if test="${activeOrders.size() > 1}">&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;&lt;%&ndash;<input type="hidden" name="symbol" value="${symbol}"/>&ndash;%&gt;&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Cancel All"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+              <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
+            <!--<%&#45;&#45;</th>&#45;&#45;%>-->
+          </tr>
+          </thead>
+          <tbody>
+          <!--<c:forEach var="tempMap" items="${activeOrders}">-->
+            <tr>
+              <!--<th scope="row">${tempMap['symbol']}</th>-->
+              <!--<td>${tempMap['side']}</td>-->
+              <!--<td>${tempMap['ordStatus']}</td>-->
+              <!--<td>${tempMap['ordType']}</td>-->
+              <!--<td>${tempMap['orderQty']}</td>-->
+              <!--<td>${tempMap['price']}</td>-->
+              <!--<td>${tempMap['stopPx']}</td>-->
+              <!--<td>${tempMap['transactTime']}</td>-->
+              <!--<%&#45;&#45;<td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/order/cancel" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;&lt;%&ndash;<input type="hidden" name="symbol" value="${symbol}"/>&ndash;%&gt;&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="hidden" name="orderID" value="${tempMap['orderID']}" />&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Cancel"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+              <!--<%&#45;&#45;</td>&#45;&#45;%>-->
+            </tr>
+          <!--</c:forEach>-->
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <h3>-- Open Positions --</h3>
+      </div>
+      <div class="row" id="openPos">
+        <table class="table table-hover table-sm">
+          <thead class="thead bg-info">
+          <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Size</th>
+            <th scope="col">Entry Price</th>
+            <th scope="col">Mark Price</th>
+            <th scope="col">Liq. Price</th>
+            <th scope="col">Margin</th>
+            <th scope="col">Unrealised Pnl</th>
+            <th scope="col">Roe%</th>
+            <th scope="col">Realised Pnl</th>
+            <!--<%&#45;&#45;<th scope="col">commission</th>&#45;&#45;%>-->
+            <th scope="col">Leverage</th>
+            <th scope="col">isOpen</th>
+            <!--<%&#45;&#45;<th scope="col">rebalancedPnl</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">prevRealisedPnl</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">prevUnrealisedPnl</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">openingQty</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">openingCost</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">execQty</th>&#45;&#45;%>-->
+            <th scope="col">Exec Cost</th>
+            <th scope="col">Current Cost</th>
+            <!--<%&#45;&#45;<th scope="col">currentComm</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">realisedCost</th>&#45;&#45;%>-->
+            <th scope="col">Unrealised Cost</th>
+
+            <!--<%&#45;&#45;<th scope="col">grossOpenCost</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">grossOpenPremium</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">grossExecCost</th>&#45;&#45;%>-->
+            <th scope="col">Pos Margin</th>
+            <!--<%&#45;&#45;<th scope="col">unrealisedGrossPnl</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">unrealisedTax</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">unrealisedPnlPcnt</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">simpleQty</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">simpleCost</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">avgCostPrice</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">breakEvenPrice</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">marginCallPrice</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">timestamp</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">lastPrice</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">lastValue</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Id<a href="${sortByIdLink}"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByIdLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Product Name<a href="${pageContext.request.contextPath}/management-panel"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByNameLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Category<a href="${sortByCategoryLink}"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByCategoryLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Shop Price<a href="${sortByShopPriceLink}"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByShopPriceLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Buy Price<a href="${sortByBuyPriceLink}"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByBuyPriceLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Avail. Qty<a href="${sortByQtyLink}"><i class="fas fa-chevron-up"></i></a><a href="${sortDescByQtyLink}"><i class="fas fa-chevron-down"></i></a></th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<security:authorize access="hasRole('ADMIN')">&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">Action</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;</security:authorize>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">&#45;&#45;%>-->
+            <!--<%&#45;&#45;<c:if test="${activeOrders.size() > 1}">&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;&lt;%&ndash;<input type="hidden" value="${tempMap['orderID']}" name="orderID"/>&ndash;%&gt;&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Cancel All"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+              <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
+            <!--<%&#45;&#45;</th>&#45;&#45;%>-->
+            <!--<%&#45;&#45;<th scope="col">&#45;&#45;%>-->
+            <!--<%&#45;&#45;<c:if test="${activeOrders.size() > 1}">&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/order/cancelAll" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;&lt;%&ndash;<input type="hidden" value="${tempMap['orderID']}" name="orderID"/>&ndash;%&gt;&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Cancel All"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+              <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
+            <!--<%&#45;&#45;</th>&#45;&#45;%>-->
+          </tr>
+          </thead>
+          <tbody>
+          <!--<c:forEach var="tempMap" items="${openPositions}">-->
+            <!--<%&#45;&#45;<c:if test="${tempMap['isOpen'] == 'true'}" >&#45;&#45;%>-->
+            <tr>
+              <!--<th scope="row">${tempMap['symbol']}</th>-->
+              <!--<td>${tempMap['currentQty']}</td>-->
+              <!--<td>${tempMap['avgEntryPrice']}</td>-->
+              <!--<td id="markPriceTd"><span id="markPriceSpan">0</span></td>-->
+              <!--<td>${tempMap['liquidationPrice']}</td>-->
+              <!--<td id="maintMarginTd"><span id="maintMarginSpan">0</span></td>-->
+              <!--<td>${tempMap['unrealisedPnl']}</td>-->
+              <!--<td>${tempMap['unrealisedRoePcnt'] * 100}%</td>-->
+              <!--<td>${tempMap['realisedPnl']}</td>-->
+              <!--<%&#45;&#45;<td>${tempMap['commission']}</td>&#45;&#45;%>-->
+              <!--<td>${tempMap['leverage']}</td>-->
+              <!--<td>${tempMap['isOpen']}</td>-->
+              <!--<%&#45;&#45;<td>${tempMap['rebalancedPnl']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['prevRealisedPnl']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['prevUnrealisedPnl']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['openingQty']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['openingCost']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['execQty']}</td>&#45;&#45;%>-->
+              <!--<td>${tempMap['execCost']}</td>-->
+              <!--<td>${tempMap['currentCost']}</td>-->
+              <!--<%&#45;&#45;<td>${tempMap['currentComm']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['realisedCost']}</td>&#45;&#45;%>-->
+              <!--<td>${tempMap['unrealisedCost']}</td>-->
+              <!--<%&#45;&#45;<td>${tempMap['grossOpenCost']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['grossOpenPremium']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['grossExecCost']}</td>&#45;&#45;%>-->
+              <!--<td>${tempMap['posMargin']}</td>-->
+              <!--<%&#45;&#45;<td>${tempMap['unrealisedGrossPnl']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['unrealisedTax']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['unrealisedPnlPcnt']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['simpleQty']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['simpleCost']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['avgCostPrice']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['breakEvenPrice']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['marginCallPrice']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['timestamp']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['lastPrice']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>${tempMap['lastValue']}</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/position/close" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="hidden" name="symbol" value="${symbol}"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="number" name="limitPrice"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Close"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+
+              <!--<%&#45;&#45;</td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<td>&#45;&#45;%>-->
+              <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/trade/position/market" method="POST">&#45;&#45;%>-->
+                <!--<%&#45;&#45;&lt;%&ndash;<input type="hidden" name="symbol" value="${symbol}"/>&ndash;%&gt;&#45;&#45;%>-->
+                <!--<%&#45;&#45;<input type="submit" class="btn btn-danger" value="Market"/>&#45;&#45;%>-->
+                <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+              <!--<%&#45;&#45;</td>&#45;&#45;%>-->
+            </tr>
+            <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
+          <!--</c:forEach>-->
+          </tbody>
+        </table>
+      </div>
+    </div>
 
   </div>
 </div>

@@ -23,7 +23,20 @@ import { LoginComponent } from './login/login.component';
 import {OpenPositionDirective} from './trade-panel/open-position.directive';
 import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
 import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
-import {OpenPositionsService} from './trade-panel/open-positions.service';
+import {SettingItemDirective} from './setting-item.directive';
+import {RouterModule, Routes} from '@angular/router';
+
+const appRoutes: Routes = [
+  // { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'follow', component: FollowPanelComponent },
+  { path: 'followers', component: FollowersPanelComponent },
+  { path: 'trade', component: TradePanelComponent },
+  { path: 'tx', component: TxComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'admin', component: AdminPanelComponent }
+];
 
 @NgModule({
   declarations: [
@@ -42,6 +55,7 @@ import {OpenPositionsService} from './trade-panel/open-positions.service';
     NewAccountComponent,
     LoginComponent,
     OpenPositionDirective,
+    SettingItemDirective,
     ActiveOrdersComponent,
     OpenPositionsComponent,
   ],
@@ -49,7 +63,8 @@ import {OpenPositionsService} from './trade-panel/open-positions.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [AdminService, UserService],
   bootstrap: [AppComponent]
