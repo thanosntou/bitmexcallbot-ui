@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
     walletBalance: string,
     activeBalance: string,
     availableMargin: string,
-    earned: string
+    earned: number
   };
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
       walletBalance: string,
       activeBalance: string,
       availableMargin: string,
-      earned: string
+      earned: number
     }) => {
       this.data = data;
     }, error => error
