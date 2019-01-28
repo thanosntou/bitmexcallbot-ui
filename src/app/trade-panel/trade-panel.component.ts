@@ -31,7 +31,7 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
 
-  @ViewChild(OpenPositionsComponent) openPos: OpenPositionsComponent;
+  @ViewChild(OpenPositionsComponent) openPositionsComp: OpenPositionsComponent;
   @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
 
 
@@ -139,8 +139,8 @@ export class TradePanelComponent implements OnInit {
       (data) => console.log(data),
       error => console.log(error),
       () => {
-        // this.openPos.fetchOpenPositions();
         this.activeOrdersComp.fetchActiveOrders();
+        this.openPositionsComp.fetchOpenPositions();
       });
   }
 
@@ -185,7 +185,7 @@ export class TradePanelComponent implements OnInit {
       error => console.log(error),
       () => {
         this.activeOrdersComp.fetchActiveOrders();
-        // this.openPos.fetchOpenPositions();
+        this.openPositionsComp.fetchOpenPositions();
     });
   }
 

@@ -1,5 +1,6 @@
 export class PositionModel {
   symbol: string;
+  currentQty: number;
   avgEntryPrice: number;
   markPrice: number;
   maintMargin: number;
@@ -12,7 +13,7 @@ export class PositionModel {
   posMargin: number;
 
 
-  constructor(symbol: string, avgEntryPrice: number, markPrice: number, maintMargin: number,
+  constructor(symbol: string, currentQty: number, avgEntryPrice: number, markPrice: number, maintMargin: number,
               unrealisedPnl: number, unrealisedRoePcnt: number, realisedPnl: number, execCost: number,
               currentCost: number, unrealisedCost: number, posMargin: number) {
     this.symbol = symbol;

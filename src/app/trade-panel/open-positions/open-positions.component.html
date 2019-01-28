@@ -14,6 +14,9 @@
       <th scope="col">Current Cost</th>
       <th scope="col">Unrealised Cost</th>
       <th scope="col">Pos Margin</th>
+      <th scope="col">Qty(%)</th>
+      <th scope="col">Price</th>
+      <th scope="col"> </th>
       <th scope="col"> </th>
     </tr>
     </thead>
@@ -36,9 +39,33 @@
       <td>{{ openPositionService.positionXBTUSD.unrealisedCost }}</td>
       <td>{{ openPositionService.positionXBTUSD.posMargin }}</td>
       <th scope="col">
-      <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionXBTUSD.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        ><output name="ageOutputName" id="ageOutputId"></output>
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionXBTUSD)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionXBTUSD)">Market</button>
       </th>
     </tr>
+
     <tr *ngIf="openPositionService.openETHUSD">
       <th scope="row"> {{ openPositionService.positionETHUSD.symbol }}</th>
       <td>{{ openPositionService.positionETHUSD.avgEntryPrice }}</td>

@@ -4,6 +4,7 @@ import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Injectable, OnInit} from '@angular/core';
 import {Symbol} from '../Symbol.enum';
+import {concat} from 'rxjs';
 
 @Injectable()
 export class OpenPositionsService implements OnInit {
@@ -19,7 +20,6 @@ export class OpenPositionsService implements OnInit {
   positionLTCH19: PositionModel;
   positionTRXH19: PositionModel;
   positionXRPH19: PositionModel;
-  // temppos: PositionModel;
   openXBTUSD = false;
   openETHUSD = false;
   openADAH19 = false;
@@ -46,16 +46,15 @@ export class OpenPositionsService implements OnInit {
 
     this.webSocket = exampleSocket;
 
-    this.webSocket.onmessage = event => {
-      this.fetchOpenOrders();
-    };
+    // this.webSocket.onmessage = event => {
+    //   this.fetchOpenOrders();
+    // };
   }
 
   ngOnInit() {
-
   }
 
-  fetchOpenOrders() {
+  fetchOpenPositions() {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/json'
@@ -65,16 +64,26 @@ export class OpenPositionsService implements OnInit {
       BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions
     ).subscribe((data: PositionModel[]) => {
       this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol));
+        this.openXBTUSD = false;
+        this.openETHUSD = false;
+        this.openADAH19 = false;
+        this.openBCHH19 = false;
+        this.openEOSH19 = false;
+        this.openETHH19 = false;
+        this.openLTCH19 = false;
+        this.openTRXH19 = false;
+        this.openXRPH19 = false;
     }, error => error,
       () => this.openPositions.forEach(i => {
-      if (i.symbol === 'XBTUSD') {
-        this.positionXBTUSD = i;
-        this.openXBTUSD = true;
-      }
-      if (i.symbol === 'ETHUSD') {
-        this.positionETHUSD = i;
-        this.openETHUSD = true;
-      }
+
+        if (i.symbol === 'XBTUSD') {
+          this.positionXBTUSD = i;
+          this.openXBTUSD = true;
+        }
+        if (i.symbol === 'ETHUSD') {
+          this.positionETHUSD = i;
+          this.openETHUSD = true;
+        }
       if (i.symbol === 'ADAH19') {
         this.positionADAH19 = i;
         this.openADAH19 = true;
@@ -106,11 +115,33 @@ export class OpenPositionsService implements OnInit {
     }));
   }
 
-  onClosePosition(symbol: string) {
+  marketPosition(symbol: string, side: string, orderType: string, qtyPerc: number, price: number) {
     const httpOptions = {headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
-        'Content-Type': 'application/json',
-      })};
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+
+    const body = 'symbol=' + symbol +
+      '&orderType=' + orderType +
+      '&side=' + side +
+      '&percentage=' + qtyPerc +
+      '&price=' + price;
+
+    this.http.post<void>(
+      BaseUrl.BASEURL + '/api/v1/trade/position', body, httpOptions
+    ).subscribe(
+      () => {
+        this.fetchOpenPositions();
+      },
+      error => console.log(error));
+  }
+
+  onCloseMarketPosition(symbol: string) {
+    const httpOptions = {headers: new HttpHeaders({
+        'Authorization': this.authService.bearerToken,
+        'Content-Type': 'application/json'
+    })};
+
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
     ).subscribe(

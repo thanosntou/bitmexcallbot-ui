@@ -15,7 +15,16 @@
         <tbody>
         <tr *ngFor="let follower of followers">
           <th scope="row">{{ follower.id }}</th>
-          <td href="">{{ follower.username }}</td>
+          <td>
+            <a
+              [routerLink]="[isAdmin ? '/followers/' : 'dsd']"
+              role="button"
+              >
+              <!--[attr.href]="isAdmin ? 'erf' : null"-->
+            <!--&gt;-->
+              {{ follower.username }}
+            </a>
+          </td>
           <td>{{ follower.email }}</td>
           <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
             <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>

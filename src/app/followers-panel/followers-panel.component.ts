@@ -16,7 +16,8 @@ export class FollowersPanelComponent implements OnInit {
   faMinus = faMinus;
   followers: UserModel[];
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) { }
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService) { }
 
   ngOnInit() {
     this.authService.userDetails.authorities.forEach( (auth) => {
@@ -31,7 +32,7 @@ export class FollowersPanelComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
-   this.http.get<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions)
+    this.http.get<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions)
      .subscribe((data: UserModel[]) => this.followers = data);
   }
 
