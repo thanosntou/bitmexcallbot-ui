@@ -47,7 +47,7 @@
           value=""
           class="form-control"
           #qtyPercentageInput
-        ><output name="ageOutputName" id="ageOutputId"></output>
+        >
       </th>
       <th scope="col">
         <input
@@ -79,7 +79,30 @@
       <td>{{ openPositionService.positionETHUSD.unrealisedCost }}</td>
       <td>{{ openPositionService.positionETHUSD.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionETHUSD.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionETHUSD)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionETHUSD)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openADAH19">
@@ -95,7 +118,30 @@
       <td>{{ openPositionService.positionADAH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionADAH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionADAH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionADAH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionADAH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openBCHH19">
@@ -111,7 +157,30 @@
       <td>{{ openPositionService.positionBCHH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionBCHH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionBCHH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionBCHH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionBCHH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openEOSH19">
@@ -127,7 +196,30 @@
       <td>{{ openPositionService.positionEOSH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionEOSH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionEOSH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionEOSH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionEOSH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openETHH19">
@@ -143,7 +235,30 @@
       <td>{{ openPositionService.positionETHH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionETHH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionETHH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionETHH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionETHH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openLTCH19">
@@ -159,7 +274,30 @@
       <td>{{ openPositionService.positionLTCH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionLTCH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionLTCH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionLTCH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionLTCH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openTRXH19">
@@ -175,7 +313,30 @@
       <td>{{ openPositionService.positionTRXH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionTRXH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionTRXH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionTRXH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionTRXH19)">Market</button>
       </th>
     </tr>
     <tr *ngIf="openPositionService.openXRPH19">
@@ -191,7 +352,30 @@
       <td>{{ openPositionService.positionXRPH19.unrealisedCost }}</td>
       <td>{{ openPositionService.positionXRPH19.posMargin }}</td>
       <th scope="col">
-        <button class="btn btn-danger" (click)="onClosePosition(openPositionService.positionXRPH19.symbol)">Close</button>
+        <input
+          type="number"
+          min=""
+          max=""
+          step=""
+          value=""
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        <input
+          type="number"
+          step=""
+          value=""
+          class="form-control"
+          #priceInput
+        >
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onMarketPosition(openPositionService.positionXRPH19)">Close</button>
+      </th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="onCloseMarketPosition(openPositionService.positionXRPH19)">Market</button>
       </th>
     </tr>
     </tbody>
