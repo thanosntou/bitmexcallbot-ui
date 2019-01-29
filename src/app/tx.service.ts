@@ -17,6 +17,9 @@ export class TxService {
   }
 
   fetchUserTx(user: UserModel) {
+    this.tx = null;
+    this.txUser = null;
+
     const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,

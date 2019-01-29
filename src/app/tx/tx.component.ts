@@ -14,8 +14,6 @@ export class TxComponent implements OnInit {
   constructor(public txService: TxService) { }
 
   ngOnInit() {
-    this.txService.tx = null;
-    this.txService.txUser = null;
     this.txService.fetchUserTx(null);
   }
 
