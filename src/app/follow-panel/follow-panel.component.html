@@ -62,39 +62,23 @@
               </div>
           <br>
           <div class="card-deck">
-
                   <div class="card" style="max-width: 16rem; min-width: 16rem; margin-bottom: 20px">
-
-
-                    <div class="card-body row">
-                      <div class="col-sm-6">
-                        <img class="card-img-top" src="${pageContext.request.contextPath}/images/t1.jpg" alt="Card image cap">
-                      </div>
-                      <div class="col-sm-6">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text">The best trader in da hood</p>
-                      </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Profit last week</li>
-                      <li class="list-group-item">Followed by</li>
-                    </ul>
                     <div class="card-body">
-                      <!--<form:form action="${pageContext.request.contextPath}/user/link" method="POST">-->
-                        <!--<input type="hidden" value="${temp.id}" name="traderId"/>-->
-                        <!--<c:if test="${empty personalTrader}">-->
-                          <!--<input type="submit" class="btn btn-outline-primary" value="Copy"/>-->
-                        <!--</c:if>-->
-                      <!--</form:form>-->
-
-                      <!--<%&#45;&#45;<form:form action="${pageContext.request.contextPath}/user/unlink" method="POST">&#45;&#45;%>-->
-                      <!--<%&#45;&#45;<c:if test="${not empty personalTrader}">&#45;&#45;%>-->
-                        <!--<%&#45;&#45;<input type="submit" class="btn btn-outline-primary" value="Copy"/>&#45;&#45;%>-->
-                        <!--<%&#45;&#45;</c:if>&#45;&#45;%>-->
-                      <!--<%&#45;&#45;</form:form>&#45;&#45;%>-->
+                      <div class="row" *ngFor="let trader of activeTraders">
+                        <div class="col-sm-6">
+                          <img class="card-img-top" src="" alt="Card image cap">
+                        </div>
+                        <div class="col-sm-6">
+                          <h5 class="card-title"></h5>
+                          <p class="card-text">{{ trader.username }}</p>
+                        </div>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Profit last week</li>
+                        <li class="list-group-item">Followed by</li>
+                      </ul>
                     </div>
                   </div>
-                <!--</c:forEach>-->
               </div>
             </div>
           </div>

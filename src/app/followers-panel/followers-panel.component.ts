@@ -4,6 +4,7 @@ import {faCheckCircle, faMinus} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
+import {TxService} from '../tx.service';
 
 @Component({
   selector: 'app-followers-panel',
@@ -17,7 +18,8 @@ export class FollowersPanelComponent implements OnInit {
   followers: UserModel[];
 
   constructor(private http: HttpClient,
-              public authService: AuthenticationService) { }
+              public authService: AuthenticationService,
+              private txService: TxService) { }
 
   ngOnInit() {
     this.authService.userDetails.authorities.forEach( (auth) => {
@@ -57,5 +59,9 @@ export class FollowersPanelComponent implements OnInit {
       .subscribe((data: UserModel) =>
         this.followers.find(follower => follower.id === id).enabled = data.enabled
       );
+  }
+
+  onShowTxOf(follower: UserModel) {
+    this.txService.fetchUserTx(follower);
   }
 }

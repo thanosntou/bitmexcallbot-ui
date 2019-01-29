@@ -12,6 +12,7 @@ import {SymbolService} from '../symbol.service';
 })
 export class FollowPanelComponent implements OnInit {
   personalTrader: UserModel;
+  activeTraders: UserModel[];
 
   constructor(private http: HttpClient,
               private authService: AuthenticationService,
@@ -22,13 +23,23 @@ export class FollowPanelComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        // 'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-    const param = 'symbol=' + this.symbolService.symbolGlobal;
 
-    this.http.delete<void>(BaseUrl.BASEURL + '/api/v1/trade/position?' + param, httpOptions
-    ).subscribe(() => error => console.log(JSON.stringify(error.json())));
+    this.http.get<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/personal?', httpOptions
+    ).subscribe(
+      (data: UserModel) => this.personalTrader = data,
+      error => console.log(JSON.stringify(error.json()))
+    );
+
+    this.http.get<UserModel[]>(
+      BaseUrl.BASEURL + '/api/v1/trader', httpOptions
+    ).subscribe(
+      (data: UserModel[]) => this.activeTraders = data,
+      error => console.log(JSON.stringify(error.json()))
+    );
   }
 
 }

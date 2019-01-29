@@ -33,6 +33,14 @@ export class OpenPositionsService implements OnInit {
   constructor(private http: HttpClient, public authService: AuthenticationService) {
     this.posMap = new Map<string, PositionModel>();
     this.posMap.set(Symbol.XBTUSD.valueOf(), this.positionXBTUSD);
+    this.posMap.set(Symbol.XBTUSD.valueOf(), this.positionETHUSD);
+    this.posMap.set(Symbol.ADAXXX.valueOf(), this.positionADAH19);
+    this.posMap.set(Symbol.BCHXXX.valueOf(), this.positionBCHH19);
+    this.posMap.set(Symbol.EOSXXX.valueOf(), this.positionEOSH19);
+    this.posMap.set(Symbol.ETHXXX.valueOf(), this.positionETHH19);
+    this.posMap.set(Symbol.LTCXXX.valueOf(), this.positionLTCH19);
+    this.posMap.set(Symbol.TRXXXX.valueOf(), this.positionTRXH19);
+    this.posMap.set(Symbol.XRPXXX.valueOf(), this.positionXRPH19);
 
     const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
     exampleSocket.onopen = function () {
@@ -47,7 +55,6 @@ export class OpenPositionsService implements OnInit {
     this.webSocket = exampleSocket;
 
     // this.webSocket.onmessage = event => {
-    //   this.fetchOpenOrders();
     // };
   }
 

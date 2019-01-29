@@ -66,7 +66,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AdminService, UserService],
+  // providers: [AdminService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

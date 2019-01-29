@@ -17,7 +17,8 @@
           <th scope="row">{{ follower.id }}</th>
           <td>
             <a
-              [routerLink]="[isAdmin ? '/followers/' : 'dsd']"
+              (click)="onShowTxOf(follower)"
+              [routerLink]="[isAdmin ? '/tx' : '']"
               role="button"
               >
               <!--[attr.href]="isAdmin ? 'erf' : null"-->
