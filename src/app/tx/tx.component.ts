@@ -11,9 +11,11 @@ export class TxComponent implements OnInit {
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
 
-  constructor(private txService: TxService) { }
+  constructor(public txService: TxService) { }
 
   ngOnInit() {
+    this.txService.tx = null;
+    this.txService.txUser = null;
     this.txService.fetchUserTx(null);
   }
 

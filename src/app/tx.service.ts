@@ -12,8 +12,8 @@ export class TxService {
   txUser: UserModel;
   tx: TxModel[];
 
-
-  constructor(private http: HttpClient, public authService: AuthenticationService) {
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService) {
   }
 
   fetchUserTx(user: UserModel) {
