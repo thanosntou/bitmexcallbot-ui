@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {OrderModel} from '../order.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
@@ -42,8 +41,6 @@ export class TradePanelComponent implements OnInit {
   defValues = new Map<string>();
   priceSteps = new Map<string>();
   maxLeverages = new Map<string>();
-
-  activeOrders: OrderModel[];
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,

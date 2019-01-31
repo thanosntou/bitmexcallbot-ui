@@ -31,13 +31,6 @@ export class SettingsComponent implements OnInit {
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
   ngOnInit() {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.get<UserDetailsModel>(BaseUrl.BASEURL + '/api/v1/user?name=' + this.authService.userDetails.username, httpOptions)
-      .subscribe((data: UserDetailsModel) => { this.authService.userDetails = data; });
   }
 
   onSaveKeys() {

@@ -22,13 +22,6 @@ export class FollowersPanelComponent implements OnInit {
               private txService: TxService) { }
 
   ngOnInit() {
-    this.authService.userDetails.authorities.forEach( (auth) => {
-      console.log(auth);
-      if (auth.authority === 'ROLE_ADMIN') {
-        this.isAdmin = true;
-      }
-    });
-
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
