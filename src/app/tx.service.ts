@@ -13,30 +13,24 @@ export class TxService {
   tx: TxModel[];
 
   constructor(private http: HttpClient,
-              public authService: AuthenticationService) {
-  }
+              public authService: AuthenticationService) {}
 
   fetchUserTx(user: UserModel) {
     this.tx = null;
     this.txUser = null;
 
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        // 'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': this.authService.findToken()
     })};
-
     let url = '/api/v1/user/tx';
     if (user !== null) {
       url = url + '?id=' + user.id;
     }
-
-    this.http.get<TxModel[]>(BaseUrl.BASEURL + url, httpOptions)
-      .subscribe((data: TxModel[]) => {
+    this.http.get<TxModel[]>(
+      BaseUrl.BASEURL + url, httpOptions
+    ).subscribe((data: TxModel[]) => {
         this.tx = data.reverse();
         this.txUser = user;
-      });
+    });
   }
-
-
 }

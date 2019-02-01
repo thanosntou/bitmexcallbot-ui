@@ -22,7 +22,7 @@ export class FollowPanelComponent implements OnInit {
   ngOnInit() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         // 'Content-Type': 'application/x-www-form-urlencoded'
       })
     };

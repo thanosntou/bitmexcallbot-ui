@@ -17,6 +17,7 @@ export class AdminPanelComponent implements OnInit {
   constructor(public adminService: AdminService) { }
 
   ngOnInit() {
+    this.adminService.fetchLogins();
   }
 
   sortByName() {

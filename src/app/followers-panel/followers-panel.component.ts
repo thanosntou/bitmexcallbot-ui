@@ -22,7 +22,7 @@ export class FollowersPanelComponent implements OnInit {
 
   ngOnInit() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
@@ -32,7 +32,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onEnable(id: number) {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
@@ -44,7 +44,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onDisable(id: number) {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)

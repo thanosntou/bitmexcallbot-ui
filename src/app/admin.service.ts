@@ -7,21 +7,21 @@ import {AuthenticationService} from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService implements OnInit {
+export class AdminService {
   logins: LoginModel[];
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) {
-    const bearerToken = this.authService.findToken();
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService) {}
+
+  fetchLogins() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': this.authService.findToken(),
     })};
-
-    this.http.get<LoginModel[]>(BaseUrl.BASEURL + '/api/v1/admin/logins', httpOptions)
-      .subscribe((data: LoginModel[]) => this.logins = data.reverse());
+    this.http.get<LoginModel[]>(
+      BaseUrl.BASEURL + '/api/v1/admin/logins', httpOptions
+    ).subscribe((data: LoginModel[]) => {
+      this.logins = data.reverse();
+    });
   }
 
-  ngOnInit() {
-
-  }
 }

@@ -13,8 +13,6 @@ import {Symbol} from '../Symbol.enum';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  faPlus = faPlus;
-  faMinus = faMinus;
   @ViewChild('apiKeyInput') apiKeyRef: ElementRef;
   @ViewChild('apiSecretInput') apiSecretRef: ElementRef;
   @ViewChild('fixedQtyXBTUSD') fixedQtyXBTUSD: ElementRef;
@@ -26,13 +24,14 @@ export class SettingsComponent implements OnInit {
   @ViewChild('fixedQtyLTCXXX') fixedQtyLTCXXX: ElementRef;
   @ViewChild('fixedQtyTRXXXX') fixedQtyTRXXXX: ElementRef;
   @ViewChild('fixedQtyXRPXXX') fixedQtyXRPXXX: ElementRef;
+  faPlus = faPlus;
+  faMinus = faMinus;
   hiddenKeys = false;
   hiddenQties = false;
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSaveKeys() {
     const bearerToken = this.authService.findToken();
@@ -40,7 +39,6 @@ export class SettingsComponent implements OnInit {
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
@@ -49,7 +47,6 @@ export class SettingsComponent implements OnInit {
     ).subscribe((data: UserModel) =>
       this.authService.userDetails.user = data
     );
-
     this.apiKeyRef.nativeElement.value = '';
     this.apiSecretRef.nativeElement.value = '';
   }
@@ -76,14 +73,12 @@ export class SettingsComponent implements OnInit {
       qty = this.fixedQtyXRPXXX.nativeElement.value;
     }
 
-    const bearerToken = this.authService.findToken();
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol],
-      '', httpOptions
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], '', httpOptions
     ).subscribe((data: UserModel) => {
       this.authService.userDetails.user = data;
       this.fixedQtyXBTUSD.nativeElement.value = '';
@@ -95,8 +90,7 @@ export class SettingsComponent implements OnInit {
       this.fixedQtyLTCXXX.nativeElement.value = '';
       this.fixedQtyTRXXXX.nativeElement.value = '';
       this.fixedQtyXRPXXX.nativeElement.value = '';
-      }
-    );
+    });
   }
 
   showOrHideQties() {

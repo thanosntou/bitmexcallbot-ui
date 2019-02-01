@@ -17,8 +17,6 @@ import { FollowersPanelComponent } from './followers-panel/followers-panel.compo
 import { UnlessDirective } from './unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NewAccountComponent } from './new-account/new-account.component';
-import { AdminService } from './admin.service';
-import {UserService} from './user.service';
 import { LoginComponent } from './login/login.component';
 import {OpenPositionDirective} from './trade-panel/open-position.directive';
 import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
@@ -66,7 +64,6 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes)
   ],
-  // providers: [AdminService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
