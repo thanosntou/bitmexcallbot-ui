@@ -5,6 +5,7 @@ import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
 import {TxService} from '../tx.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-followers-panel',
@@ -18,16 +19,18 @@ export class FollowersPanelComponent implements OnInit {
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
-              private txService: TxService) { }
+              private txService: TxService,
+              private router: Router) { }
 
   ngOnInit() {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
     })};
-
-    this.http.get<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions)
-     .subscribe((data: UserModel[]) => this.followers = data);
+    this.http.get<UserModel[]>(
+      BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions
+    ).subscribe((data: UserModel[]) =>
+      this.followers = data
+    );
   }
 
   onEnable(id: number) {
@@ -35,7 +38,6 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
       .subscribe((data: UserModel) =>
         this.followers.find(follower => follower.id === id).enabled = data.enabled
@@ -54,6 +56,9 @@ export class FollowersPanelComponent implements OnInit {
   }
 
   onShowTxOf(follower: UserModel) {
-    this.txService.fetchUserTx(follower);
+    if (this.authService.isAdmin) {
+      this.txService.fetchUserTx(follower);
+      this.router.navigate([ '/tx']);
+    }
   }
 }

@@ -22,23 +22,20 @@ export class FollowPanelComponent implements OnInit {
   ngOnInit() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
-        // 'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': this.authService.findToken()
       })
     };
-
     this.http.get<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/personal?', httpOptions
     ).subscribe(
       (data: UserModel) => this.personalTrader = data,
-      error => console.log(JSON.stringify(error.json()))
+      error => console.log(JSON.stringify(error))
     );
-
     this.http.get<UserModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader', httpOptions
     ).subscribe(
       (data: UserModel[]) => this.activeTraders = data,
-      error => console.log(JSON.stringify(error.json()))
+      error => console.log(JSON.stringify(error))
     );
   }
 

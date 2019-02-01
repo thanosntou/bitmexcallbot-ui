@@ -4,39 +4,31 @@
     <div class="row">
       <table class="table table-hover table-sm">
         <thead class="thead bg-info">
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">User</th>
-          <th scope="col">Email</th>
-          <th scope="col">Enabled</th>
-          <th scope="col"> </th>
-        </tr>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">User</th>
+            <th scope="col">Email</th>
+            <th scope="col">Enabled</th>
+            <th scope="col"> </th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let follower of followers">
-          <th scope="row">{{ follower.id }}</th>
-          <td>
-            <a
-              (click)="onShowTxOf(follower)"
-              [routerLink]="[authService.isAdmin ? '/tx' : '']"
-              role="button"
-              >
-              <!--[attr.href]="isAdmin ? 'erf' : null"-->
-            <!--&gt;-->
-              {{ follower.username }}
-            </a>
-          </td>
-          <td>{{ follower.email }}</td>
-          <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
-            <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
-          </td>
-          <td>
-            <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
-            <ng-template #enableButton>
-              <button class="btn btn-success" (click)="onEnable(follower.id)">Enable</button>
-            </ng-template>
-          </td>
-        </tr>
+          <tr *ngFor="let follower of followers">
+            <th scope="row">{{ follower.id }}</th>
+            <td>
+              <a (click)="onShowTxOf(follower)" role="button">{{ follower.username }}</a>
+            </td>
+            <td>{{ follower.email }}</td>
+            <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
+              <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
+            </td>
+            <td>
+              <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
+              <ng-template #enableButton>
+                <button class="btn btn-success" (click)="onEnable(follower.id)">Enable</button>
+              </ng-template>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

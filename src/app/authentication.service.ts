@@ -39,7 +39,11 @@ export class AuthenticationService {
     ).subscribe((data: AccessTokenModel) => {
       localStorage.setItem('accessToken', JSON.stringify(data));
       this.authenticate();
-      this.router.navigate(['/trade']);
+      if (this.isTrader) {
+        this.router.navigate(['/trade']);
+      } else if (this.isCustomer) {
+        this.router.navigate(['/dashboard']);
+      }
     }, error => console.log(error));
   }
 
