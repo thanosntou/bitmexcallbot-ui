@@ -12,7 +12,7 @@ export class ActiveOrdersService {
 
   fetchActiveOrders() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/json'
     })};
 
@@ -26,7 +26,7 @@ export class ActiveOrdersService {
 
   cancelOne(orderID: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/json'
       })};
     this.http.delete<any>(
@@ -39,7 +39,7 @@ export class ActiveOrdersService {
 
   cancelAll(symbol: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/json'
     })};
     this.http.delete<any>(

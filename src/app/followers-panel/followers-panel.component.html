@@ -18,7 +18,7 @@
           <td>
             <a
               (click)="onShowTxOf(follower)"
-              [routerLink]="[isAdmin ? '/tx' : '']"
+              [routerLink]="[authService.isAdmin ? '/tx' : '']"
               role="button"
               >
               <!--[attr.href]="isAdmin ? 'erf' : null"-->

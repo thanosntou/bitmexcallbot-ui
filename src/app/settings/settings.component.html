@@ -106,7 +106,8 @@
 
     <div class="container-fluid">
       <div class="row">
-        <h4 (click)="showOrHideKeys()"> <span *ngIf="hiddenKeys;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Api Keys </h4>
+        <h4 (click)="showOrHideKeys()"> <span *ngIf="hiddenKeys;else dropedDownIcon">
+          <fa-icon [icon]="faPlus"></fa-icon></span> Edit Api Keys </h4>
       </div>
       <div *ngIf="!hiddenKeys">
         <form>
@@ -133,7 +134,6 @@
               <button class="btn btn-success" (click)="onSaveKeys()">Save</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
@@ -142,7 +142,8 @@
 
     <div class="container-fluid">
       <div class="row">
-        <h4 (click)="showOrHideQties()"> <span *ngIf="hiddenQties;else dropedDownIcon"><fa-icon [icon]="faPlus"></fa-icon></span> Edit Fixed Quantities </h4>
+        <h4 (click)="showOrHideQties()"> <span *ngIf="hiddenQties;else dropedDownIcon">
+          <fa-icon [icon]="faPlus"></fa-icon></span> Edit Fixed Quantities </h4>
         <ng-template #dropedDownIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
       </div>
       <div class="container-fluid" *ngIf="!hiddenQties">
@@ -154,13 +155,12 @@
                     <label for="api_key">XBTUSD</label>
                     <input
                       type="number"
-                      id="fixedQtyXBTUSD"
                       class="form-control"
                       #fixedQtyXBTUSD
                     >
                 </div>
                 <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQtyXBTUSD()">Save</button>
+                    <button class="btn btn-success" (click)="onSavefixedQty('XBTUSD')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -168,13 +168,12 @@
                     <label for="api_secret">ETHUSD</label>
                     <input
                       type="number"
-                      id="fixedQtyETHUSD"
                       class="form-control"
                       #fixedQtyETHUSD
                     >
                 </div>
                 <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQtyETHUSD()">Save</button>
+                    <button class="btn btn-success" (click)="onSavefixedQty('ETHUSD')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -182,13 +181,12 @@
                   <label for="api_secret">ADA</label>
                   <input
                     type="number"
-                    id="fixedQtyADAZ18"
                     class="form-control"
-                    #fixedQtyADAZ18
+                    #fixedQtyADAXXX
                   >
                 </div>
                 <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQtyADA()">Save</button>
+                    <button class="btn btn-success" (click)="onSavefixedQty('ADAXXX')">Save</button>
                 </div>
               </div>
             </div>
@@ -199,13 +197,12 @@
                   <label for="api_secret">BCH</label>
                   <input
                     type="number"
-                    id="fixedQtyBCHZ18"
                     class="form-control"
-                    #fixedQtyBCHZ18
+                    #fixedQtyBCHXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyBCH()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('BCHXXX')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -213,13 +210,12 @@
                   <label for="api_secret">EOS</label>
                   <input
                     type="number"
-                    id="fixedQtyEOSZ18"
                     class="form-control"
-                    #fixedQtyEOSZ18
+                    #fixedQtyEOSXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyEOS()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('EOSXXX')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -227,13 +223,12 @@
                   <label for="api_secret">ETH</label>
                   <input
                     type="number"
-                    id="fixedQtyETHZ18"
                     class="form-control"
-                    #fixedQtyETHZ18
+                    #fixedQtyETHXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyETH()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('ETHXXX')">Save</button>
                 </div>
               </div>
             </div>
@@ -244,13 +239,12 @@
                   <label for="api_secret">LTC</label>
                   <input
                     type="number"
-                    id="fixedQtyLTCZ18"
                     class="form-control"
-                    #fixedQtyLTCZ18
+                    #fixedQtyLTCXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyLTC()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('LTCXXX')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -258,13 +252,12 @@
                   <label for="api_secret">TRX</label>
                   <input
                     type="number"
-                    id="fixedQtyTRXZ18"
                     class="form-control"
-                    #fixedQtyTRXZ18
+                    #fixedQtyTRXXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyTRX()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('TRXXXX')">Save</button>
                 </div>
               </div>
               <div class="col">
@@ -272,13 +265,12 @@
                   <label for="api_secret">XRP</label>
                   <input
                     type="number"
-                    id="fixedQtyXRPZ18"
                     class="form-control"
-                    #fixedQtyXRPZ18
+                    #fixedQtyXRPXXX
                   >
                 </div>
                 <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQtyXRP()">Save</button>
+                  <button class="btn btn-success" (click)="onSavefixedQty('XRPXXX')">Save</button>
                 </div>
               </div>
             </div>

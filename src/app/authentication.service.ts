@@ -12,6 +12,9 @@ export class AuthenticationService {
   accessToken: AccessTokenModel;
   bearerToken: string;
   userDetails: UserDetailsModel;
+  isAdmin: boolean;
+  isTrader: boolean;
+  isCustomer: boolean;
 
   constructor(private http: HttpClient, private router: Router) {
     const at = localStorage.getItem('accessToken');
@@ -20,6 +23,15 @@ export class AuthenticationService {
       localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
       this.authenticate();
     }
+  }
+
+  findToken() {
+    const accessToken = <AccessTokenModel> JSON.parse(localStorage.getItem('accessToken'));
+    if (!accessToken) {
+      this.userDetails = null;
+      this.router.navigate(['/']);
+    }
+    return accessToken.token_type + ' ' + accessToken.access_token;
   }
 
   getAndSetAccessToken(username: string, password: string) {
@@ -48,7 +60,6 @@ export class AuthenticationService {
       this.router.navigate(['/trade']);
 
     }, error => console.log(error));
-
   }
 
   authenticate() {
@@ -64,6 +75,21 @@ export class AuthenticationService {
     ).subscribe((data: UserDetailsModel) => {
       localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
       this.userDetails = data;
-    });
+      this.isAdmin = false;
+      this.isTrader = false;
+      this.isCustomer = false;
+      this.userDetails.authorities.forEach( (auth) => {
+        if (auth.authority === 'ROLE_ADMIN') {
+          this.isAdmin = true;
+        }
+        if (auth.authority === 'ROLE_TRADER') {
+          this.isTrader = true;
+        }
+        if (auth.authority === 'ROLE_CUSTOMER') {
+          this.isCustomer = true;
+        }}
+      );
+    }
+    );
   }
 }

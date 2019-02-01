@@ -120,7 +120,7 @@ export class TradePanelComponent implements OnInit {
   onSendSignal() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -172,7 +172,7 @@ export class TradePanelComponent implements OnInit {
     }
 
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<any>(
@@ -188,7 +188,7 @@ export class TradePanelComponent implements OnInit {
 
   onCancelOne(orderId: number) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.delete<void>(
@@ -200,7 +200,7 @@ export class TradePanelComponent implements OnInit {
   onCancelAll() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };

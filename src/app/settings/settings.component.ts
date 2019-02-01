@@ -4,7 +4,8 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {faMinus} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
-import {UserDetailsModel} from '../user-details.model';
+import {UserModel} from '../user.model';
+import {Symbol} from '../Symbol.enum';
 
 @Component({
   selector: 'app-settings',
@@ -18,15 +19,15 @@ export class SettingsComponent implements OnInit {
   @ViewChild('apiSecretInput') apiSecretRef: ElementRef;
   @ViewChild('fixedQtyXBTUSD') fixedQtyXBTUSD: ElementRef;
   @ViewChild('fixedQtyETHUSD') fixedQtyETHUSD: ElementRef;
-  @ViewChild('fixedQtyADAZ18') fixedQtyADAZ18: ElementRef;
-  @ViewChild('fixedQtyBCHZ18') fixedQtyBCHZ18: ElementRef;
-  @ViewChild('fixedQtyEOSZ18') fixedQtyEOSZ18: ElementRef;
-  @ViewChild('fixedQtyETHZ18') fixedQtyETHZ18: ElementRef;
-  @ViewChild('fixedQtyLTCZ18') fixedQtyLTCZ18: ElementRef;
-  @ViewChild('fixedQtyTRXZ18') fixedQtyTRXZ18: ElementRef;
-  @ViewChild('fixedQtyXRPZ18') fixedQtyXRPZ18: ElementRef;
+  @ViewChild('fixedQtyADAXXX') fixedQtyADAXXX: ElementRef;
+  @ViewChild('fixedQtyBCHXXX') fixedQtyBCHXXX: ElementRef;
+  @ViewChild('fixedQtyEOSXXX') fixedQtyEOSXXX: ElementRef;
+  @ViewChild('fixedQtyETHXXX') fixedQtyETHXXX: ElementRef;
+  @ViewChild('fixedQtyLTCXXX') fixedQtyLTCXXX: ElementRef;
+  @ViewChild('fixedQtyTRXXXX') fixedQtyTRXXXX: ElementRef;
+  @ViewChild('fixedQtyXRPXXX') fixedQtyXRPXXX: ElementRef;
   hiddenKeys = false;
-  hiddenQties = true;
+  hiddenQties = false;
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
@@ -34,7 +35,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onSaveKeys() {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const bearerToken = this.authService.findToken();
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -43,133 +44,59 @@ export class SettingsComponent implements OnInit {
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
-    this.http.post<UserDetailsModel>(
+    this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret, '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
+    ).subscribe((data: UserModel) =>
+      this.authService.userDetails.user = data
+    );
 
     this.apiKeyRef.nativeElement.value = '';
     this.apiSecretRef.nativeElement.value = '';
   }
 
-  onSavefixedQtyXBTUSD() {
-    const qty = this.fixedQtyXBTUSD.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+  onSavefixedQty(symbol: string) {
+    let qty;
+    if (Symbol.XBTUSD === Symbol[symbol]) {
+      qty = this.fixedQtyXBTUSD.nativeElement.value;
+    } else if (Symbol.ETHUSD === Symbol[symbol]) {
+      qty = this.fixedQtyETHUSD.nativeElement.value;
+    } else if (Symbol.ADAXXX === Symbol[symbol]) {
+      qty = this.fixedQtyADAXXX.nativeElement.value;
+    } else if (Symbol.BCHXXX === Symbol[symbol]) {
+      qty = this.fixedQtyBCHXXX.nativeElement.value;
+    } else if (Symbol.EOSXXX === Symbol[symbol]) {
+      qty = this.fixedQtyEOSXXX.nativeElement.value;
+    } else if (Symbol.ETHXXX === Symbol[symbol]) {
+      qty = this.fixedQtyETHXXX.nativeElement.value;
+    } else if (Symbol.LTCXXX === Symbol[symbol]) {
+      qty = this.fixedQtyLTCXXX.nativeElement.value;
+    } else if (Symbol.TRXXXX === Symbol[symbol]) {
+      qty = this.fixedQtyTRXXXX.nativeElement.value;
+    } else if (Symbol.XRPXXX === Symbol[symbol]) {
+      qty = this.fixedQtyXRPXXX.nativeElement.value;
+    }
+
+    const bearerToken = this.authService.findToken();
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XBTUSD',
+    this.http.post<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol],
       '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyXBTUSD.nativeElement.value = '';
-  }
-
-  onSavefixedQtyETHUSD() {
-    const qty = this.fixedQtyETHUSD.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHUSD',
-      '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyETHUSD.nativeElement.value = '';
-  }
-
-  onSavefixedQtyADA() {
-    const qty = this.fixedQtyADAZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ADAZ18',
-      '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyADAZ18.nativeElement.value = '';
-  }
-
-  onSavefixedQtyBCH() {
-    const qty = this.fixedQtyBCHZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=BCHZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyBCHZ18.nativeElement.value = '';
-  }
-  onSavefixedQtyEOS() {
-    const qty = this.fixedQtyEOSZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=EOSZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.apiKeyRef.nativeElement.value = '';
-  }
-  onSavefixedQtyETH() {
-    const qty = this.fixedQtyETHZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=ETHZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyETHZ18.nativeElement.value = '';
-  }
-  onSavefixedQtyLTC() {
-    const qty = this.fixedQtyLTCZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })};
-
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=LTCZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyLTCZ18.nativeElement.value = '';
-  }
-
-  onSavefixedQtyTRX() {
-    const qty = this.fixedQtyTRXZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=TRXZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyTRXZ18.nativeElement.value = '';
-  }
-
-  onSavefixedQtyXRP() {
-    const qty = this.fixedQtyXRPZ18.nativeElement.value;
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.post<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=XRPZ18', '', httpOptions
-    ).subscribe((data: UserDetailsModel) => this.authService.userDetails = data);
-    this.fixedQtyXRPZ18.nativeElement.value = '';
+    ).subscribe((data: UserModel) => {
+      this.authService.userDetails.user = data;
+      this.fixedQtyXBTUSD.nativeElement.value = '';
+      this.fixedQtyETHUSD.nativeElement.value = '';
+      this.fixedQtyADAXXX.nativeElement.value = '';
+      this.fixedQtyBCHXXX.nativeElement.value = '';
+      this.fixedQtyEOSXXX.nativeElement.value = '';
+      this.fixedQtyETHXXX.nativeElement.value = '';
+      this.fixedQtyLTCXXX.nativeElement.value = '';
+      this.fixedQtyTRXXXX.nativeElement.value = '';
+      this.fixedQtyXRPXXX.nativeElement.value = '';
+      }
+    );
   }
 
   showOrHideQties() {

@@ -4,7 +4,6 @@ import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Injectable, OnInit} from '@angular/core';
 import {Symbol} from '../Symbol.enum';
-import {concat} from 'rxjs';
 
 @Injectable()
 export class OpenPositionsService implements OnInit {
@@ -63,7 +62,7 @@ export class OpenPositionsService implements OnInit {
 
   fetchOpenPositions() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/json'
     })};
 
@@ -124,7 +123,7 @@ export class OpenPositionsService implements OnInit {
 
   marketPosition(symbol: string, side: string, orderType: string, qtyPerc: number, price: number) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
@@ -145,7 +144,7 @@ export class OpenPositionsService implements OnInit {
 
   onCloseMarketPosition(symbol: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.bearerToken,
+        'Authorization': this.authService.findToken(),
         'Content-Type': 'application/json'
     })};
 
@@ -156,7 +155,7 @@ export class OpenPositionsService implements OnInit {
         if (symbol === 'XBTUSD') {
               this.positionXBTUSD = null;
               this.openXBTUSD = false;
-            }
+        }
             if (symbol === 'ETHUSD') {
               this.positionETHUSD = null;
               this.openETHUSD = false;

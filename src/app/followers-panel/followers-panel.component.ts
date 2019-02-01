@@ -12,7 +12,6 @@ import {TxService} from '../tx.service';
   styleUrls: ['./followers-panel.component.css']
 })
 export class FollowersPanelComponent implements OnInit {
-  isAdmin: boolean;
   faCheckedCircle = faCheckCircle;
   faMinus = faMinus;
   followers: UserModel[];

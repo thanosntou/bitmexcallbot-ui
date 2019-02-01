@@ -19,9 +19,6 @@ import {Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
-  isAdmin: boolean;
-  isTrader: boolean;
-  isCustomer: boolean;
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
@@ -31,18 +28,6 @@ export class NavbarComponent implements OnInit {
               public authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authService.userDetails.authorities.forEach( (auth) => {
-      console.log(auth);
-      if (auth.authority === 'ROLE_ADMIN') {
-        this.isAdmin = true;
-      }
-      if (auth.authority === 'ROLE_TRADER') {
-        this.isTrader = true;
-      }
-      if (auth.authority === 'ROLE_CUSTOMER') {
-        this.isCustomer = true;
-      }
-    });
   }
 
   onSignOut() {
@@ -51,4 +36,5 @@ export class NavbarComponent implements OnInit {
     this.authService.userDetails = null;
     this.router.navigate(['/']);
   }
+
 }

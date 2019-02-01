@@ -11,7 +11,7 @@ export class AdminService implements OnInit {
   logins: LoginModel[];
 
   constructor(private http: HttpClient, public authService: AuthenticationService) {
-    const bearerToken = this.authService.accessToken.token_type + ' ' + this.authService.accessToken.access_token;
+    const bearerToken = this.authService.findToken();
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': bearerToken,
         'Content-Type': 'application/x-www-form-urlencoded'
