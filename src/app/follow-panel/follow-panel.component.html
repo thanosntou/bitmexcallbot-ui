@@ -9,7 +9,7 @@
             <h2>Follow a Trader <a><i class="fas fa-sync"></i></a></h2>
           </div>
           <br>
-          <div class="row">
+          <div class="row" *ngIf="personalTrader">
             <h4>Personal Trader</h4>
           </div>
           <div class="row" *ngIf="personalTrader">
@@ -19,13 +19,14 @@
                   <img class="card-img-top" src="../../assets/images/t1.jpg" alt="Card image cap">
                 </div>
                 <div class="col-sm-6">
-                  <p class="card-text">The best trader in da hood</p>
+                  <p class="card-text">{{ personalTrader.username }}</p>
                 </div>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Profit last week</li>
-                <li class="list-group-item">Followed by</li>
-              </ul>
+              <!--<ul class="list-group list-group-flush">-->
+                <!--<li class="list-group-item">Profit last week</li>-->
+                <!--<li class="list-group-item">Followed by</li>-->
+              <!--</ul>-->
+              <button class="btn btn-outline-primary" (click)="onUnfollow()">Unfollow</button>
             </div>
           </div>
           <br>
@@ -56,28 +57,25 @@
                   BITMEX CALL
                 </div>
           </div>
-          <br><br>
-          <div class="row">
-                <h4>Other Traders</h4>
-              </div>
+
           <br>
-          <div class="card-deck">
-                  <div class="card" style="max-width: 16rem; min-width: 16rem; margin-bottom: 20px">
+          <br>
+
+          <div class="row" *ngIf="!personalTrader">
+                <h4>Other Traders</h4>
+          </div>
+          <br>
+          <div class="card-deck" *ngIf="!personalTrader">
+                  <div class="card" *ngFor="let trader of activeTraders" style="max-width: 16rem; min-width: 16rem; margin-bottom: 20px">
                     <div class="card-body">
-                      <div class="row" *ngFor="let trader of activeTraders">
-                        <div class="col-sm-6">
-                          <img class="card-img-top" src="" alt="Card image cap">
-                        </div>
-                        <div class="col-sm-6">
-                          <h5 class="card-title"></h5>
-                          <p class="card-text">{{ trader.username }}</p>
-                        </div>
+                      <div class="row justify-content-center" >
+                        <p>{{ trader.username }}</p>
                       </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Profit last week</li>
-                        <li class="list-group-item">Followed by</li>
-                      </ul>
+                      <!--<div class="row justify-content-center" *ngFor="let trader of activeTraders">-->
+
+                      <!--</div>-->
                     </div>
+                    <button class="btn btn-outline-primary" (click)="onFollow(trader)">Follow</button>
                   </div>
               </div>
             </div>

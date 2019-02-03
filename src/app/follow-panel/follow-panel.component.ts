@@ -39,4 +39,36 @@ export class FollowPanelComponent implements OnInit {
     );
   }
 
+  onFollow(trader: UserModel) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    const body = 'traderId=' + trader.id;
+    this.http.post<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/follow', body, httpOptions
+    ).subscribe(
+      (data: UserModel) => this.personalTrader = data,
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
+  onUnfollow() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    const body = '';
+    this.http.post<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/unfollow', body, httpOptions
+    ).subscribe(
+      (data: UserModel) => this.personalTrader = null,
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
 }
