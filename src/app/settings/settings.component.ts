@@ -25,6 +25,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild('fixedQtyLTCXXX') fixedQtyLTCXXX: ElementRef;
   @ViewChild('fixedQtyTRXXXX') fixedQtyTRXXXX: ElementRef;
   @ViewChild('fixedQtyXRPXXX') fixedQtyXRPXXX: ElementRef;
+  @ViewChild('clientInput') clientInput: ElementRef;
   userDetailsInfo: UserDetailsModel;
   faPlus = faPlus;
   faMinus = faMinus;
@@ -97,6 +98,22 @@ export class SettingsComponent implements OnInit {
       this.fixedQtyLTCXXX.nativeElement.value = '';
       this.fixedQtyTRXXXX.nativeElement.value = '';
       this.fixedQtyXRPXXX.nativeElement.value = '';
+      this.userDetailsInfo.user = data;
+      this.authService.refreshUser(data);
+    });
+  }
+
+  onChangeClient() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    const body = 'client=' + this.clientInput.nativeElement.value;
+    this.http.post<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/client', body, httpOptions
+    ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
     });

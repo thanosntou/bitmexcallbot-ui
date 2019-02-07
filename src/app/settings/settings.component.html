@@ -5,6 +5,19 @@
     </div>
     <br>
     <div class="container-fluid">
+      <div class="row justify-content-center">
+        <select name="client" class="form-control" #clientInput>
+          <option [selected]="userDetailsInfo.user.client">{{ userDetailsInfo.user.client }}</option>
+          <option value="TESTNET">Testnet</option>
+          <option value="BITMEX">Bitmex</option>
+        </select>
+      </div>
+      <div class="row justify-content-center">
+        <button class="btn btn-primary" (click)="onChangeClient()">Change client</button>
+      </div>
+    </div>
+    <br>
+    <div class="container-fluid">
       <div class="container-fluid">
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">

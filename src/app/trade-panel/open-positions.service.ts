@@ -121,75 +121,79 @@ export class OpenPositionsService implements OnInit {
     }));
   }
 
-  marketPosition(symbol: string, side: string, orderType: string, qtyPerc: number, price: number) {
-    const httpOptions = {headers: new HttpHeaders({
+  closeLimitOrder(symbol: string, side: string, qtyPerc: number, price: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
 
     const body = 'symbol=' + symbol +
-      '&orderType=' + orderType +
+      '&orderType=Limit' +
       '&side=' + side +
       '&percentage=' + qtyPerc +
-      '&price=' + price;
+      '&price=' + price +
+      '&execInst=Close';
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/position', body, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trade/orderAll2', body, httpOptions
     ).subscribe(
-      () => {
-        this.fetchOpenPositions();
-      },
-      error => console.log(error));
+      () => this.fetchOpenPositions(),
+      error => console.log(error)
+    );
   }
 
   onCloseMarketPosition(symbol: string) {
-    const httpOptions = {headers: new HttpHeaders({
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
-    })};
+      })
+    };
 
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
     ).subscribe(
       () => {
         if (symbol === 'XBTUSD') {
-              this.positionXBTUSD = null;
-              this.openXBTUSD = false;
+          this.positionXBTUSD = null;
+          this.openXBTUSD = false;
         }
-            if (symbol === 'ETHUSD') {
-              this.positionETHUSD = null;
-              this.openETHUSD = false;
-            }
-            if (symbol === 'ADAH19') {
-              this.positionADAH19 = null;
-              this.openADAH19 = false;
-            }
-            if (symbol === 'BCHH19') {
-              this.positionBCHH19 = null;
-              this.openBCHH19 = false;
-            }
-            if (symbol === 'EOSH19') {
-              this.positionEOSH19 = null;
-              this.openEOSH19 = false;
-            }
-            if (symbol === 'ETHH19') {
-              this.positionETHH19 = null;
-              this.openETHH19 = false;
-            }
-            if (symbol === 'LTCH19') {
-              this.positionLTCH19 = null;
-              this.openLTCH19 = false;
-            }
-            if (symbol === 'TRXH19') {
-              this.positionTRXH19 = null;
-              this.openTRXH19 = false;
-            }
-            if (symbol === 'XRPH19') {
-              this.positionXRPH19 = null;
-              this.openXRPH19 = false;
-            }
-        },
-        error => console.log(error));
+        if (symbol === 'ETHUSD') {
+          this.positionETHUSD = null;
+          this.openETHUSD = false;
+        }
+        if (symbol === 'ADAH19') {
+          this.positionADAH19 = null;
+          this.openADAH19 = false;
+        }
+        if (symbol === 'BCHH19') {
+          this.positionBCHH19 = null;
+          this.openBCHH19 = false;
+        }
+        if (symbol === 'EOSH19') {
+          this.positionEOSH19 = null;
+          this.openEOSH19 = false;
+        }
+        if (symbol === 'ETHH19') {
+          this.positionETHH19 = null;
+          this.openETHH19 = false;
+        }
+        if (symbol === 'LTCH19') {
+          this.positionLTCH19 = null;
+          this.openLTCH19 = false;
+        }
+        if (symbol === 'TRXH19') {
+          this.positionTRXH19 = null;
+          this.openTRXH19 = false;
+        }
+        if (symbol === 'XRPH19') {
+          this.positionXRPH19 = null;
+          this.openXRPH19 = false;
+        }},
+      error => console.log(error)
+    );
   }
 
 }

@@ -26,11 +26,10 @@ export class OpenPositionsComponent implements OnInit {
     this.openPositionService.fetchOpenPositions();
   }
 
-  onMarketPosition(position: PositionModel) {
-    this.openPositionService.marketPosition(
+  onCloseLimitOrder(position: PositionModel) {
+    this.openPositionService.closeLimitOrder(
       position.symbol,
       this.calculateSide(position.currentQty),
-      'Limit',
       this.qtyPerc.nativeElement.value,
       this.price.nativeElement.value
     );
