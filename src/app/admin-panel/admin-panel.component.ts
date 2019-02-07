@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from '../admin.service';
 import {faSortAlphaUp} from '@fortawesome/free-solid-svg-icons';
 import {faSortAlphaDown} from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ import {faSortAmountDown} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./admin-panel.component.css'],
 })
 export class AdminPanelComponent implements OnInit {
+  @ViewChild('clientInput') clientInput: ElementRef;
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
 
@@ -42,6 +43,10 @@ export class AdminPanelComponent implements OnInit {
       this.adminService.logins.sort((a, b) =>
         new Date(b.create_date).getTime() - (new Date(a.create_date).getTime()));
     }
+  }
+
+  onChangeClient() {
+    // this.clientInput.nativeElement.value;
   }
 
 }

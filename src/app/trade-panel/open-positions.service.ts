@@ -41,17 +41,17 @@ export class OpenPositionsService implements OnInit {
     this.posMap.set(Symbol.TRXXXX.valueOf(), this.positionTRXH19);
     this.posMap.set(Symbol.XRPXXX.valueOf(), this.positionXRPH19);
 
-    const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
-    exampleSocket.onopen = function () {
-      exampleSocket.send(
-        '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
-        '1600883067, ' +
-        '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
-      exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
-      // exampleSocket.send('{"op": "subscribe", "args": ["position:XBTUSD"]}');
-    };
-
-    this.webSocket = exampleSocket;
+    // const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
+    // exampleSocket.onopen = function () {
+    //   exampleSocket.send(
+    //     '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
+    //     '1600883067, ' +
+    //     '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
+    //   exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
+    //   // exampleSocket.send('{"op": "subscribe", "args": ["position:XBTUSD"]}');
+    // };
+    //
+    // this.webSocket = exampleSocket;
 
     // this.webSocket.onmessage = event => {
     // };
@@ -62,7 +62,7 @@ export class OpenPositionsService implements OnInit {
 
   fetchOpenPositions() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
 
@@ -123,7 +123,7 @@ export class OpenPositionsService implements OnInit {
 
   marketPosition(symbol: string, side: string, orderType: string, qtyPerc: number, price: number) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
 
@@ -144,7 +144,7 @@ export class OpenPositionsService implements OnInit {
 
   onCloseMarketPosition(symbol: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
 

@@ -1,29 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AccessTokenModel} from './access-token.model';
+import {TokenModel} from './token.model';
 import {BaseUrl} from './BaseUrl.enum';
 import {UserDetailsModel} from './user-details.model';
 import {Router} from '@angular/router';
+import {UserModel} from './user.model';
+import {UserConnectionModel} from './user-connection.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userDetails: UserDetailsModel;
-  isAdmin: boolean;
-  isTrader: boolean;
-  isCustomer: boolean;
 
-  constructor(private http: HttpClient, private router: Router) { }
-
-  findToken() {
-    const accessToken = <AccessTokenModel> JSON.parse(localStorage.getItem('accessToken'));
-    if (!accessToken) {
-      this.userDetails = null;
-      this.router.navigate(['/']);
-    }
-    return accessToken.token_type + ' ' + accessToken.access_token;
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   getAndSetAccessToken(username: string, password: string) {
     const httpOptions = {
@@ -34,47 +23,95 @@ export class AuthenticationService {
     const body = 'username=' + username
       + '&password=' + password
       + '&grant_type=' + 'password';
-    this.http.post<AccessTokenModel>(
+
+    this.http.post<TokenModel>(
       BaseUrl.BASEURL + '/oauth/token', body, httpOptions
-    ).subscribe((data: AccessTokenModel) => {
-      localStorage.setItem('accessToken', JSON.stringify(data));
-      this.authenticate();
-      if (this.isTrader) {
-        this.router.navigate(['/trade']);
-      } else if (this.isCustomer) {
-        this.router.navigate(['/dashboard']);
-      }
-    }, error => console.log(error));
+    ).subscribe(
+      (data: TokenModel) => {
+        this.authenticate(data);
+      },
+      error => console.log(error)
+    );
   }
 
-  authenticate() {
+  authenticate(token: TokenModel) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.findToken()
+        'Authorization': token.token_type + ' ' + token.access_token
       })
     };
+
     this.http.get<UserDetailsModel>(
       BaseUrl.BASEURL + '/api/v1/user/authenticate', httpOptions
     ).subscribe(
       (data: UserDetailsModel) => {
-        localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
-        this.userDetails = data;
-        this.isAdmin = false;
-        this.isTrader = false;
-        this.isCustomer = false;
-        this.userDetails.authorities.forEach( (auth) => {
-          if (auth.authority === 'ROLE_ADMIN') {
-            this.isAdmin = true;
-          }
-          if (auth.authority === 'ROLE_TRADER') {
-            this.isTrader = true;
-          }
-          if (auth.authority === 'ROLE_CUSTOMER') {
-            this.isCustomer = true;
-          }
-        });
-      }
+        sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
+        this.router.navigate(['/trade']);
+      }, error => console.log(error)
     );
+  }
+
+  findAccessToken() {
+    const token = this.findToken();
+    if (!token) {
+      this.deleteUserConnection();
+      this.router.navigate(['/login']);
+    }
+    return token.token_type + ' ' + token.access_token;
+  }
+
+  findToken() {
+    const userConnection = this.findUserConnection();
+    if (!userConnection) {
+      return null;
+    }
+    return userConnection.token;
+  }
+
+  findUserRoles() {
+    const userDetails = this.findUserDetails();
+    if (!userDetails) {
+      return null;
+    }
+    return userDetails.authorities;
+  }
+
+  findUserDetails() {
+    const userConnection = this.findUserConnection();
+    if (!userConnection) {
+      return null;
+    }
+    return userConnection.userDetails;
+  }
+
+  findUserConnection() {
+    const userConObj = sessionStorage.getItem('userConnection');
+    if (!userConObj) {
+      return null;
+    }
+    return <UserConnectionModel> JSON.parse(userConObj);
+  }
+
+  deleteUserConnection() {
+    sessionStorage.removeItem('userConnection');
+  }
+
+  refreshUser(user: UserModel) {
+    const userConnection = this.findUserConnection();
+    if (userConnection) {
+      userConnection.userDetails.user = user;
+      sessionStorage.setItem('userConnection', JSON.stringify(userConnection));
+    }
+  }
+
+  isAdmin() {
+    let status = false;
+    this.findUserRoles().forEach(auth => {
+      if (auth.authority === 'ROLE_ADMIN') {
+        status = true;
+      }
+    });
+    return true;
   }
 
 }

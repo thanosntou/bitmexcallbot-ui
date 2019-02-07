@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../../authentication.service';
 import {OpenPositionsService} from '../open-positions.service';
 import {PositionModel} from '../../position.model';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-open-positions',
@@ -11,6 +12,8 @@ import {PositionModel} from '../../position.model';
 export class OpenPositionsComponent implements OnInit {
   @ViewChild('qtyPercentageInput') qtyPerc: ElementRef;
   @ViewChild('priceInput') price: ElementRef;
+  successMessage: string;
+  private _success = new Subject<string>();
 
   constructor(public authService: AuthenticationService,
               public openPositionService: OpenPositionsService) {}

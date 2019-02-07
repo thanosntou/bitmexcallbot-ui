@@ -22,7 +22,7 @@ export class FollowPanelComponent implements OnInit {
   ngOnInit() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken()
+        'Authorization': this.authService.findAccessToken()
       })
     };
     this.http.get<UserModel>(
@@ -42,7 +42,7 @@ export class FollowPanelComponent implements OnInit {
   onFollow(trader: UserModel) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -58,7 +58,7 @@ export class FollowPanelComponent implements OnInit {
   onUnfollow() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };

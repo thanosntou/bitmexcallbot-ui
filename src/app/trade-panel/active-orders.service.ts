@@ -12,7 +12,7 @@ export class ActiveOrdersService {
 
   fetchActiveOrders() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
 
@@ -26,20 +26,21 @@ export class ActiveOrdersService {
 
   cancelOne(orderID: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
       })};
     this.http.delete<any>(
       BaseUrl.BASEURL + '/api/v1/trade/order?orderID=' + orderID, httpOptions
-    ).subscribe(
-      () => {
-        this.activeOrders = this.activeOrders.filter(i => i.orderID !== orderID);},
-      error => console.log(error));
+    ).subscribe(() => {
+        this.activeOrders = this.activeOrders.filter(i => i.orderID !== orderID);
+        },
+        error => console.log(error)
+    );
   }
 
   cancelAll(symbol: string) {
     const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
     this.http.delete<any>(

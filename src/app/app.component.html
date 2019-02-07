@@ -1,13 +1,3 @@
 <div class="container-fluid">
-
-  <div class="row" *ngIf="authService.userDetails">
-    <div class="col-md-2" id="navbar">
-      <app-navbar></app-navbar>
-    </div>
-    <div class="col-md-10">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-
-  <app-login *ngIf="!authService.userDetails"></app-login>
+  <router-outlet></router-outlet>
 </div>

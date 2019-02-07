@@ -15,13 +15,16 @@ export class AdminService {
 
   fetchLogins() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken()
     })};
+
     this.http.get<LoginModel[]>(
       BaseUrl.BASEURL + '/api/v1/admin/logins', httpOptions
-    ).subscribe((data: LoginModel[]) => {
-      this.logins = data.reverse();
-    });
+    ).subscribe(
+      (data: LoginModel[]) => {
+        this.logins = data.reverse();
+      },
+      error => console.log(JSON.stringify(error)));
   }
 
 }

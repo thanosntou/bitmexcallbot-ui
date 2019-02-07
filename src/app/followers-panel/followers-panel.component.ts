@@ -24,7 +24,7 @@ export class FollowersPanelComponent implements OnInit {
 
   ngOnInit() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
     })};
     this.http.get<UserModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions
@@ -35,7 +35,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onEnable(id: number) {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
@@ -46,7 +46,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onDisable(id: number) {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
@@ -56,7 +56,7 @@ export class FollowersPanelComponent implements OnInit {
   }
 
   onShowTxOf(follower: UserModel) {
-    if (this.authService.isAdmin) {
+    if (this.authService.isAdmin()) {
       this.txService.fetchUserTx(follower);
       this.router.navigate([ '/tx']);
     }

@@ -3,6 +3,7 @@ import { FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { TxComponent } from './tx/tx.component';
@@ -23,17 +24,20 @@ import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders
 import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
 import {SettingItemDirective} from './setting-item.directive';
 import {RouterModule, Routes} from '@angular/router';
+import { AppInComponent } from './app-in/app-in.component';
 
 const appRoutes: Routes = [
-  // { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'follow', component: FollowPanelComponent },
-  { path: 'followers', component: FollowersPanelComponent },
-  { path: 'trade', component: TradePanelComponent },
-  { path: 'tx', component: TxComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'admin', component: AdminPanelComponent }
+  { path: '', component: AppInComponent, children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'follow', component: FollowPanelComponent },
+      { path: 'followers', component: FollowersPanelComponent },
+      { path: 'trade', component: TradePanelComponent },
+      { path: 'tx', component: TxComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'admin', component: AdminPanelComponent }
+    ]
+  },
 ];
 
 @NgModule({
@@ -56,12 +60,14 @@ const appRoutes: Routes = [
     SettingItemDirective,
     ActiveOrdersComponent,
     OpenPositionsComponent,
+    AppInComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    NgbModule,
     RouterModule.forRoot(appRoutes)
   ],
   bootstrap: [AppComponent]

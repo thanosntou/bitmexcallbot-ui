@@ -15,21 +15,21 @@ export class OpenPositionDirective implements OnInit {
               private symbolService: SymbolService) {
 
     // const symbol = '';
-    const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
-    exampleSocket.onopen = function (symbol) {
-      exampleSocket.send(
-        '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
-        '1600883067, ' +
-        '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
-      // exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
-      exampleSocket.send('{"op": "subscribe", "args": ["position:' + symbol + '"]}');
-      exampleSocket.send('{"op": "subscribe", "args": ["position:ADAH19"]}');
-    };
-    this.webSocket = exampleSocket;
-    this.webSocket.onmessage = event => {
-      const msg = JSON.parse(event.data);
-      this.markPrice = msg.data['0'].markPrice;
-      this.elementRef.nativeElement.value = msg.data['0'].markPrice;
+    // const exampleSocket = new WebSocket('wss://testnet.bitmex.com/realtime');
+    // exampleSocket.onopen = function (symbol) {
+    //   exampleSocket.send(
+    //     '{"op": "authKeyExpires", "args": ["obt_f-85F7m2Olfi9IIUUlTG", ' +
+    //     '1600883067, ' +
+    //     '"71c2f5ff56dc905bb9ada3b6f20b950b19b7c30716e9af2160a3e27c78d1b2ee"]}');
+    //   // exampleSocket.send('{"op": "subscribe", "args": ["position"]}');
+    //   exampleSocket.send('{"op": "subscribe", "args": ["position:' + symbol + '"]}');
+    //   exampleSocket.send('{"op": "subscribe", "args": ["position:ADAH19"]}');
+    // };
+    // this.webSocket = exampleSocket;
+    // this.webSocket.onmessage = event => {
+    //   const msg = JSON.parse(event.data);
+    //   this.markPrice = msg.data['0'].markPrice;
+    //   this.elementRef.nativeElement.value = msg.data['0'].markPrice;
       //   $(function () {
       //     $('#markPriceTdXBTUSD').delay(150).animate({
       //       'background-color': '#ffeb79'
@@ -40,7 +40,7 @@ export class OpenPositionDirective implements OnInit {
       //     });
       //   });
       //   console.log(msg.data['0']);
-    };
+    // };
   }
 
   ngOnInit() {

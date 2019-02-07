@@ -8,6 +8,8 @@ import {OpenPositionsComponent} from './open-positions/open-positions.component'
 import {OpenPositionsService} from './open-positions.service';
 import {ActiveOrdersService} from './active-orders.service';
 import {ActiveOrdersComponent} from './active-orders/active-orders.component';
+import {debounceTime} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class TradePanelComponent implements OnInit {
   @ViewChild(OpenPositionsComponent) openPositionsComp: OpenPositionsComponent;
   @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
 
+  successMessage: string;
+  private _success = new Subject<string>();
 
   isHidden1 = true;
   isHidden2 = true;
@@ -92,6 +96,10 @@ export class TradePanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(2500)
+    ).subscribe(() => this.successMessage = null);
     // this.exampleSocket.onmessage = event => {
     //   const msg = JSON.parse(event.data);
     //   this.markPriceXBTUSD = msg.data['0'].markPrice;
@@ -120,7 +128,7 @@ export class TradePanelComponent implements OnInit {
   onSendSignal() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
@@ -133,12 +141,13 @@ export class TradePanelComponent implements OnInit {
     this.http.post<void>(
       BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
     ).subscribe(
-      (data) => console.log(data),
-      error => console.log(error),
-      () => {
+      (data) => {
         this.activeOrdersComp.fetchActiveOrders();
         this.openPositionsComp.fetchOpenPositions();
-      });
+        this._success.next('Signal placed successfully');
+      },
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onPlaceOrder() {
@@ -171,43 +180,53 @@ export class TradePanelComponent implements OnInit {
       body += '&price=' + price + '&stopPx=' + stopPx + '&execInst=' + execInst;
     }
 
-    const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
+
     this.http.post<any>(
       BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
     ).subscribe(
-      (data) => console.log(data),
-      error => console.log(error),
-      () => {
+      (data) => {
         this.activeOrdersComp.fetchActiveOrders();
         this.openPositionsComp.fetchOpenPositions();
-    });
+        this._success.next('Order placed successfully');
+      },
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onCancelOne(orderId: number) {
-    const httpOptions = {headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + this.symbolService.symbolGlobal + '&orderId=' + orderId, httpOptions
-    ).subscribe(() =>
-      error => console.log(JSON.stringify(error.json())));
+    ).subscribe(
+      () => {},
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onCancelAll() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
-    ).subscribe(() =>
-      error => console.log(JSON.stringify(error.json())));
+    ).subscribe(
+      () => {},
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   changeGlobalSymbol(symbol: string) {

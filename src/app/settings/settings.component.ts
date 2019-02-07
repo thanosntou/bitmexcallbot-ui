@@ -6,6 +6,7 @@ import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
 import {Symbol} from '../Symbol.enum';
+import {UserDetailsModel} from '../user-details.model';
 
 @Component({
   selector: 'app-settings',
@@ -24,6 +25,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild('fixedQtyLTCXXX') fixedQtyLTCXXX: ElementRef;
   @ViewChild('fixedQtyTRXXXX') fixedQtyTRXXXX: ElementRef;
   @ViewChild('fixedQtyXRPXXX') fixedQtyXRPXXX: ElementRef;
+  userDetailsInfo: UserDetailsModel;
   faPlus = faPlus;
   faMinus = faMinus;
   hiddenKeys = false;
@@ -31,22 +33,28 @@ export class SettingsComponent implements OnInit {
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userDetailsInfo = this.authService.findUserDetails();
+  }
 
   onSaveKeys() {
-    const bearerToken = this.authService.findToken();
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': bearerToken,
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-    })};
+      })
+    };
+
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
 
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/keys?apiKey=' + apiKey + '&apiSecret=' + apiSecret, '', httpOptions
-    ).subscribe((data: UserModel) =>
-      this.authService.userDetails.user = data
-    );
+    ).subscribe((data: UserModel) => {
+      this.userDetailsInfo.user = data;
+      this.authService.refreshUser(data);
+    });
+
     this.apiKeyRef.nativeElement.value = '';
     this.apiSecretRef.nativeElement.value = '';
   }
@@ -74,13 +82,12 @@ export class SettingsComponent implements OnInit {
     }
 
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], '', httpOptions
     ).subscribe((data: UserModel) => {
-      this.authService.userDetails.user = data;
       this.fixedQtyXBTUSD.nativeElement.value = '';
       this.fixedQtyETHUSD.nativeElement.value = '';
       this.fixedQtyADAXXX.nativeElement.value = '';
@@ -90,6 +97,8 @@ export class SettingsComponent implements OnInit {
       this.fixedQtyLTCXXX.nativeElement.value = '';
       this.fixedQtyTRXXXX.nativeElement.value = '';
       this.fixedQtyXRPXXX.nativeElement.value = '';
+      this.userDetailsInfo.user = data;
+      this.authService.refreshUser(data);
     });
   }
 

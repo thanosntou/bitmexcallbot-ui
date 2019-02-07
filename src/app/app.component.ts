@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from './authentication.service';
+import {UserDetailsModel} from './user-details.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'bitmexcallbot-ui';
+export class AppComponent implements OnInit {
 
-  constructor(public authService: AuthenticationService) {}
+  constructor(private router: Router,
+              public authService: AuthenticationService) {}
+
+  ngOnInit() {
+    if (this.authService.findToken()) {
+      this.authService.authenticate(this.authService.findToken());
+      this.router.navigate(['/trade']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 }

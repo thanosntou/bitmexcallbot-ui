@@ -1,7 +1,7 @@
 <div class="container-fluid" id="sidenavbar">
   <br>
   <div class="row">
-    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="authService.userDetails">{{  authService.userDetails.username }}</span></h5>
+    <h5><fa-icon [icon]="faUser"></fa-icon> Welcome, <span *ngIf="userDetails">{{ userDetails.user.username }}</span></h5>
   </div>
   <br>
   <div class="row">
@@ -9,13 +9,13 @@
   </div>
   <hr id="hr1"/>
   <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
-    <a class="nav-link" *ngIf="authService.isCustomer" routerLinkActive="active" routerLink="/dashboard" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
-    <a class="nav-link" *ngIf="authService.isCustomer" routerLinkActive="active" routerLink="/follow" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
-    <a class="nav-link" *ngIf="authService.isTrader" routerLinkActive="active" routerLink="/followers" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
-    <a class="nav-link" *ngIf="authService.isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
+    <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/dashboard" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
+    <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/follow" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
+    <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/followers" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
+    <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
     <a class="nav-link" routerLinkActive="active" routerLink="/tx" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
-    <a class="nav-link" *ngIf="authService.isCustomer" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-    <a class="nav-link" *ngIf="authService.isAdmin" routerLinkActive="active" routerLink="/admin" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
+    <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
+    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/admin" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
   </div>
 </div>
 

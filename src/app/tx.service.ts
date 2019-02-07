@@ -20,7 +20,7 @@ export class TxService {
     this.txUser = null;
 
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken()
+        'Authorization': this.authService.findAccessToken()
     })};
     let url = '/api/v1/user/tx';
     if (user !== null) {

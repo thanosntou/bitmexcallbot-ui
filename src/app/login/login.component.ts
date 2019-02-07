@@ -3,6 +3,7 @@ import {AuthenticationService} from '../authentication.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
   @ViewChild('confirmPass') confirmPass: ElementRef;
   @ViewChild('email') email: ElementRef;
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              public authService: AuthenticationService) { }
 
   ngOnInit() {
   }

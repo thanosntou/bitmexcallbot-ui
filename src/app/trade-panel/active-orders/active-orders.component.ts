@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../authentication.service';
 import {ActiveOrdersService} from '../active-orders.service';
 import {SymbolService} from '../../symbol.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-active-orders',
@@ -9,6 +10,8 @@ import {SymbolService} from '../../symbol.service';
   styleUrls: ['./active-orders.component.css']
 })
 export class ActiveOrdersComponent implements OnInit {
+  successMessage: string;
+  private _success = new Subject<string>();
 
   constructor(public authService: AuthenticationService,
               public symbolService: SymbolService,

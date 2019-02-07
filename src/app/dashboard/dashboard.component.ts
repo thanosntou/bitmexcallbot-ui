@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findToken(),
+        'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
     this.http.get<{
@@ -30,16 +30,19 @@ export class DashboardComponent implements OnInit {
       activeBalance: number,
       availableMargin: number,
       earned: number
-    }>(BaseUrl.BASEURL + '/api/v1/dashboard', httpOptions
-    ).subscribe((data: {
-      client: string,
-      walletBalance: number,
-      activeBalance: number,
-      availableMargin: number,
-      earned: number
-    }) => {
+    }>(
+      BaseUrl.BASEURL + '/api/v1/dashboard', httpOptions
+    ).subscribe(
+      (data: {
+        client: string,
+        walletBalance: number,
+        activeBalance: number,
+        availableMargin: number,
+        earned: number
+      }) => {
       this.data = data;
-    }, error => error
+    },
+      error => error
     );
   }
 

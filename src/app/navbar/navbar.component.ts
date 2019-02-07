@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {Router} from '@angular/router';
+import {UserDetailsModel} from '../user-details.model';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  userDetails: UserDetailsModel;
+  isAdmin = false;
+  isTrader = false;
+  isCustomer = false;
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
 
@@ -28,13 +33,27 @@ export class NavbarComponent implements OnInit {
               public authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.userDetails = this.authService.findUserDetails();
+    this.authService.findUserRoles().forEach(auth => {
+      if (auth.authority === 'ROLE_ADMIN') {
+        this.isAdmin = true;
+      }
+      if (auth.authority === 'ROLE_TRADER') {
+        this.isTrader = true;
+      }
+      if (auth.authority === 'ROLE_CUSTOMER') {
+        this.isCustomer = true;
+      }
+    });
   }
 
   onSignOut() {
-    localStorage.clear();
-    // this.userSignedOut.emit({ signedOut: true });
-    this.authService.userDetails = null;
-    this.router.navigate(['/']);
+    this.isAdmin = false;
+    this.isTrader = false;
+    this.isCustomer = false;
+    this.userDetails = null;
+    this.authService.deleteUserConnection();
+    this.router.navigate(['/login']);
   }
 
 }
