@@ -7,9 +7,20 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <select name="client" class="form-control" #clientInput>
-          <option [selected]="userDetailsInfo.user.client">{{ userDetailsInfo.user.client }}</option>
-          <option value="TESTNET">Testnet</option>
-          <option value="BITMEX">Bitmex</option>
+          <!--<option [style.font-weight]="'bold'" [selected]="userDetailsInfo.user.client">{{ userDetailsInfo.user.client }}</option>-->
+          <option
+            [style.font-weight]="userDetailsInfo.user.client == 'TESTNET' ? 'bold' : null"
+            [selected]="userDetailsInfo.user.client == 'TESTNET'" value="TESTNET"
+          >
+            Testnet
+          </option>
+          <option
+            [style.font-weight]="userDetailsInfo.user.client == 'BITMEX' ? 'bold' : null"
+            [selected]="userDetailsInfo.user.client == 'BITMEX'"
+            value="BITMEX"
+          >
+            Bitmex
+          </option>
         </select>
       </div>
       <div class="row justify-content-center">
