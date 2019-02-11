@@ -16,6 +16,7 @@ export class FollowersPanelComponent implements OnInit {
   faCheckedCircle = faCheckCircle;
   faMinus = faMinus;
   followers: UserModel[];
+  enabledAmount = 0;
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
@@ -28,8 +29,15 @@ export class FollowersPanelComponent implements OnInit {
     })};
     this.http.get<UserModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions
-    ).subscribe((data: UserModel[]) =>
-      this.followers = data
+    ).subscribe((data: UserModel[]) => {
+      this.followers = data;
+      this.followers.forEach(f => {
+        if (f.enabled) {
+          this.enabledAmount = this.enabledAmount + 1;
+        }
+      });
+    }
+
     );
   }
 

@@ -8,13 +8,13 @@
             <th scope="col">Id</th>
             <th scope="col">User</th>
             <th scope="col">Email</th>
-            <th scope="col">Enabled</th>
+            <th scope="col">Enabled {{ enabledAmount }}/{{ followers.length }}</th>
             <th scope="col"> </th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let follower of followers">
-            <th scope="row">{{ follower.id }}</th>
+          <tr *ngFor="let follower of followers; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
             <td>
               <a (click)="onShowTxOf(follower)" role="button">{{ follower.username }}</a>
             </td>
