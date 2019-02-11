@@ -46,10 +46,11 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
-      .subscribe((data: UserModel) =>
-        this.followers.find(follower => follower.id === id).enabled = data.enabled
-      );
+    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
+    ).subscribe((data: UserModel) => {
+        this.followers.find(follower => follower.id === id).enabled = data.enabled;
+        this.enabledAmount = this.enabledAmount + 1;
+      });
   }
 
   onDisable(id: number) {
@@ -57,10 +58,12 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions)
-      .subscribe((data: UserModel) =>
-        this.followers.find(follower => follower.id === id).enabled = data.enabled
-      );
+    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
+    ).subscribe(
+      (data: UserModel) => {
+        this.followers.find(follower => follower.id === id).enabled = data.enabled;
+        this.enabledAmount = this.enabledAmount - 1;
+      });
   }
 
   onShowTxOf(follower: UserModel) {
