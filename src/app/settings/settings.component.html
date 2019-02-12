@@ -48,77 +48,176 @@
         </div>
       </div>
       <br>
+
       <div class="container-fluid">
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
             <strong>XBTUSD:</strong>
           </div>
-          <div class="col-xs" >
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyXBTUSD }}
+          </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyXBTUSD
+            />
+          </div>
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('XBTUSD')">Save</button>
           </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
             <strong>ETHUSD:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyETHUSD }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyETHUSD
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('ETHUSD')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>ADA:</strong>
+            <strong>ADAH19:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyADAZ18 }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyADAXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('ADAXXX')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>BCH:</strong>
+            <strong>BCHH19:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyBCHZ18 }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyBCHXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('BCHXXX')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>EOS:</strong>
+            <strong>EOSH19:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyEOSZ18 }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyEOSXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('EOSXXX')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>ETH:</strong>
+            <strong>ETHH19:</strong>
+          </div>
+          <div class="col-xs" style="margin-right: 20px">
+            {{ userDetailsInfo.user.fixedQtyXBTJPY }}
           </div>
           <div class="col-xs">
-            {{ userDetailsInfo.user.fixedQtyETHZ18 }}
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyETHXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('ETHXXX')">Save</button>
           </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>LTC:</strong>
+            <strong>LTCH19:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyLTCZ18 }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyLTCXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('LTCXXX')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>TRX:</strong>
+            <strong>TRXH19:</strong>
           </div>
-          <div class="col-xs">
+          <div class="col-xs" style="margin-right: 20px">
             {{ userDetailsInfo.user.fixedQtyTRXZ18 }}
           </div>
+          <div class="col-xs">
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyTRXXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('TRXXXX')">Save</button>
+          </div>
         </div>
         <div class="row">
           <div class="col-xs" style="margin-right: 20px">
-            <strong>XRP:</strong>
+            <strong>XRPH19:</strong>
+          </div>
+          <div class="col-xs" style="margin-right: 20px">
+            {{ userDetailsInfo.user.fixedQtyXRPZ18 }}
           </div>
           <div class="col-xs">
-            {{ userDetailsInfo.user.fixedQtyXRPZ18 }}
+            <input
+              type="number"
+              class="form-control"
+              #fixedQtyXRPXXX
+            />
+          </div>
+
+          <div class="col-xs" style="margin-left: 20px">
+            <button class="btn btn-outline-success" (click)="onSavefixedQty('XRPXXX')">Save</button>
           </div>
         </div>
       </div>
@@ -159,147 +258,5 @@
         </form>
       </div>
     </div>
-
-    <br>
-
-    <div class="container-fluid">
-      <div class="row">
-        <h4 (click)="showOrHideQties()"> <span *ngIf="hiddenQties;else dropedDownIcon">
-          <fa-icon [icon]="faPlus"></fa-icon></span> Edit Fixed Quantities </h4>
-        <ng-template #dropedDownIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
-      </div>
-      <div class="container-fluid" *ngIf="!hiddenQties">
-        <form>
-          <div class="form-group">
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                    <label for="api_key">XBTUSD</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      #fixedQtyXBTUSD
-                    >
-                </div>
-                <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQty('XBTUSD')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                    <label for="api_secret">ETHUSD</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      #fixedQtyETHUSD
-                    >
-                </div>
-                <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQty('ETHUSD')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">ADA</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyADAXXX
-                  >
-                </div>
-                <div class="row">
-                    <button class="btn btn-success" (click)="onSavefixedQty('ADAXXX')">Save</button>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">BCH</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyBCHXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('BCHXXX')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">EOS</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyEOSXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('EOSXXX')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">ETH</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyETHXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('ETHXXX')">Save</button>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">LTC</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyLTCXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('LTCXXX')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">TRX</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyTRXXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('TRXXXX')">Save</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <label for="api_secret">XRP</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    #fixedQtyXRPXXX
-                  >
-                </div>
-                <div class="row">
-                  <button class="btn btn-success" (click)="onSavefixedQty('XRPXXX')">Save</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
   </div>
 </div>

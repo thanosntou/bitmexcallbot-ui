@@ -28,7 +28,7 @@ export class ActiveOrdersService {
     const httpOptions = {headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
-      })};
+    })};
     this.http.delete<any>(
       BaseUrl.BASEURL + '/api/v1/trade/order?orderID=' + orderID, httpOptions
     ).subscribe(() => {
