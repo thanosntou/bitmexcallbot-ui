@@ -17,10 +17,12 @@ export class UserModel {
   fixedQtyTRXZ18: string;
   fixedQtyXRPZ18: string;
   client: string;
+  create_date: string;
 
   constructor(id: number, username: string, email: string, enabled: boolean, apiKey: string, apiSecret: string,
               fixedQtyXBTUSD: string, fixedQtyETHUSD: string, fixedQtyADAZ18: string, fixedQtyBCHZ18: string,
-              fixedQtyEOSZ18: string, fixedQtyXBTJPY: string, fixedQtyLTCZ18: string, fixedQtyTRXZ18: string, fixedQtyXRPZ18: string) {
+              fixedQtyEOSZ18: string, fixedQtyXBTJPY: string, fixedQtyLTCZ18: string, fixedQtyTRXZ18: string, fixedQtyXRPZ18: string,
+              create_date: string) {
     this.id = id;
     this.username = username;
     this.email = email;
@@ -37,5 +39,6 @@ export class UserModel {
     this.fixedQtyLTCZ18 = fixedQtyLTCZ18;
     this.fixedQtyTRXZ18 = fixedQtyTRXZ18;
     this.fixedQtyXRPZ18 = fixedQtyXRPZ18;
+    this.create_date = create_date;
   }
 }

@@ -19,12 +19,14 @@ import { UnlessDirective } from './unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NewAccountComponent } from './new-account/new-account.component';
 import { LoginComponent } from './login/login.component';
-import {OpenPositionDirective} from './trade-panel/open-position.directive';
+import { OpenPositionDirective} from './trade-panel/open-position.directive';
 import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
 import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
-import {SettingItemDirective} from './setting-item.directive';
-import {RouterModule, Routes} from '@angular/router';
+import { SettingItemDirective} from './setting-item.directive';
+import { RouterModule, Routes} from '@angular/router';
 import { AppInComponent } from './app-in/app-in.component';
+import { LoginListComponent } from './login-list/login-list.component';
+import {UserListComponent} from './user-list/user-list.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -35,7 +37,9 @@ const appRoutes: Routes = [
       { path: 'trade', component: TradePanelComponent },
       { path: 'tx', component: TxComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'admin', component: AdminPanelComponent }
+      { path: 'admin', component: AdminPanelComponent },
+      { path: 'users', component: UserListComponent },
+      { path: 'logins', component: LoginListComponent },
     ]
   },
 ];
@@ -60,7 +64,9 @@ const appRoutes: Routes = [
     SettingItemDirective,
     ActiveOrdersComponent,
     OpenPositionsComponent,
-    AppInComponent
+    AppInComponent,
+    UserListComponent,
+    LoginListComponent
   ],
   imports: [
     BrowserModule,

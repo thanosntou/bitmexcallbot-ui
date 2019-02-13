@@ -15,7 +15,21 @@
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
     <a class="nav-link" routerLinkActive="active" routerLink="/tx" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/admin" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>
+    <!--<a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/admin" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>-->
+
+    <br>
+    <div class="row" *ngIf="isAdmin">
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-block" id="dropdownBasic1" ngbDropdownToggle>Admin Panel</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button routerLink="/users" class="dropdown-item"><b>Users</b></button>
+            <button routerLink="/logins" class="dropdown-item"><b>Logins</b></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
