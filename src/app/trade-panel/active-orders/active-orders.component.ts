@@ -25,8 +25,8 @@ export class ActiveOrdersComponent implements OnInit {
     this.activeOrdersService.fetchActiveOrders();
   }
 
-  onCancelOne(orderId: string) {
-    this.activeOrdersService.cancelOne(orderId);
+  onCancelOne(clOrdID: string) {
+    this.activeOrdersService.cancelOne(clOrdID);
   }
 
   onCancelAll(symbol: string) {

@@ -24,15 +24,15 @@ export class ActiveOrdersService {
     );
   }
 
-  cancelOne(orderID: string) {
+  cancelOne(clOrdID: string) {
     const httpOptions = {headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
     })};
     this.http.delete<any>(
-      BaseUrl.BASEURL + '/api/v1/trade/order?orderID=' + orderID, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trade/order?clOrdID=' + clOrdID, httpOptions
     ).subscribe(() => {
-        this.activeOrders = this.activeOrders.filter(i => i.orderID !== orderID);
+        this.activeOrders = this.activeOrders.filter(i => i.clOrdID !== clOrdID);
         },
         error => console.log(error)
     );
@@ -48,8 +48,8 @@ export class ActiveOrdersService {
     ).subscribe(
       () => {
         this.activeOrders = undefined; },
-      error => console.log(error));
-
+      error => console.log(error)
+    );
   }
 
 }
