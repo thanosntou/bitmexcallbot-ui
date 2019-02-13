@@ -1,7 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {faMinus} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
@@ -38,10 +36,6 @@ export class SettingsComponent implements OnInit {
   @ViewChild('newPass') newPass: ElementRef;
   @ViewChild('confirmPass') confirmPass: ElementRef;
   userDetailsInfo: UserDetailsModel;
-  faPlus = faPlus;
-  faMinus = faMinus;
-  hiddenChangePass = true;
-  hiddenQties = false;
 
   constructor(private http: HttpClient, public authService: AuthenticationService) { }
 
@@ -68,20 +62,15 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-
     const apiKey = this.apiKeyRef.nativeElement.value;
     const apiSecret = this.apiSecretRef.nativeElement.value;
-
     const body = 'apiKey=' + apiKey + '&apiSecret=' + apiSecret;
-
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/keys', body, httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
-
       this._successKeys.next('API Keys saved');
-
       this.apiKeyRef.nativeElement.value = '';
       this.apiSecretRef.nativeElement.value = '';
     });
@@ -94,21 +83,16 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-
     const oldPass = this.oldPass.nativeElement.value;
     const newPass = this.newPass.nativeElement.value;
     const confirmPass = this.confirmPass.nativeElement.value;
-
     const body = 'oldPass=' + oldPass + '&newPass=' + newPass + '&confirmPass=' + confirmPass;
-
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/pass', body, httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
-
       this._successPass.next('Password changed');
-
       this.oldPass.nativeElement.value = '';
       this.newPass.nativeElement.value = '';
       this.confirmPass.nativeElement.value = '';
@@ -136,7 +120,6 @@ export class SettingsComponent implements OnInit {
     } else if (Symbol.XRPXXX === Symbol[symbol]) {
       qty = this.fixedQtyXRPXXX.nativeElement.value;
     }
-
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -146,9 +129,7 @@ export class SettingsComponent implements OnInit {
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
-
       this._successQty.next('Quantity saved');
-
       this.fixedQtyXBTUSD.nativeElement.value = '';
       this.fixedQtyETHUSD.nativeElement.value = '';
       this.fixedQtyADAXXX.nativeElement.value = '';
@@ -175,13 +156,5 @@ export class SettingsComponent implements OnInit {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
     });
-  }
-
-  showOrHideQties() {
-    this.hiddenQties = !this.hiddenQties;
-  }
-
-  showOrHideChangePass() {
-    this.hiddenChangePass = !this.hiddenChangePass;
   }
 }
