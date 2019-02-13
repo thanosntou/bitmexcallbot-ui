@@ -46,13 +46,7 @@ export class AuthenticationService {
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
-        // if (data.authorities.includes(new AuthorityModel('ROLE_CUSTOMER'), 1)) {
-        //   console.log('cust');
         this.router.navigate(['/dashboard']);
-        // } else {
-        //   console.log('trade');
-        //   this.router.navigate(['/trade']);
-        // }
       },
         error => console.log(error)
     );
