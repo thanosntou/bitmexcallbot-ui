@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../admin.service';
-import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
+import {faSortAlphaDown, faSortNumericUp, faSortNumericDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login-list',
@@ -10,6 +10,7 @@ import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '
 export class LoginListComponent implements OnInit {
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
+  sortByIdIcon = faSortNumericDown;
 
   constructor(public adminService: AdminService) { }
 
@@ -18,6 +19,18 @@ export class LoginListComponent implements OnInit {
   }
 
   sortByName() {
+    if (this.sortByNameIcon === faSortAlphaDown) {
+      this.sortByNameIcon = faSortAlphaUp;
+      this.adminService.logins.sort((a, b) =>
+        a.user.username.localeCompare(b.user.username));
+    } else {
+      this.sortByNameIcon = faSortAlphaDown;
+      this.adminService.logins.sort((a, b) =>
+        b.user.username.localeCompare(a.user.username));
+    }
+  }
+
+  sortById() {
     if (this.sortByNameIcon === faSortAlphaDown) {
       this.sortByNameIcon = faSortAlphaUp;
       this.adminService.logins.sort((a, b) =>

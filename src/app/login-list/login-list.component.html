@@ -12,6 +12,9 @@
               User <fa-icon [icon]="sortByNameIcon" (click)="sortByName()"></fa-icon>
             </th>
             <th scope="col">
+              # <fa-icon [icon]="sortByIdIcon" (click)="sortById()"></fa-icon>
+            </th>
+            <th scope="col">
               Date <fa-icon [icon]="sortByDateIcon" (click)="sortByDate()"></fa-icon>
             </th>
           </tr>
@@ -19,6 +22,7 @@
           <tbody>
           <tr *ngFor="let login of adminService.logins">
             <th scope="row">{{ login.user.username }}</th>
+            <td>{{ login.id }}</td>
             <td>{{ login.create_date }}</td>
           </tr>
           </tbody>
