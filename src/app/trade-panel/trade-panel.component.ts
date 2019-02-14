@@ -199,18 +199,22 @@ export class TradePanelComponent implements OnInit {
     );
   }
 
-  onCancelOne(orderId: number) {
+  onPanicButton() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': this.authService.findAccessToken()
       })
     };
     this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + this.symbolService.symbolGlobal + '&orderId=' + orderId, httpOptions
+      BaseUrl.BASEURL + '/api/v1/trade/panic', httpOptions
     ).subscribe(
-      () => {},
-      error => console.log(JSON.stringify(error))
+      () => {
+
+      },
+      error => console.log(JSON.stringify(error)),
+      () => {
+
+      }
     );
   }
 

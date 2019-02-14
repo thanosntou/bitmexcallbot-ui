@@ -53,4 +53,8 @@ export class ActiveOrdersService {
     );
   }
 
+  clearAll() {
+    this.activeOrders = null;
+  }
+
 }

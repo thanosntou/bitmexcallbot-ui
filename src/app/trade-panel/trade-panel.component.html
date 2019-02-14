@@ -118,6 +118,9 @@
             <div class="card" id="ManualForAll">
               <div class="card-header" (click)="hideOrShow2()">
                   <h5>Manual For All</h5>
+                <div class="row justify-content-center">
+                  <button class="btn btn-outline-danger" (click)="onPanicButton()">Panic Button</button>
+                </div>
               </div>
               <div class="card-body" *ngIf="isHidden2">
                 <div class="container-fluid">

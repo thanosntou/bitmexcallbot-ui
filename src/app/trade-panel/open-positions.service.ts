@@ -196,4 +196,25 @@ export class OpenPositionsService implements OnInit {
     );
   }
 
+  clearAll() {
+    this.positionXBTUSD = null;
+    this.openXBTUSD = false;
+    this.positionETHUSD = null;
+    this.openETHUSD = false;
+    this.positionADAH19 = null;
+    this.openADAH19 = false;
+    this.positionBCHH19 = null;
+    this.openBCHH19 = false;
+    this.positionEOSH19 = null;
+    this.openEOSH19 = false;
+    this.positionETHH19 = null;
+    this.openETHH19 = false;
+    this.positionLTCH19 = null;
+    this.openLTCH19 = false;
+    this.positionTRXH19 = null;
+    this.openTRXH19 = false;
+    this.positionXRPH19 = null;
+    this.openXRPH19 = false;
+  }
+
 }
