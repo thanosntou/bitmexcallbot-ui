@@ -31,10 +31,11 @@ export class ActiveOrdersService {
     })};
     this.http.delete<any>(
       BaseUrl.BASEURL + '/api/v1/trade/order?clOrdID=' + clOrdID, httpOptions
-    ).subscribe(() => {
+    ).subscribe(
+      () => {
         this.activeOrders = this.activeOrders.filter(i => i.clOrdID !== clOrdID);
         },
-        error => console.log(error)
+      error => console.log(error)
     );
   }
 
@@ -47,7 +48,7 @@ export class ActiveOrdersService {
       BaseUrl.BASEURL + '/api/v1/trade/order?symbol=' + symbol, httpOptions
     ).subscribe(
       () => {
-        this.activeOrders = undefined; },
+        this.activeOrders = this.activeOrders.filter(i => i.symbol !== symbol); },
       error => console.log(error)
     );
   }

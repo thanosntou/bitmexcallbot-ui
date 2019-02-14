@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseUrl} from '../BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
+import {ActiveOrdersService} from '../trade-panel/active-orders.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,8 @@ export class DashboardComponent implements OnInit {
     earned: number
   };
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) { }
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService) { }
 
   ngOnInit() {
     const httpOptions = { headers: new HttpHeaders({
