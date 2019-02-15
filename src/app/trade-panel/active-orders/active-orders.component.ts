@@ -33,4 +33,8 @@ export class ActiveOrdersComponent implements OnInit {
     this.activeOrdersService.cancelAll(symbol);
   }
 
+  public onClearAll() {
+    this.activeOrdersService.clearAll();
+  }
+
 }

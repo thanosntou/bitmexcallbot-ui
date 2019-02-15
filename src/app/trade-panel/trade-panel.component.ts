@@ -209,7 +209,8 @@ export class TradePanelComponent implements OnInit {
       BaseUrl.BASEURL + '/api/v1/trade/panic', httpOptions
     ).subscribe(
       () => {
-
+        this.activeOrdersComp.onClearAll();
+        this.openPositionsComp.onClearAll();
       },
       error => console.log(JSON.stringify(error)),
       () => {

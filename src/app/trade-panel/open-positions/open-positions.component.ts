@@ -47,4 +47,8 @@ export class OpenPositionsComponent implements OnInit {
     }
   }
 
+  public onClearAll() {
+    this.openPositionService.clearAll();
+  }
+
 }
