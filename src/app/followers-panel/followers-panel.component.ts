@@ -15,8 +15,9 @@ import {Router} from '@angular/router';
 export class FollowersPanelComponent implements OnInit {
   faCheckedCircle = faCheckCircle;
   faMinus = faMinus;
-  followers: UserModel[];
-  enabledAmount = 0;
+  followers: UserModel[] = [];
+  enabledFollowers: UserModel[] = [];
+  disabledFollowers: UserModel[] = [];
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
@@ -30,14 +31,14 @@ export class FollowersPanelComponent implements OnInit {
     this.http.get<UserModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions
     ).subscribe((data: UserModel[]) => {
-      this.followers = data;
-      this.followers.forEach(f => {
+      data.forEach(f => {
         if (f.enabled) {
-          this.enabledAmount = this.enabledAmount + 1;
+          this.enabledFollowers.push(f);
+        } else {
+          this.disabledFollowers.push(f);
         }
       });
     }
-
     );
   }
 
@@ -47,9 +48,11 @@ export class FollowersPanelComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
-    ).subscribe((data: UserModel) => {
-        this.followers.find(follower => follower.id === id).enabled = data.enabled;
-        this.enabledAmount = this.enabledAmount + 1;
+    ).subscribe(
+      (data: UserModel) => {
+        // let user = this.followers.find(follower => follower.id === id);
+      this.disabledFollowers = this.disabledFollowers.filter(i => i.id !== id);
+      this.enabledFollowers.push(data);
       });
   }
 
@@ -61,8 +64,8 @@ export class FollowersPanelComponent implements OnInit {
     this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
-        this.followers.find(follower => follower.id === id).enabled = data.enabled;
-        this.enabledAmount = this.enabledAmount - 1;
+        this.enabledFollowers = this.enabledFollowers.filter(i => i.id !== id);
+        this.disabledFollowers.push(data);
       });
   }
 
