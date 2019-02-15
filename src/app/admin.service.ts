@@ -45,4 +45,21 @@ export class AdminService {
     );
   }
 
+  deleteUser(id: number) {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/json'
+    })};
+    this.http.delete<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/' + id, httpOptions
+    ).subscribe(
+      (data: UserModel) => {
+
+        // this.users.splice(this.users.indexOf(data), 1);
+        this.users = this.users.filter(i => i.id !== id);
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
 }

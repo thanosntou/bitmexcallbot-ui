@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 import {AdminService} from '../admin.service';
+import {UserModel} from '../user.model';
 
 @Component({
   selector: 'app-user-list',
@@ -16,6 +17,10 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.adminService.fetchUsers();
+  }
+
+  onDeleteUser(user: UserModel) {
+    this.adminService.deleteUser(user.id);
   }
 
   sortByUsername() {

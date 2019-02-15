@@ -12,18 +12,37 @@
               User <fa-icon [icon]="sortByNameIcon" (click)="sortByUsername()"></fa-icon>
             </th>
             <th scope="col">
+              ID <fa-icon></fa-icon>
+            </th>
+            <th scope="col">
               Email <fa-icon [icon]="sortByDateIcon" (click)="sortByEmail()"></fa-icon>
+            </th>
+
+            <th scope="col">
+              API Key <fa-icon></fa-icon>
+            </th>
+            <th scope="col">
+              API Secret <fa-icon></fa-icon>
             </th>
             <th scope="col">
               Create Date <fa-icon [icon]="sortByDateIcon" (click)="sortByCreateDate()"></fa-icon>
             </th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let user of adminService.users">
             <th scope="row">{{ user.username }}</th>
+            <th scope="row">{{ user.id }}</th>
             <td>{{ user.email }}</td>
+            <td>{{ user.apiKey }}</td>
+            <td>{{ user.apiSecret }}</td>
             <td>{{ user.create_date }}</td>
+            <td>
+              <div class="row justify-content-center">
+                <button class="btn btn-danger" (click)="onDeleteUser(user)">Delete</button>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>
