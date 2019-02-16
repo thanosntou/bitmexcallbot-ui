@@ -18,6 +18,8 @@ export class FollowersPanelComponent implements OnInit {
   followers: UserModel[] = [];
   enabledFollowers: UserModel[] = [];
   disabledFollowers: UserModel[] = [];
+  enabledAmount = 0;
+  disabledAmount = 0;
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService,
@@ -34,8 +36,10 @@ export class FollowersPanelComponent implements OnInit {
       data.forEach(f => {
         if (f.enabled) {
           this.enabledFollowers.push(f);
+          this.enabledAmount = this.enabledAmount + 1;
         } else {
           this.disabledFollowers.push(f);
+          this.disabledAmount = this.disabledAmount + 1;
         }
       });
     }
@@ -53,6 +57,8 @@ export class FollowersPanelComponent implements OnInit {
         // let user = this.followers.find(follower => follower.id === id);
       this.disabledFollowers = this.disabledFollowers.filter(i => i.id !== id);
       this.enabledFollowers.push(data);
+        // this.disabledAmount = this.disabledAmount - 1;
+        // this.disabledAmount = this.disabledAmount + 1;
       });
   }
 

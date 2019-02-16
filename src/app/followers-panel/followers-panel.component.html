@@ -2,7 +2,7 @@
   <div class="card-body">
     <h3 class="card-title">Followers</h3>
     <div class="row">
-      <h5>Enabled Followers</h5>
+      <h5>Enabled Followers ({{ enabledAmount }} / {{ enabledAmount + disabledAmount }})</h5>
       <table class="table table-hover table-sm">
         <thead class="thead bg-info">
           <tr>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="row">
-      <h5>Disabled Followers</h5>
+      <h5>Disabled Followers ({{ disabledAmount }} / {{ enabledAmount + disabledAmount }})</h5>
       <table class="table table-hover table-sm">
         <thead class="thead bg-info">
         <tr>
