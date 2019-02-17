@@ -115,4 +115,14 @@ export class AuthenticationService {
     return true;
   }
 
+  isTrader() {
+    let status = false;
+    this.findUserRoles().forEach(auth => {
+      if (auth.authority === 'ROLE_TRADER') {
+        status = true;
+      }
+    });
+    return true;
+  }
+
 }

@@ -10,6 +10,7 @@ import {ActiveOrdersService} from './active-orders.service';
 import {ActiveOrdersComponent} from './active-orders/active-orders.component';
 import {debounceTime} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class TradePanelComponent implements OnInit {
               public authService: AuthenticationService,
               private openPositionsService: OpenPositionsService,
               private activeOrdersService: ActiveOrdersService,
-              public symbolService: SymbolService) {
+              public symbolService: SymbolService,
+              private router: Router) {
     this.priceSteps.set(Symbol.XBTUSD.valueOf(), 0.1);
     this.priceSteps.set(Symbol.ETHUSD.valueOf(), 0.01);
     this.priceSteps.set(Symbol.ADAXXX.valueOf(), 0.00000001);
@@ -96,6 +98,9 @@ export class TradePanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.authService.isTrader()) {
+      this.router.navigate(['/dashboard']);
+    }
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
       debounceTime(2500)
