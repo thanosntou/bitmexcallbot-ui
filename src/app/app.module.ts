@@ -29,10 +29,12 @@ import { LoginListComponent } from './login-list/login-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
 import { FollowerComponent } from './follower/follower.component';
+import { FaqComponent } from './faq/faq.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: AppInComponent, children: [
+      { path: 'faq', component: FaqComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'follow', component: FollowPanelComponent },
       { path: 'followers', component: FollowersPanelComponent },
@@ -72,7 +74,8 @@ const appRoutes: Routes = [
     UserListComponent,
     LoginListComponent,
     UserComponent,
-    FollowerComponent
+    FollowerComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
