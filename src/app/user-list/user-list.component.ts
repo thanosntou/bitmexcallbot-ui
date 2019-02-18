@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 import {AdminService} from '../admin.service';
 import {UserModel} from '../user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -13,7 +14,8 @@ export class UserListComponent implements OnInit {
   sortByDateIcon = faSortAmountDown;
   sortByEmailIcon = faSortAlphaDown;
 
-  constructor(public adminService: AdminService) { }
+  constructor(public adminService: AdminService,
+              private router: Router) { }
 
   ngOnInit() {
     this.adminService.fetchUsers();
@@ -57,6 +59,10 @@ export class UserListComponent implements OnInit {
       this.adminService.users.sort((a, b) =>
         new Date(b.create_date).getTime() - (new Date(a.create_date).getTime()));
     }
+  }
+
+  onSelect(user: UserModel) {
+    this.router.navigate(['/users', user.id]);
   }
 
 }

@@ -27,6 +27,8 @@ import { RouterModule, Routes} from '@angular/router';
 import { AppInComponent } from './app-in/app-in.component';
 import { LoginListComponent } from './login-list/login-list.component';
 import {UserListComponent} from './user-list/user-list.component';
+import { UserComponent } from './user/user.component';
+import { FollowerComponent } from './follower/follower.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,11 +36,13 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'follow', component: FollowPanelComponent },
       { path: 'followers', component: FollowersPanelComponent },
+      { path: 'followers/:id', component: FollowerComponent },
       { path: 'trade', component: TradePanelComponent },
       { path: 'tx', component: TxComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'admin', component: AdminPanelComponent },
       { path: 'users', component: UserListComponent },
+      { path: 'users/:id', component: UserComponent },
       { path: 'logins', component: LoginListComponent },
     ]
   },
@@ -66,7 +70,9 @@ const appRoutes: Routes = [
     OpenPositionsComponent,
     AppInComponent,
     UserListComponent,
-    LoginListComponent
+    LoginListComponent,
+    UserComponent,
+    FollowerComponent
   ],
   imports: [
     BrowserModule,

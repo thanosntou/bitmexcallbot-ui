@@ -112,7 +112,7 @@ export class AuthenticationService {
         status = true;
       }
     });
-    return true;
+    return status;
   }
 
   isTrader() {
@@ -122,7 +122,7 @@ export class AuthenticationService {
         status = true;
       }
     });
-    return true;
+    return status;
   }
 
 }
