@@ -17,7 +17,7 @@
           <tr *ngFor="let follower of enabledFollowers; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>
-              <a (click)="onShowTxOf(follower)" role="button">{{ follower.username }}</a>
+              <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
             </td>
             <td>{{ follower.email }}</td>
             <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
@@ -50,7 +50,7 @@
         <tr *ngFor="let follower of disabledFollowers; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>
-            <a (click)="onShowTxOf(follower)" role="button">{{ follower.username }}</a>
+            <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
           </td>
           <td>{{ follower.email }}</td>
           <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>

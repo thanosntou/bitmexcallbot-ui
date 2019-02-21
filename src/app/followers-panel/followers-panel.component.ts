@@ -81,4 +81,8 @@ export class FollowersPanelComponent implements OnInit {
       this.router.navigate([ '/tx']);
     }
   }
+
+  onSelect(user: UserModel) {
+    this.router.navigate(['/followers', user.id]);
+  }
 }

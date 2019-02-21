@@ -28,7 +28,6 @@ import { AppInComponent } from './app-in/app-in.component';
 import { LoginListComponent } from './login-list/login-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
-import { FollowerComponent } from './follower/follower.component';
 import { FaqComponent } from './faq/faq.component';
 
 const appRoutes: Routes = [
@@ -38,7 +37,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'follow', component: FollowPanelComponent },
       { path: 'followers', component: FollowersPanelComponent },
-      { path: 'followers/:id', component: FollowerComponent },
+      { path: 'followers/:id', component: UserComponent },
       { path: 'trade', component: TradePanelComponent },
       { path: 'tx', component: TxComponent },
       { path: 'settings', component: SettingsComponent },
@@ -74,7 +73,6 @@ const appRoutes: Routes = [
     UserListComponent,
     LoginListComponent,
     UserComponent,
-    FollowerComponent,
     FaqComponent
   ],
   imports: [
