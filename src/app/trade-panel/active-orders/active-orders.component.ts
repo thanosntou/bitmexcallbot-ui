@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../authentication.service';
 import {ActiveOrdersService} from '../active-orders.service';
 import {SymbolService} from '../../symbol.service';
 import {Subject} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-active-orders',
@@ -15,10 +16,15 @@ export class ActiveOrdersComponent implements OnInit {
 
   constructor(public authService: AuthenticationService,
               public symbolService: SymbolService,
-              public activeOrdersService: ActiveOrdersService) { }
+              public activeOrdersService: ActiveOrdersService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activeOrdersService.fetchActiveOrders();
+    if (this.route.snapshot.params['id']) {
+      this.activeOrdersService.fetchActiveOrdersOf(this.route.snapshot.params['id']);
+    } else {
+      this.activeOrdersService.fetchActiveOrders();
+    }
   }
 
   fetchActiveOrders() {

@@ -34,7 +34,7 @@
           <tbody>
           <tr *ngFor="let user of adminService.users; let i = index">
             <th scope="row">{{ i + 1 }}</th>
-            <th scope="row">{{ user.username }}</th>
+            <th scope="row"><a (click)="onSelect(user)" role="button">{{ user.username }}</a></th>
             <th scope="row">{{ user.id }}</th>
             <td>{{ user.email }}</td>
             <td>{{ user.apiKey }}</td>

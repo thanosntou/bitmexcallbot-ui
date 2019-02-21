@@ -1,10 +1,41 @@
-
-
 <div class="card">
   <div class="card-body">
     <h3 class="card-title">Admin Panel</h3>
-    <p>
-      {{ userService.user.username }}
-    </p>
+    <br>
+    <h4>User Details</h4>
+    <div class="row">
+      Username: <strong>{{ userService.user.username }}</strong>
+    </div>
+    <div class="row">
+      Enabled: <strong>{{ userService.user.enabled }}</strong>
+    </div>
+    <div class="row">
+      API Key: <strong>{{ userService.user.apiKey }}</strong>
+    </div>
+    <div class="row">
+      API Secret: <strong>{{ userService.user.apiSecret }}</strong>
+    </div>
+    <div class="row">
+      Create: <strong>{{ userService.user.create_date }}</strong>
+    </div>
+    <div class="row">
+      Client: <strong>{{ userService.user.client }}</strong>
+    </div>
+    <div class="row">
+      XBTUSD: <strong>{{ userService.user.fixedQtyXBTUSD }}</strong>, ETHUSD: <strong>{{ userService.user.fixedQtyETHUSD }}</strong>, ADAZH9: <strong>{{ userService.user.fixedQtyADAZ18 }}</strong>
+    </div>
+    <div class="row">
+      BCHH19: <strong>{{ userService.user.fixedQtyBCHZ18 }}</strong>, EOSH19: <strong>{{ userService.user.fixedQtyEOSZ18 }}</strong>, ETHH19: <strong>{{ userService.user.fixedQtyETHZ18 }}</strong>
+    </div>
+    <div class="row">
+      LTCH19: <strong>{{ userService.user.fixedQtyLTCZ18 }}</strong>, TRXH19: <strong>{{ userService.user.fixedQtyTRXZ18 }}</strong>, XRPH19: <strong>{{ userService.user.fixedQtyXRPZ18 }}</strong>
+    </div>
+
+    <br>
+
+    <app-active-orders></app-active-orders>
+
+    <app-open-positions></app-open-positions>
+
   </div>
 </div>

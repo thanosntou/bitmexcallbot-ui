@@ -7,7 +7,7 @@
       <th scope="col">Side</th>
       <th scope="col">Order Status</th>
       <th scope="col">Order Type</th>
-      <!--<%&#45;&#45;<th scope="col">Order Qty</th>&#45;&#45;%>-->
+      <th scope="col">Order Qty</th>
       <th scope="col">Price</th>
       <th scope="col">Stop Price</th>
       <th scope="col">Transaction Time</th>
@@ -22,10 +22,10 @@
       <td>{{ order.side }}</td>
       <td>{{ order.ordStatus }}</td>
       <td>{{ order.ordType }}</td>
+      <td> </td>
       <td>{{ order.price }}</td>
       <td>{{ order.stopPx }}</td>
       <td>{{ order.transactTime }}</td>
-      <!--<td> </td>-->
       <td>
         <button class="btn btn-danger" (click)="onCancelOne(order.clOrdID)">Cancel</button>
       </td>

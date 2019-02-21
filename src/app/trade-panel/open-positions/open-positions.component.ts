@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../authentication.service';
 import {OpenPositionsService} from '../open-positions.service';
 import {PositionModel} from '../../position.model';
 import {Subject} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-open-positions',
@@ -16,10 +17,15 @@ export class OpenPositionsComponent implements OnInit {
   private _success = new Subject<string>();
 
   constructor(public authService: AuthenticationService,
-              public openPositionService: OpenPositionsService) {}
+              public openPositionService: OpenPositionsService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.openPositionService.fetchOpenPositions();
+    if (this.route.snapshot.params['id']) {
+      this.openPositionService.fetchOpenPositionsOf(this.route.snapshot.params['id']);
+    } else {
+      this.openPositionService.fetchOpenPositions();
+    }
   }
 
   fetchOpenPositions() {
@@ -45,10 +51,6 @@ export class OpenPositionsComponent implements OnInit {
     } else if (currentQty < 0) {
       return 'Buy';
     }
-  }
-
-  public onClearAll() {
-    this.openPositionService.clearAll();
   }
 
 }

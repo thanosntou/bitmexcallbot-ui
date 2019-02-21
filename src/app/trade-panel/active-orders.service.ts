@@ -8,7 +8,8 @@ import {ActiveOrderModel} from '../active-order.model';
 export class ActiveOrdersService {
   activeOrders: ActiveOrderModel[];
 
-  constructor(private http: HttpClient, public authService: AuthenticationService) {}
+  constructor(private http: HttpClient,
+              public authService: AuthenticationService) {}
 
   fetchActiveOrders() {
     const httpOptions = { headers: new HttpHeaders({
@@ -18,6 +19,19 @@ export class ActiveOrdersService {
 
     this.http.get<ActiveOrderModel[]>(
       BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions
+    ).subscribe((data: ActiveOrderModel[]) => {
+        this.activeOrders = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol));
+      }, error => console.log(error)
+    );
+  }
+
+  fetchActiveOrdersOf(userId: number) {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/json'
+    })};
+    this.http.get<ActiveOrderModel[]>(
+      BaseUrl.BASEURL + '/api/v1/user/active_orders?id=' + userId, httpOptions
     ).subscribe((data: ActiveOrderModel[]) => {
         this.activeOrders = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol));
       }, error => console.log(error)
