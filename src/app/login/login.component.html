@@ -40,6 +40,8 @@
       </div>
     </form>
     <br>
+    <ngb-alert *ngIf="successMessage" type="danger" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <br>
     <form *ngIf="showSignUp">
       <div class="form-group">
         <br><br>

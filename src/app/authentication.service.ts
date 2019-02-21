@@ -30,7 +30,10 @@ export class AuthenticationService {
       (data: TokenModel) => {
         this.authenticate(data);
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.router.navigate(['login', 'error']);
+      }
     );
   }
 

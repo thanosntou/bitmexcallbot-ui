@@ -15,9 +15,11 @@ import {OpenPositionsService} from '../trade-panel/open-positions.service';
 export class UserComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
 
-  constructor(public userService: UserService,
-              public authService: AuthenticationService,
-              private route: ActivatedRoute) { }
+  constructor(
+    public userService: UserService,
+    public authService: AuthenticationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.userService.findById(this.route.snapshot.params['id']);

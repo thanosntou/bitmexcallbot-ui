@@ -39,7 +39,7 @@ export class AdminService {
       BaseUrl.BASEURL + '/api/v1/user/all', httpOptions
     ).subscribe(
       (data: UserModel[]) => {
-        this.users = data.reverse();
+        this.users = data;
       },
       error => console.log(JSON.stringify(error))
     );

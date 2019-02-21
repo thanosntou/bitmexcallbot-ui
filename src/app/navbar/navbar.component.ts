@@ -7,6 +7,7 @@ import {
   faSatelliteDish, faSignOutAlt, faSolarPanel,
   faUser,
   faUsers,
+  faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {Router} from '@angular/router';
@@ -27,7 +28,7 @@ export class NavbarComponent implements OnInit {
 
   faCoffee = faCoffee; faUsers = faUsers; faSignOutAlt = faSignOutAlt;
   faHandshake = faHandshake; faHistory = faHistory; faCogs = faCogs;
-  faSatelliteDish = faSatelliteDish; faSolarPanel = faSolarPanel;  faUser = faUser;
+  faSatelliteDish = faSatelliteDish; faQuestionCircle = faQuestionCircle;  faUser = faUser;
 
   constructor(private router: Router,
               public authService: AuthenticationService) { }

@@ -3,7 +3,9 @@ import {AuthenticationService} from '../authentication.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BaseUrl} from '../BaseUrl.enum';
 import {UserModel} from '../user.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  private _fail = new Subject<string>();
+  successMessage: string;
   showSignUp = false;
   @ViewChild('username') username: ElementRef;
   @ViewChild('password') password: ElementRef;
@@ -20,17 +24,22 @@ export class LoginComponent implements OnInit {
   @ViewChild('confirmPass') confirmPass: ElementRef;
   @ViewChild('email') email: ElementRef;
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              public authService: AuthenticationService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    this._fail.subscribe((message) => this.successMessage = message);
+    this._fail.pipe(debounceTime(2500)).subscribe(() => this.successMessage = null);
+    this._fail.next(this.route.snapshot.params['message']);
   }
 
   onSignIn() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
-
     this.authService.getAndSetAccessToken(username, password);
   }
 

@@ -26,12 +26,13 @@ import { SettingItemDirective} from './setting-item.directive';
 import { RouterModule, Routes} from '@angular/router';
 import { AppInComponent } from './app-in/app-in.component';
 import { LoginListComponent } from './login-list/login-list.component';
-import {UserListComponent} from './user-list/user-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
 import { FaqComponent } from './faq/faq.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'login/:message', component: LoginComponent },
   { path: '', component: AppInComponent, children: [
       { path: 'faq', component: FaqComponent },
       { path: 'dashboard', component: DashboardComponent },
