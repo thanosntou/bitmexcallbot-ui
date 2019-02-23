@@ -3,6 +3,7 @@
     <h3 class="card-title">User Wallet Info</h3>
     <hr>
     <div class="container-fluid" *ngIf="userService.userWallet">
+      <div class="row">
         <div class="col">
           <div class="row">
             account
@@ -52,6 +53,8 @@
           <div class="row">
             <strong>{{ userService.userWallet.prevTimestamp }}</strong>
           </div>
+        </div>
+        <div class="col">
           <div class="row">
             deltaDeposited
           </div>
@@ -76,8 +79,6 @@
           <div class="row">
             <strong>{{ userService.userWallet.deltaTransferOut }}</strong>
           </div>
-        </div>
-        <div class="col">
           <div class="row">
             deltaAmount
           </div>
@@ -102,6 +103,8 @@
           <div class="row">
             <strong>{{ userService.userWallet.transferIn }}</strong>
           </div>
+        </div>
+        <div class="col">
           <div class="row">
             transferOut
           </div>
@@ -145,7 +148,7 @@
             <strong>{{ userService.userWallet.addr }}</strong>
           </div>
         </div>
-
+      </div>
     </div>
   </div>
 </div>
