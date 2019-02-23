@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Bitmex Wallet Summary</h3>
+    <hr>
+    <div class="row">
+      <table class="table table-hover table-sm">
+        <thead class="thead bg-info">
+        <tr>
+          <th>#</th>
+          <th scope="col">transactID </th>
+          <th scope="col">account </th>
+          <th scope="col">currency </th>
+          <th scope="col">transactType </th>
+          <th scope="col">amount </th>
+          <th scope="col">fee </th>
+          <th scope="col">transactStatus </th>
+          <th scope="col">address </th>
+          <th scope="col">tx </th>
+          <th scope="col">text </th>
+          <th scope="col">transactTime </th>
+          <th scope="col">timestamp </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let transaction of userService.bitmexTransactions; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ transaction.transactID }}</td>
+          <td>{{ transaction.account }}</td>
+          <td>{{ transaction.currency }}</td>
+          <td>{{ transaction.transactType }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.fee }}</td>
+          <td>{{ transaction.transactStatus }}</td>
+          <td>{{ transaction.address }}</td>
+          <td>{{ transaction.tx }}</td>
+          <td>{{ transaction.text }}</td>
+          <td>{{ transaction.transactTime }}</td>
+          <td>{{ transaction.timestamp }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

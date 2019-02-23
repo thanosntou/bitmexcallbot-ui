@@ -8,7 +8,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { TxComponent } from './tx/tx.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { WalletComponent } from './wallet/wallet.component';
 import { TradePanelComponent } from './trade-panel/trade-panel.component';
 import { FollowPanelComponent } from './follow-panel/follow-panel.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -29,6 +28,9 @@ import { LoginListComponent } from './login-list/login-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserComponent } from './user/user.component';
 import { FaqComponent } from './faq/faq.component';
+import { WalletInfoComponent } from './user/wallet-info/wallet-info.component';
+import { BitmexWalletSummaryComponent } from './user/bitmex-wallet-summary/bitmex-wallet-summary.component';
+import { BitmexWalletHistoryComponent } from './user/bitmex-wallet-history/bitmex-wallet-history.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -57,7 +59,6 @@ const appRoutes: Routes = [
     FollowersPanelComponent,
     FollowPanelComponent,
     TxComponent,
-    WalletComponent,
     SettingsComponent,
     AdminPanelComponent,
     DashboardComponent,
@@ -74,7 +75,10 @@ const appRoutes: Routes = [
     UserListComponent,
     LoginListComponent,
     UserComponent,
-    FaqComponent
+    FaqComponent,
+    WalletInfoComponent,
+    BitmexWalletSummaryComponent,
+    BitmexWalletHistoryComponent
   ],
   imports: [
     BrowserModule,

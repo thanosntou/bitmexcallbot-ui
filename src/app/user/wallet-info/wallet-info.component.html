@@ -1,0 +1,151 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">User Wallet Info</h3>
+    <hr>
+    <div class="container-fluid" *ngIf="userService.userWallet">
+        <div class="col">
+          <div class="row">
+            account
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.account }}</strong>
+          </div>
+          <div class="row">
+            currency
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.currency }}</strong>
+          </div>
+          <div class="row">
+            prevDeposited
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevDeposited }}</strong>
+          </div>
+          <div class="row">
+            prevWithdrawn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevWithdrawn }}</strong>
+          </div>
+          <div class="row">
+            prevTransferIn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevTransferIn }}</strong>
+          </div>
+          <div class="row">
+            prevTransferOut
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevTransferOut }}</strong>
+          </div>
+          <div class="row">
+            prevAmount
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevAmount }}</strong>
+          </div>
+          <div class="row">
+            prevTimestamp
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.prevTimestamp }}</strong>
+          </div>
+          <div class="row">
+            deltaDeposited
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deltaDeposited }}</strong>
+          </div>
+          <div class="row">
+            deltaWithdrawn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deltaWithdrawn }}</strong>
+          </div>
+          <div class="row">
+            deltaTransferIn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deltaTransferIn }}</strong>
+          </div>
+          <div class="row">
+            deltaTransferOut
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deltaTransferOut }}</strong>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            deltaAmount
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deltaAmount }}</strong>
+          </div>
+          <div class="row">
+            deposited
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.deposited }}</strong>
+          </div>
+          <div class="row">
+            withdrawn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.withdrawn }}</strong>
+          </div>
+          <div class="row">
+            transferIn
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.transferIn }}</strong>
+          </div>
+          <div class="row">
+            transferOut
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.transferOut }}</strong>
+          </div>
+          <div class="row">
+            amount
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.amount }}</strong>
+          </div>
+          <div class="row">
+            pendingCredit
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.pendingCredit }}</strong>
+          </div>
+          <div class="row">
+            pendingDebit
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.pendingDebit }}</strong>
+          </div>
+          <div class="row">
+            confirmedDebit
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.confirmedDebit }}</strong>
+          </div>
+          <div class="row">
+            timestamp
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.timestamp }}</strong>
+          </div>
+          <div class="row">
+            addr
+          </div>
+          <div class="row">
+            <strong>{{ userService.userWallet.addr }}</strong>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
