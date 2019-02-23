@@ -2,11 +2,19 @@
   <div class="card-body">
     <h3 class="card-title">Admin Panel</h3>
     <hr>
+    <h4> Users </h4>
     <div class="container-fluid">
-      <div class="row" style="overflow-x: scroll">
-        <h4> Users </h4>
-        <table class="table table-hover table-sm">
-          <thead class="thead bg-info">
+      <div class="row">
+        Total Followers Balance (XBT): <strong>{{ adminService.totalVolume }}</strong>
+      </div>
+      <div class="row">
+        Active Percentage Followers Balance (XBT): <strong>{{ adminService.activeVolume }}</strong>
+      </div>
+    </div>
+    <br>
+    <div class="row" style="overflow-x: scroll">
+      <table class="table table-hover table-sm">
+        <thead class="thead bg-info">
           <tr>
             <th></th>
             <th scope="col">
@@ -18,7 +26,6 @@
             <th scope="col">
               Email <fa-icon [icon]="sortByDateIcon" (click)="sortByEmail()"></fa-icon>
             </th>
-
             <th scope="col">
               API Key <fa-icon></fa-icon>
             </th>
@@ -26,12 +33,11 @@
               API Secret <fa-icon></fa-icon>
             </th>
             <th scope="col">
-              Create Date <fa-icon [icon]="sortByDateIcon" (click)="sortByCreateDate()"></fa-icon>
-            </th>
-            <th></th>
+              Create Date <fa-icon [icon]="sortByDateIcon" (click)="sortByCreateDate()"></fa-icon></th>
+            <th> </th>
           </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
           <tr *ngFor="let user of adminService.users; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <th scope="row"><a (click)="onSelect(user)" role="button">{{ user.username }}</a></th>
@@ -46,18 +52,9 @@
               </div>
             </td>
           </tr>
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
     <br>
-    <div class="container-fluid">
-      <div class="row">
-        Total Followers Balance (XBT): <strong>{{ adminService.totalVolume }}</strong>
-      </div>
-      <div class="row">
-        Active Percentage Followers Balance (XBT): <strong>{{ adminService.activeVolume }}</strong>
-      </div>
-    </div>
   </div>
 </div>
