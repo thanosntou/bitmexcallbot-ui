@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from '../authentication.service';
-import {BaseUrl} from '../BaseUrl.enum';
-import {UserModel} from '../user.model';
-import {Symbol} from '../Symbol.enum';
-import {UserDetailsModel} from '../user-details.model';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
+import {UserModel} from '../_model/user.model';
+import {Symbol} from '../_enum/Symbol.enum';
+import {UserDetailsModel} from '../_model/user-details.model';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 

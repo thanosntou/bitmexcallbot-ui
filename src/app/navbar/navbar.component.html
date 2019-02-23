@@ -7,18 +7,16 @@
   <div class="row">
     <button class="btn btn-dark" (click)="onSignOut()"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</button>
   </div>
-  <hr id="hr1"/>
+  <hr id="hr1">
   <div class="row nav flex-column nav-pills nav-fill" role="tablist" aria-orientation="vertical">
-
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/dashboard" role="button"><fa-icon [icon]="faCoffee"></fa-icon> Dashboard</a>
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/follow" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/followers" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
     <a class="nav-link" routerLinkActive="active" routerLink="/tx" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-    <a class="nav-link" *ngIf="isCustomer || isTrader" routerLinkActive="active" routerLink="/faq" role="button"><fa-icon [icon]="faQuestionCircle"></fa-icon> F.A.Q.</a>
-    <!--<a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/admin" role="button"><fa-icon [icon]="faSolarPanel"></fa-icon> Admin Panel</a>-->
-
+    <a class="nav-link" routerLinkActive="active" routerLink="/faq" role="button"><fa-icon [icon]="faQuestionCircle"></fa-icon> F.A.Q.</a>
+    <a class="nav-link" routerLinkActive="active" routerLink="/chat" role="button"><fa-icon [icon]="faComment"></fa-icon> Chat</a>
     <br>
     <div class="row" *ngIf="isAdmin">
       <div class="col">
@@ -30,7 +28,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <br>
   </div>

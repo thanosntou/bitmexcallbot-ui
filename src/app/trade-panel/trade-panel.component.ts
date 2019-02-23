@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../BaseUrl.enum';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
-import {Symbol} from '../Symbol.enum';
+import {Symbol} from '../_enum/Symbol.enum';
 import {SymbolService} from '../symbol.service';
 import {OpenPositionsComponent} from './open-positions/open-positions.component';
 import {OpenPositionsService} from './open-positions.service';

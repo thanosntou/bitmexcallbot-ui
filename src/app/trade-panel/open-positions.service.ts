@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {PositionModel} from '../position.model';
-import {BaseUrl} from '../BaseUrl.enum';
+import {PositionModel} from '../_model/position.model';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Injectable, OnInit} from '@angular/core';
 

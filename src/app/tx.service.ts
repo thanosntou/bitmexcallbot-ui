@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {TxModel} from './tx.model';
+import {TxModel} from './_model/tx.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from './BaseUrl.enum';
+import {BaseUrl} from './_enum/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
-import {UserModel} from './user.model';
+import {UserModel} from './_model/user.model';
 
 @Injectable({
   providedIn: 'root'

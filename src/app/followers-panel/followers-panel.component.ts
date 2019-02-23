@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {faCheckCircle, faMinus} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
-import {BaseUrl} from '../BaseUrl.enum';
-import {UserModel} from '../user.model';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
+import {UserModel} from '../_model/user.model';
 import {TxService} from '../tx.service';
 import {Router} from '@angular/router';
 

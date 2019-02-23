@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../BaseUrl.enum';
-import {UserModel} from '../user.model';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
+import {UserModel} from '../_model/user.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';

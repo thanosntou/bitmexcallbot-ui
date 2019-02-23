@@ -31,11 +31,13 @@ import { FaqComponent } from './faq/faq.component';
 import { WalletInfoComponent } from './user/wallet-info/wallet-info.component';
 import { BitmexWalletSummaryComponent } from './user/bitmex-wallet-summary/bitmex-wallet-summary.component';
 import { BitmexWalletHistoryComponent } from './user/bitmex-wallet-history/bitmex-wallet-history.component';
+import { ChatComponent } from './chat/chat.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:message', component: LoginComponent },
   { path: '', component: AppInComponent, children: [
+      { path: 'chat', component: ChatComponent },
       { path: 'faq', component: FaqComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'follow', component: FollowPanelComponent },
@@ -78,7 +80,8 @@ const appRoutes: Routes = [
     FaqComponent,
     WalletInfoComponent,
     BitmexWalletSummaryComponent,
-    BitmexWalletHistoryComponent
+    BitmexWalletHistoryComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

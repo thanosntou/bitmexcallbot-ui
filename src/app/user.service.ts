@@ -1,10 +1,10 @@
-import {UserModel} from './user.model';
+import {UserModel} from './_model/user.model';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from './BaseUrl.enum';
+import {BaseUrl} from './_enum/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 import {Router} from '@angular/router';
-import {UserWalletModel} from './user-wallet.model';
+import {UserWalletModel} from './_model/user-wallet.model';
 import {BitmexTransactionModel} from './bitmex-transaction.model';
 
 @Injectable()

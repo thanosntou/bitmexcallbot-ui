@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {TokenModel} from './token.model';
-import {BaseUrl} from './BaseUrl.enum';
-import {UserDetailsModel} from './user-details.model';
+import {TokenModel} from './_model/token.model';
+import {BaseUrl} from './_enum/BaseUrl.enum';
+import {UserDetailsModel} from './_model/user-details.model';
 import {Router} from '@angular/router';
-import {UserModel} from './user.model';
+import {UserModel} from './_model/user.model';
 import {UserConnectionModel} from './user-connection.model';
 
 @Injectable({

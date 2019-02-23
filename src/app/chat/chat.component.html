@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Chat</h3>
+    <hr>
+    <div class="container-fluid" style="overflow-y: scroll; height: 70vh">
+      <div class="row" *ngFor="let message of messages">
+        <p>{{ message.user }} ({{ message.date.substring(0, 10) }}__{{ message.date.substring(11, 17) }}): <strong>{{ message.message }}</strong></p>
+      </div>
+    </div>
+    <div class="row">
+      <input
+        type="text"
+        class="form-control"
+        #messageInput
+      >
+      <button class="btn btn-primary" (click)="onSendMessage()">Send</button>
+    </div>
+  </div>
+</div>

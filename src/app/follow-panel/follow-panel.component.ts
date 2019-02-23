@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserModel} from '../user.model';
+import {UserModel} from '../_model/user.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../BaseUrl.enum';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {SymbolService} from '../symbol.service';
 

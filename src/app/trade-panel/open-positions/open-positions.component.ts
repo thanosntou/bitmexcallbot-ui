@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../../authentication.service';
 import {OpenPositionsService} from '../open-positions.service';
-import {PositionModel} from '../../position.model';
+import {PositionModel} from '../../_model/position.model';
 import {Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 

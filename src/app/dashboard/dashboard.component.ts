@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../BaseUrl.enum';
+import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {ActiveOrdersService} from '../trade-panel/active-orders.service';
 

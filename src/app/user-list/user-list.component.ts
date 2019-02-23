@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
 import {AdminService} from '../admin.service';
-import {UserModel} from '../user.model';
+import {UserModel} from '../_model/user.model';
 import {Router} from '@angular/router';
 
 @Component({

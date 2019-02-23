@@ -1,5 +1,5 @@
-import {TokenModel} from './token.model';
-import {UserDetailsModel} from './user-details.model';
+import {TokenModel} from './_model/token.model';
+import {UserDetailsModel} from './_model/user-details.model';
 
 export class UserConnectionModel {
   token: TokenModel;

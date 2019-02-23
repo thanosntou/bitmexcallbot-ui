@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Symbol} from './Symbol.enum';
+import {Symbol} from './_enum/Symbol.enum';
 
 @Injectable({
   providedIn: 'root'
