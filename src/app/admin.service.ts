@@ -11,7 +11,8 @@ import {UserModel} from './_model/user.model';
 export class AdminService {
   logins: LoginModel[];
   users: UserModel[];
-  totalBalance: number;
+  totalVolume: number;
+  activeVolume: number;
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService) {}
@@ -21,11 +22,12 @@ export class AdminService {
         'Authorization': this.authService.findAccessToken()
       })};
 
-    this.http.get<number>(
+    this.http.get<{totalVolume: number, activeVolume: number}>(
       BaseUrl.BASEURL + '/api/v1/admin/totalBalance', httpOptions
     ).subscribe(
-      (data: number) => {
-        this.totalBalance = data;
+      (data: {totalVolume: number, activeVolume: number}) => {
+        this.totalVolume = data.totalVolume;
+        this.activeVolume = data.activeVolume;
       },
       error => console.log(JSON.stringify(error))
     );
