@@ -39,7 +39,8 @@ export class OpenPositionsService implements OnInit {
       BaseUrl.BASEURL + '/api/v1/trader/active_positions', httpOptions
     ).subscribe(
       (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
-      error => error
+      error => error,
+      () => (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol))
     );
   }
 
@@ -84,7 +85,7 @@ export class OpenPositionsService implements OnInit {
     this.http.delete<void>(
       BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
     ).subscribe(
-      () => this.openPositions.filter(position => position.symbol !== symbol),
+      () => this.openPositions = this.openPositions.filter(position => position.symbol !== symbol),
       error => console.log(error)
     );
   }
