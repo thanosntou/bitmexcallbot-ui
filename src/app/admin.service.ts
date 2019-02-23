@@ -11,9 +11,25 @@ import {UserModel} from './_model/user.model';
 export class AdminService {
   logins: LoginModel[];
   users: UserModel[];
+  totalBalance: number;
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService) {}
+
+  fetchTotalBalance() {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken()
+      })};
+
+    this.http.get<number>(
+      BaseUrl.BASEURL + '/api/v1/admin/totalBalance', httpOptions
+    ).subscribe(
+      (data: number) => {
+        this.totalBalance = data;
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
 
   fetchLogins() {
     const httpOptions = { headers: new HttpHeaders({

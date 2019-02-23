@@ -19,6 +19,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.adminService.fetchUsers();
+    this.adminService.fetchTotalBalance();
   }
 
   onDeleteUser(user: UserModel) {
