@@ -2,24 +2,24 @@
   <div class="card-body">
     <h3 class="card-title">Bitmex Wallet History</h3>
     <hr>
-    <div class="row">
+    <div class="row"  style="overflow-x: scroll">
       <table class="table table-hover table-sm">
         <thead class="thead bg-info">
         <tr>
           <th>#</th>
-          <th scope="col">transactTime </th>
-          <th scope="col">transactType </th>
-          <th scope="col">amount </th>
-          <th scope="col">fee </th>
-          <th scope="col">address </th>
-          <th scope="col">transactStatus </th>
-          <th scope="col">Wallet Balance </th>
+          <th scope="col">Time</th>
+          <th scope="col">Type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Fee</th>
+          <th scope="col">Address</th>
+          <th scope="col">Status</th>
+          <th scope="col">Wallet Balance</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let transaction of userService.bitmexTransactions; let i = index">
           <th scope="row">{{ i + 1 }}</th>
-          <td>{{ transaction.transactTime.substring(0, 19) }}</td>
+          <td>{{ transaction.transactTime.substring(0, 10) }}</td>
           <td>{{ transaction.transactType }}</td>
           <td>{{ transaction.amount }}</td>
           <td>{{ transaction.fee }} {{ transaction.currency }}</td>

@@ -6,7 +6,7 @@ export class BitmexTransactionModel {
   amount: number;
   walletBalance: number;
   marginBalance: number;
-  symbol: number;
+  symbol: string;
   pendingDebit: number;
   realizedPnl: number;
   unrealizedPnl: number;
