@@ -49,7 +49,11 @@ export class AuthenticationService {
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
-        this.router.navigate(['/dashboard']);
+        if (this.isTrader()) {
+          this.router.navigate(['/trade']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       },
         error => console.log(error)
     );
