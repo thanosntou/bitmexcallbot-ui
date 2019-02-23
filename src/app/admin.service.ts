@@ -13,21 +13,37 @@ export class AdminService {
   users: UserModel[];
   totalVolume: number;
   activeVolume: number;
+  balanceMap: Map<string, number>;
 
   constructor(private http: HttpClient,
               public authService: AuthenticationService) {}
 
-  fetchTotalBalance() {
+  fetchVolumes() {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken()
       })};
 
     this.http.get<{totalVolume: number, activeVolume: number}>(
-      BaseUrl.BASEURL + '/api/v1/admin/totalBalance', httpOptions
+      BaseUrl.BASEURL + '/api/v1/admin/volume', httpOptions
     ).subscribe(
       (data: {totalVolume: number, activeVolume: number}) => {
         this.totalVolume = data.totalVolume;
         this.activeVolume = data.activeVolume;
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
+  fetchUsersWalletBalance() {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken()
+      })};
+
+    this.http.get<Map<string, number>>(
+      BaseUrl.BASEURL + '/api/v1/admin/balances', httpOptions
+    ).subscribe(
+      (data: Map<string, number>) => {
+        this.balanceMap = data;
       },
       error => console.log(JSON.stringify(error))
     );

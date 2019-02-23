@@ -24,6 +24,9 @@
               ID <fa-icon></fa-icon>
             </th>
             <th scope="col">
+              Balance
+            </th>
+            <th scope="col">
               Email <fa-icon [icon]="sortByDateIcon" (click)="sortByEmail()"></fa-icon>
             </th>
             <th scope="col">
@@ -42,6 +45,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <th scope="row"><a (click)="onSelect(user)" role="button">{{ user.username }}</a></th>
             <th scope="row">{{ user.id }}</th>
+            <td>{{ adminService.balanceMap[user.username] }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.apiKey }}</td>
             <td>{{ user.apiSecret }}</td>
