@@ -52,7 +52,7 @@ export class AuthenticationService {
         if (this.isTrader()) {
           this.router.navigate(['/trade']);
         } else {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/settings']);
         }
       },
         error => console.log(error)
