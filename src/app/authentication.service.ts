@@ -11,6 +11,7 @@ import {UserConnectionModel} from './user-connection.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private tempToken: TokenModel;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,13 +28,12 @@ export class AuthenticationService {
     this.http.post<TokenModel>(
       BaseUrl.BASEURL + '/oauth/token', body, httpOptions
     ).subscribe(
-      (data: TokenModel) => {
-        this.authenticate(data);
-      },
+      (data: TokenModel) => this.tempToken = data,
       error => {
         console.log(error);
         this.router.navigate(['login', 'error']);
-      }
+      },
+      () => this.authenticate(this.tempToken)
     );
   }
 
@@ -49,13 +49,15 @@ export class AuthenticationService {
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
+      },
+      error => console.log(error),
+      () => {
         if (this.isTrader()) {
           this.router.navigate(['/trade']);
         } else {
           this.router.navigate(['/settings']);
         }
-      },
-        error => console.log(error)
+      }
     );
   }
 

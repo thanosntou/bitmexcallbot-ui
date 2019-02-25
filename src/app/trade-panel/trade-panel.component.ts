@@ -32,13 +32,13 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('stopLossManual') stopLossManual: ElementRef;
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
+  @ViewChild('hidden') hidden: ElementRef;
 
   @ViewChild(OpenPositionsComponent) openPositionsComp: OpenPositionsComponent;
   @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
 
   successMessage: string;
   private _success = new Subject<string>();
-
   isHidden1 = true;
   isHidden2 = true;
   manualTab = 'Limit';
@@ -159,6 +159,7 @@ export class TradePanelComponent implements OnInit {
     const symbol = this.symbolService.symbolGlobal;
     const side = this.sideManual.nativeElement.value;
     const ordType = this.manualTab;
+    const hidden = this.hidden.nativeElement.value
     let price;
     let stopPx;
     let execInst;
@@ -167,7 +168,8 @@ export class TradePanelComponent implements OnInit {
     let body = 'symbol=' + symbol
       + '&side=' + side
       + '&ordType=' + ordType
-      + '&leverage=' + leverage;
+      + '&leverage=' + leverage
+      + '&hidden=' + hidden;
 
     if (ordType === 'Limit') {
       price = this.priceManual.nativeElement.value;
