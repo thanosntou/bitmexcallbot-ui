@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._fail.subscribe((message) => this.successMessage = message);
     this._fail.pipe(debounceTime(2500)).subscribe(() => this.successMessage = null);
-    this._fail.next(this.route.snapshot.params['message']);
+    this._fail.next(this.route.snapshot.queryParams['message']);
   }
 
   onSignIn() {

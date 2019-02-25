@@ -31,7 +31,7 @@ export class AuthenticationService {
       (data: TokenModel) => this.tempToken = data,
       error => {
         console.log(error);
-        this.router.navigate(['login', 'error']);
+        this.router.navigate(['login'], {queryParams: {message: 'Wrong credentials'}});
       },
       () => this.authenticate(this.tempToken)
     );

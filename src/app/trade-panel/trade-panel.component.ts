@@ -11,6 +11,7 @@ import {ActiveOrdersComponent} from './active-orders/active-orders.component';
 import {debounceTime} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -38,6 +39,9 @@ export class TradePanelComponent implements OnInit {
   @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
 
   successMessage: string;
+  closeResult: string;
+  modalField1: any;
+  modalField2: any;
   private _success = new Subject<string>();
   isHidden1 = true;
   isHidden2 = true;
@@ -52,6 +56,7 @@ export class TradePanelComponent implements OnInit {
               private openPositionsService: OpenPositionsService,
               private activeOrdersService: ActiveOrdersService,
               public symbolService: SymbolService,
+              private modalService: NgbModal,
               private router: Router) {
     this.priceSteps.set(Symbol.XBTUSD.valueOf(), 0.1);
     this.priceSteps.set(Symbol.ETHUSD.valueOf(), 0.01);
@@ -159,7 +164,7 @@ export class TradePanelComponent implements OnInit {
     const symbol = this.symbolService.symbolGlobal;
     const side = this.sideManual.nativeElement.value;
     const ordType = this.manualTab;
-    const hidden = this.hidden.nativeElement.value
+    const hidden = this.hidden.nativeElement.value;
     let price;
     let stopPx;
     let execInst;
@@ -255,5 +260,17 @@ export class TradePanelComponent implements OnInit {
 
   hideOrShow2() {
     this.isHidden2 = !this.isHidden2;
+  }
+
+  openConfirmation(content) {
+    if (this.manualTab === 'Market' || this.manualTab === 'Stop') {
+      this.modalField1 = 'Market';
+    } else if (this.manualTab === 'StopLimit' || this.manualTab === 'Limit') {
+      this.modalField1 = this.priceManual.nativeElement.value;
+    } else {
+      this.modalField1 = this.stopPxManual.nativeElement.value;
+    }
+    // this.modalField2 = ;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
   }
 }
