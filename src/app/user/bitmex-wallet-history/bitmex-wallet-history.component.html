@@ -21,11 +21,11 @@
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ transaction.transactTime.substring(0, 10) }}</td>
           <td>{{ transaction.transactType }}</td>
-          <td>{{ transaction.amount }}</td>
+          <td>{{ (transaction.amount / 100000000).toFixed(5) }}</td>
           <td>{{ transaction.fee }} {{ transaction.currency }}</td>
           <td>{{ transaction.address }}</td>
           <td>{{ transaction.transactStatus }}</td>
-          <td>{{ transaction.walletBalance }}</td>
+          <td>{{ (transaction.walletBalance / 100000000).toFixed(5) }}</td>
         </tr>
         </tbody>
       </table>
