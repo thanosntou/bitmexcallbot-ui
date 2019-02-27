@@ -75,6 +75,32 @@ export class FollowersPanelComponent implements OnInit {
       });
   }
 
+  onEnableAll() {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
+    this.http.post<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/statusAll', 'status=enable', httpOptions
+    ).subscribe(
+      (data: UserModel[]) => {
+        this.disabledFollowers = [];
+        this.enabledFollowers = data;
+      });
+  }
+
+  onDisableAll() {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })};
+    this.http.post<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/statusAll', 'status=disable', httpOptions
+    ).subscribe(
+      (data: UserModel[]) => {
+        this.enabledFollowers = [];
+        this.disabledFollowers = data;
+      });
+  }
+
   onShowTxOf(follower: UserModel) {
     if (this.authService.isAdmin()) {
       this.txService.fetchUserTx(follower);
