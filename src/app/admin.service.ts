@@ -22,8 +22,7 @@ export class AdminService {
   fetchVolumes() {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken()
-      })};
-
+    })};
     this.http.get<{totalVolume: number, activeVolume: number}>(
       BaseUrl.BASEURL + '/api/v1/admin/volume', httpOptions
     ).subscribe(
