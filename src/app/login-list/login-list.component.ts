@@ -5,7 +5,8 @@ import {faSortAlphaDown, faSortNumericUp, faSortNumericDown, faSortAlphaUp, faSo
 @Component({
   selector: 'app-login-list',
   templateUrl: './login-list.component.html',
-  styleUrls: ['./login-list.component.css']
+  styleUrls: ['./login-list.component.css'],
+  providers: [AdminService]
 })
 export class LoginListComponent implements OnInit {
   sortByNameIcon = faSortAlphaDown;

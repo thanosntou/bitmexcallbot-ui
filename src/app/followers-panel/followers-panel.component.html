@@ -23,7 +23,7 @@
             <td>
               <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
             </td>
-            <td>{{ adminService.balanceMap[follower.username] }}</td>
+            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>
 
             <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
               <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
@@ -61,7 +61,7 @@
             <td>
               <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
             </td>
-            <td>{{ adminService.balanceMap[follower.username] }}</td>
+            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>
             <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
               <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
             </td>

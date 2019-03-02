@@ -5,18 +5,19 @@ import {BaseUrl} from './_enum/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 import {UserModel} from './_model/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AdminService {
   logins: LoginModel[];
   users: UserModel[];
   totalVolume: number;
   activeVolume: number;
-  balanceMap: Map<string, number>;
+  usersBalanceMap: Map<string, number>;
+  followersBalanceMap: Map<string, number>;
 
-  constructor(private http: HttpClient,
-              public authService: AuthenticationService) {}
+  constructor(
+    private http: HttpClient,
+    public authService: AuthenticationService
+  ) {}
 
   fetchVolumes() {
     const httpOptions = { headers: new HttpHeaders({
@@ -37,13 +38,27 @@ export class AdminService {
   fetchUsersWalletBalance() {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken()
+    })};
+    this.http.get<Map<string, number>>(
+      BaseUrl.BASEURL + '/api/v1/admin/balances', httpOptions
+    ).subscribe(
+      (data: Map<string, number>) => {
+        this.usersBalanceMap = data;
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
+  fetchFollowersWalletBalance() {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken()
       })};
 
     this.http.get<Map<string, number>>(
       BaseUrl.BASEURL + '/api/v1/trader/balances', httpOptions
     ).subscribe(
       (data: Map<string, number>) => {
-        this.balanceMap = data;
+        this.followersBalanceMap = data;
       },
       error => console.log(JSON.stringify(error))
     );

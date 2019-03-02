@@ -32,7 +32,7 @@ export class FollowersPanelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.adminService.fetchUsersWalletBalance();
+    this.adminService.fetchFollowersWalletBalance();
 
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
