@@ -27,6 +27,9 @@
               Balance
             </th>
             <th scope="col">
+              Enabled
+            </th>
+            <th scope="col">
               Email <fa-icon [icon]="sortByDateIcon" (click)="sortByEmail()"></fa-icon>
             </th>
             <th scope="col">
@@ -38,6 +41,7 @@
             <th scope="col">
               Create Date <fa-icon [icon]="sortByDateIcon" (click)="sortByCreateDate()"></fa-icon></th>
             <th> </th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -46,15 +50,13 @@
             <th scope="row"><a (click)="onSelect(user)" role="button">{{ user.username }}</a></th>
             <th scope="row">{{ user.id }}</th>
             <td>{{ adminService.balanceMap[user.username] }}</td>
+            <td>{{ user.enabled }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.apiKey }}</td>
             <td>{{ user.apiSecret }}</td>
             <td>{{ user.create_date }}</td>
-            <td>
-              <div class="row justify-content-center">
-                <button class="btn btn-danger" (click)="onDeleteUser(user)">Delete</button>
-              </div>
-            </td>
+            <td><button class="btn btn-warning" (click)="onMakeHiddenUser(user)">Hide</button></td>
+            <td><button class="btn btn-danger" (click)="onDeleteUser(user)">Delete</button></td>
           </tr>
         </tbody>
       </table>

@@ -40,7 +40,7 @@ export class AdminService {
       })};
 
     this.http.get<Map<string, number>>(
-      BaseUrl.BASEURL + '/api/v1/admin/balances', httpOptions
+      BaseUrl.BASEURL + '/api/v1/trader/balances', httpOptions
     ).subscribe(
       (data: Map<string, number>) => {
         this.balanceMap = data;
@@ -82,10 +82,26 @@ export class AdminService {
   deleteUser(id: number) {
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/json'
     })};
     this.http.delete<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/' + id, httpOptions
+    ).subscribe(
+      (data: UserModel) => {
+
+        // this.users.splice(this.users.indexOf(data), 1);
+        this.users = this.users.filter(i => i.id !== id);
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
+  hideUser(id: number) {
+    const httpOptions = { headers: new HttpHeaders({
+        'Authorization': this.authService.findAccessToken(),
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })};
+    this.http.post<UserModel>(
+      BaseUrl.BASEURL + '/api/v1/user/hide', 'id=' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
 

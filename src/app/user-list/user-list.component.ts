@@ -27,6 +27,10 @@ export class UserListComponent implements OnInit {
     this.adminService.deleteUser(user.id);
   }
 
+  onMakeHiddenUser(user: UserModel) {
+    this.adminService.hideUser(user.id);
+  }
+
   sortByUsername() {
     if (this.sortByNameIcon === faSortAlphaDown) {
       this.sortByNameIcon = faSortAlphaUp;
