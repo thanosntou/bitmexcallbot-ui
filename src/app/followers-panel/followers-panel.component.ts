@@ -6,11 +6,13 @@ import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {UserModel} from '../_model/user.model';
 import {TxService} from '../tx.service';
 import {Router} from '@angular/router';
+import {AdminService} from '../admin.service';
 
 @Component({
   selector: 'app-followers-panel',
   templateUrl: './followers-panel.component.html',
-  styleUrls: ['./followers-panel.component.css']
+  styleUrls: ['./followers-panel.component.css'],
+  providers: [AdminService]
 })
 export class FollowersPanelComponent implements OnInit {
   faCheckedCircle = faCheckCircle;
@@ -21,12 +23,17 @@ export class FollowersPanelComponent implements OnInit {
   enabledAmount = 0;
   disabledAmount = 0;
 
-  constructor(private http: HttpClient,
-              public authService: AuthenticationService,
-              private txService: TxService,
-              private router: Router) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private txService: TxService,
+    public adminService: AdminService,
+    public authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    this.adminService.fetchUsersWalletBalance();
+
     const httpOptions = { headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
     })};
