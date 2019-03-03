@@ -11,7 +11,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TradePanelComponent } from './trade-panel/trade-panel.component';
 import { FollowPanelComponent } from './follow-panel/follow-panel.component';
 import { SettingsComponent } from './settings/settings.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FollowersPanelComponent } from './followers-panel/followers-panel.component';
 import { UnlessDirective } from './unless.directive';
@@ -46,7 +45,6 @@ const appRoutes: Routes = [
       { path: 'trade', component: TradePanelComponent },
       { path: 'tx', component: TxComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'admin', component: AdminPanelComponent },
       { path: 'users', component: UserListComponent },
       { path: 'users/:id', component: UserComponent },
       { path: 'logins', component: LoginListComponent },
@@ -62,7 +60,6 @@ const appRoutes: Routes = [
     FollowPanelComponent,
     TxComponent,
     SettingsComponent,
-    AdminPanelComponent,
     DashboardComponent,
     NavbarComponent,
     UnlessDirective,

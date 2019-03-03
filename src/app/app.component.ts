@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from './authentication.service';
-import {UserDetailsModel} from './_model/user-details.model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,8 +9,10 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router,
-              public authService: AuthenticationService) {}
+  constructor(
+    private router: Router,
+    public authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
     if (this.authService.findToken()) {

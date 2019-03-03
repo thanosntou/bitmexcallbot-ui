@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { LoginModel } from './_model/login.model';
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseUrl} from './_enum/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 import {UserModel} from './_model/user.model';

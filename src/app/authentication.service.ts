@@ -31,13 +31,14 @@ export class AuthenticationService {
       (data: TokenModel) => this.tempToken = data,
       error => {
         console.log(error);
-        this.router.navigate(['login'], {queryParams: {message: 'Wrong credentials'}});
+        this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
       },
       () => this.authenticate(this.tempToken)
     );
   }
 
   authenticate(token: TokenModel) {
+    token.timestamp = Date.now();
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': token.token_type + ' ' + token.access_token
@@ -50,7 +51,10 @@ export class AuthenticationService {
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
       },
-      error => console.log(error),
+      error => {
+        console.log(error);
+        this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
+      },
       () => {
         if (this.isTrader()) {
           this.router.navigate(['/trade']);
@@ -61,11 +65,41 @@ export class AuthenticationService {
     );
   }
 
+  refreshToken(token: TokenModel) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic dGVzdDprb2JpbmVz'})
+    };
+    const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
+
+    this.http.post<TokenModel>(
+      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
+    ).subscribe(
+      (data: TokenModel) => this.tempToken = data,
+      error => {
+        console.log(error);
+        this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
+      },
+      () => this.authenticate(this.tempToken)
+    );
+  }
+
   findAccessToken() {
-    const token = this.findToken();
+    let token = this.findToken();
     if (!token) {
       this.deleteUserConnection();
       this.router.navigate(['/login']);
+    }
+
+    console.log(this.isExpired(token));
+    if (this.isExpired(token)) {
+      this.refreshToken(token);
+      token = this.findToken();
+      if (this.isExpired(token)) {
+        this.deleteUserConnection();
+        this.router.navigate(['/login']);
+      }
     }
     return token.token_type + ' ' + token.access_token;
   }
@@ -132,6 +166,10 @@ export class AuthenticationService {
       }
     });
     return status;
+  }
+
+  isExpired(token: TokenModel) {
+    return (token.timestamp + token.expires_in) <= Date.now() + 10;
   }
 
 }
