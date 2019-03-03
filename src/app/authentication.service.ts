@@ -92,7 +92,6 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
     }
 
-    console.log(this.isExpired(token));
     if (this.isExpired(token)) {
       this.refreshToken(token);
       token = this.findToken();
