@@ -81,7 +81,10 @@ export class AuthenticationService {
         console.log(error);
         this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
       },
-      () => this.authenticate(this.tempToken)
+      () => {
+        console.log('Access Token refreshed');
+        this.authenticate(this.tempToken);
+      }
     );
   }
 
@@ -90,17 +93,17 @@ export class AuthenticationService {
     if (!token) {
       this.deleteUserConnection();
       this.router.navigate(['/login']);
-    }
-
-    if (this.isExpired(token)) {
-      this.refreshToken(token);
-      token = this.findToken();
+    } else {
       if (this.isExpired(token)) {
-        this.deleteUserConnection();
-        this.router.navigate(['/login']);
+        this.refreshToken(token);
+        token = this.findToken();
+        if (this.isExpired(token)) {
+          this.deleteUserConnection();
+          this.router.navigate(['/login']);
+        }
       }
+      return token.token_type + ' ' + token.access_token;
     }
-    return token.token_type + ' ' + token.access_token;
   }
 
   findToken() {

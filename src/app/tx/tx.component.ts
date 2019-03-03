@@ -5,7 +5,8 @@ import {TxService} from '../tx.service';
 @Component({
   selector: 'app-tx',
   templateUrl: './tx.component.html',
-  styleUrls: ['./tx.component.css']
+  styleUrls: ['./tx.component.css'],
+  providers: [TxService]
 })
 export class TxComponent implements OnInit {
   sortByNameIcon = faSortAlphaDown;

@@ -5,9 +5,7 @@ import {BaseUrl} from './_enum/BaseUrl.enum';
 import {AuthenticationService} from './authentication.service';
 import {UserModel} from './_model/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TxService {
   txUser: UserModel;
   tx: TxModel[];

@@ -4,7 +4,6 @@ import {faCheckCircle, faMinus} from '@fortawesome/free-solid-svg-icons';
 import {AuthenticationService} from '../authentication.service';
 import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {UserModel} from '../_model/user.model';
-import {TxService} from '../tx.service';
 import {Router} from '@angular/router';
 import {AdminService} from '../admin.service';
 
@@ -26,7 +25,6 @@ export class FollowersPanelComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private txService: TxService,
     public adminService: AdminService,
     public authService: AuthenticationService
   ) { }
@@ -106,13 +104,6 @@ export class FollowersPanelComponent implements OnInit {
         this.enabledFollowers = [];
         this.disabledFollowers = data;
       });
-  }
-
-  onShowTxOf(follower: UserModel) {
-    if (this.authService.isAdmin()) {
-      this.txService.fetchUserTx(follower);
-      this.router.navigate([ '/tx']);
-    }
   }
 
   onSelect(user: UserModel) {
