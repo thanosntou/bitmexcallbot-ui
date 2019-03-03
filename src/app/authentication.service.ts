@@ -171,7 +171,7 @@ export class AuthenticationService {
   }
 
   isExpired(token: TokenModel) {
-    return (token.timestamp + token.expires_in) <= Date.now() + 10;
+    return (token.timestamp + (token.expires_in * 1000)) <= (Date.now() + 10000);
   }
 
 }
