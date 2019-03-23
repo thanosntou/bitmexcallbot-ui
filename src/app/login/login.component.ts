@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('pass') pass: ElementRef;
   @ViewChild('confirmPass') confirmPass: ElementRef;
   @ViewChild('email') email: ElementRef;
+  @ViewChild('PIN') PIN: ElementRef;
 
   constructor(
     private http: HttpClient,
@@ -48,11 +49,13 @@ export class LoginComponent implements OnInit {
     const pass = this.pass.nativeElement.value;
     const confirmPass = this.confirmPass.nativeElement.value;
     const email = this.email.nativeElement.value;
+    const PIN = this.PIN.nativeElement.value;
 
     const body = 'username=' + username
       + '&pass=' + pass
       + '&confirmPass=' + confirmPass
-      + '&email=' + email;
+      + '&email=' + email
+      + '&PIN=' + PIN;
 
     const httpOptions = {headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'

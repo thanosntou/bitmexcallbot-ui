@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { TxComponent } from './tx/tx.component';
@@ -17,7 +17,7 @@ import { UnlessDirective } from './unless.directive';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NewAccountComponent } from './new-account/new-account.component';
 import { LoginComponent } from './login/login.component';
-import { OpenPositionDirective} from './trade-panel/open-position.directive';
+import { OpenPositionDirective } from './trade-panel/open-position.directive';
 import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
 import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
 import { SettingItemDirective} from './setting-item.directive';
@@ -31,12 +31,12 @@ import { WalletInfoComponent } from './user/wallet-info/wallet-info.component';
 import { BitmexWalletSummaryComponent } from './user/bitmex-wallet-summary/bitmex-wallet-summary.component';
 import { BitmexWalletHistoryComponent } from './user/bitmex-wallet-history/bitmex-wallet-history.component';
 import { ChatComponent } from './chat/chat.component';
+import {NgbdButtonsRadio} from './buttons-radio';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:message', component: LoginComponent },
   { path: '', component: AppInComponent, children: [
-      { path: 'chat', component: ChatComponent },
       { path: 'faq', component: FaqComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'follow', component: FollowPanelComponent },
@@ -78,7 +78,8 @@ const appRoutes: Routes = [
     WalletInfoComponent,
     BitmexWalletSummaryComponent,
     BitmexWalletHistoryComponent,
-    ChatComponent
+    ChatComponent,
+    NgbdButtonsRadio
   ],
   imports: [
     BrowserModule,

@@ -13,10 +13,10 @@
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/follow" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/followers" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
-    <a class="nav-link" routerLinkActive="active" routerLink="/tx" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>
+    <!--<a class="nav-link" *ngIf="isC" routerLinkActive="active" routerLink="/tx" role="button"><fa-icon [icon]="faHistory"></fa-icon> Transaction History</a>-->
     <a class="nav-link" *ngIf="isCustomer" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
     <a class="nav-link" routerLinkActive="active" routerLink="/faq" role="button"><fa-icon [icon]="faQuestionCircle"></fa-icon> F.A.Q.</a>
-    <a class="nav-link" routerLinkActive="active" routerLink="/chat" role="button"><fa-icon [icon]="faComment"></fa-icon> Chat</a>
+    <!--<a class="nav-link" routerLinkActive="active" routerLink="/chat" role="button"><fa-icon [icon]="faComment"></fa-icon> Chat</a>-->
     <br>
     <div class="row" *ngIf="isAdmin">
       <div class="col">
