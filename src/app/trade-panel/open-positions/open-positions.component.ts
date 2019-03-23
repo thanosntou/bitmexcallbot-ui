@@ -39,6 +39,8 @@ export class OpenPositionsComponent implements OnInit {
       this.qtyPerc.nativeElement.value,
       this.price.nativeElement.value
     );
+    this.qtyPerc.nativeElement.value = '';
+    this.price.nativeElement.value = '';
   }
 
   onCloseMarketPosition(position: PositionModel) {

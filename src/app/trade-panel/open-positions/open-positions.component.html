@@ -14,8 +14,25 @@
       <th scope="col">Current Cost</th>
       <th scope="col">Unrealised Cost</th>
       <th scope="col">Pos Margin</th>
-      <th scope="col">Qty(%)</th>
-      <th scope="col">Price</th>
+      <th scope="col">
+        Qty(%)
+        <input
+          type="number"
+          min="0"
+          max="100"
+          step="1"
+          class="form-control"
+          #qtyPercentageInput
+        >
+      </th>
+      <th scope="col">
+        Price
+        <input
+          type="number"
+          class="form-control"
+          #priceInput
+        >
+      </th>
       <th scope="col"> </th>
       <th scope="col"> </th>
     </tr>
@@ -33,27 +50,26 @@
       <td>{{ position.currentCost }}</td>
       <td>{{ position.unrealisedCost }}</td>
       <td>{{ position.posMargin }}</td>
-      <th scope="col">
-        <input
-          type="number"
-          min="0"
-          max="100"
-          step="1"
-          class="form-control"
-          #qtyPercentageInput
-        >
-      </th>
-      <th scope="col">
-        <input
-          type="number"
-          step="1"
-          class="form-control"
-          #priceInput
-        >
-      </th>
-      <th scope="col">
+      <td>
+        <!--<input-->
+          <!--type="number"-->
+          <!--min="0"-->
+          <!--max="100"-->
+          <!--step="1"-->
+          <!--class="form-control"-->
+          <!--#qtyPercentageInput-->
+        <!--&gt;-->
+      </td>
+      <td>
+        <!--<input-->
+          <!--type="number"-->
+          <!--class="form-control"-->
+          <!--#priceInput-->
+        <!--&gt;-->
+      </td>
+      <td scope="col">
         <button class="btn btn-danger" (click)="onCloseLimitOrder(position)">Close</button>
-      </th>
+      </td>
       <th scope="col">
         <button class="btn btn-danger" (click)="onCloseMarketPosition(position)">Market</button>
       </th>

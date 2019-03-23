@@ -149,7 +149,7 @@ export class TradePanelComponent implements OnInit {
       + '&leverage=' + this.leverage.nativeElement.value;
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/signal', body, httpOptions
+      BaseUrl.B2 + '/api/v1/trade/signal', body, httpOptions
     ).subscribe(
       (data) => {
         this.activeOrdersComp.fetchActiveOrders();
@@ -200,7 +200,7 @@ export class TradePanelComponent implements OnInit {
     };
 
     this.http.post<any>(
-      BaseUrl.BASEURL + '/api/v1/trade/orderAll', body, httpOptions
+      BaseUrl.B2 + '/api/v1/trade/orderAll', body, httpOptions
     ).subscribe(
       (data) => {
         this.activeOrdersComp.fetchActiveOrders();
@@ -218,7 +218,7 @@ export class TradePanelComponent implements OnInit {
       })
     };
     this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/panic', httpOptions
+      BaseUrl.B2 + '/api/v1/trade/panic', httpOptions
     ).subscribe(
       () => {
         this.activeOrdersComp.onClearAll();
@@ -239,7 +239,7 @@ export class TradePanelComponent implements OnInit {
       })
     };
     this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/order', httpOptions
+      BaseUrl.B2 + '/api/v1/trade/order', httpOptions
     ).subscribe(
       () => {},
       error => console.log(JSON.stringify(error))

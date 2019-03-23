@@ -70,7 +70,7 @@ export class OpenPositionsService implements OnInit {
       '&execInst=Close';
 
     this.http.post<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/orderAll2', body, httpOptions
+      BaseUrl.B2 + '/api/v1/trade/orderAll2', body, httpOptions
     ).subscribe(
       () => this.fetchOpenPositions(),
       error => console.log(error)
@@ -83,7 +83,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/json'
     })};
     this.http.delete<void>(
-      BaseUrl.BASEURL + '/api/v1/trade/position?symbol=' + symbol, httpOptions
+      BaseUrl.B2 + '/api/v1/trade/position?symbol=' + symbol, httpOptions
     ).subscribe(
       () => this.openPositions = this.openPositions.filter(position => position.symbol !== symbol),
       error => console.log(error)
