@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.findToken()) {
-      this.authService.authenticate(this.authService.findToken());
+      // this.authService.authenticate(this.authService.findToken());
       this.router.navigate(['/trade']);
     } else {
       this.router.navigate(['/login']);
