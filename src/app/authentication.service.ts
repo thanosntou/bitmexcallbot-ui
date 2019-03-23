@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenModel} from './_model/token.model';
 import {BaseUrl} from './_enum/BaseUrl.enum';
@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getAndSetAccessToken(username: string, password: string) {
+  getAndSetAccessToken(username: string, password: string, url: BaseUrl) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -26,18 +26,18 @@ export class AuthenticationService {
       + '&grant_type=' + 'password';
 
     this.http.post<TokenModel>(
-      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
+      url + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {
         console.log(error);
         this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
       },
-      () => this.authenticate(this.tempToken)
+      () => this.authenticate(this.tempToken, url)
     );
   }
 
-  authenticate(token: TokenModel) {
+  authenticate(token: TokenModel, url: BaseUrl) {
     token.timestamp = Date.now();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -46,7 +46,7 @@ export class AuthenticationService {
     };
 
     this.http.get<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/authenticate', httpOptions
+      url + '/api/v1/user/authenticate', httpOptions
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
@@ -65,7 +65,7 @@ export class AuthenticationService {
     );
   }
 
-  refreshToken(token: TokenModel) {
+  refreshToken(token: TokenModel, url: BaseUrl) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -74,7 +74,7 @@ export class AuthenticationService {
     const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
 
     this.http.post<TokenModel>(
-      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
+      url + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {
@@ -83,7 +83,7 @@ export class AuthenticationService {
       },
       () => {
         console.log('Access Token refreshed');
-        this.authenticate(this.tempToken);
+        this.authenticate(this.tempToken, url);
       }
     );
   }
@@ -95,7 +95,11 @@ export class AuthenticationService {
       this.router.navigate(['/login']);
     } else {
       if (this.isExpired(token)) {
-        this.refreshToken(token);
+        if (this.isTrader()) {
+          this.refreshToken(token, BaseUrl.B2);
+        } else {
+          this.refreshToken(token, BaseUrl.BASEURL);
+        }
         token = this.findToken();
         if (this.isExpired(token)) {
           this.deleteUserConnection();
