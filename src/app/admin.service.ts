@@ -24,7 +24,7 @@ export class AdminService {
         'Authorization': this.authService.findAccessToken()
     })};
     this.http.get<{totalVolume: number, activeVolume: number}>(
-      BaseUrl.BASEURL + '/api/v1/admin/volume', httpOptions
+      BaseUrl.B1 + '/api/v1/admin/volume', httpOptions
     ).subscribe(
       (data: {totalVolume: number, activeVolume: number}) => {
         this.totalVolume = data.totalVolume;
@@ -39,7 +39,7 @@ export class AdminService {
         'Authorization': this.authService.findAccessToken()
     })};
     this.http.get<Map<string, number>>(
-      BaseUrl.BASEURL + '/api/v1/admin/balances', httpOptions
+      BaseUrl.B1 + '/api/v1/admin/balances', httpOptions
     ).subscribe(
       (data: Map<string, number>) => {
         this.usersBalanceMap = data;
@@ -54,7 +54,7 @@ export class AdminService {
       })};
 
     this.http.get<Map<string, number>>(
-      BaseUrl.BASEURL + '/api/v1/trader/balances', httpOptions
+      BaseUrl.B1 + '/api/v1/trader/balances', httpOptions
     ).subscribe(
       (data: Map<string, number>) => {
         this.followersBalanceMap = data;
@@ -69,7 +69,7 @@ export class AdminService {
     })};
 
     this.http.get<LoginModel[]>(
-      BaseUrl.BASEURL + '/api/v1/admin/logins', httpOptions
+      BaseUrl.B1 + '/api/v1/admin/logins', httpOptions
     ).subscribe(
       (data: LoginModel[]) => {
         this.logins = data.reverse();
@@ -84,7 +84,7 @@ export class AdminService {
       })};
 
     this.http.get<UserModel[]>(
-      BaseUrl.BASEURL + '/api/v1/user/all', httpOptions
+      BaseUrl.B1 + '/api/v1/user/all', httpOptions
     ).subscribe(
       (data: UserModel[]) => {
         this.users = data;
@@ -98,7 +98,7 @@ export class AdminService {
         'Authorization': this.authService.findAccessToken(),
     })};
     this.http.delete<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/' + id, httpOptions
+      BaseUrl.B1 + '/api/v1/user/' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
 
@@ -115,7 +115,7 @@ export class AdminService {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/hide', 'id=' + id, httpOptions
+      BaseUrl.B1 + '/api/v1/user/hide', 'id=' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
 

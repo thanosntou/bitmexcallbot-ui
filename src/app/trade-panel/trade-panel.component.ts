@@ -130,7 +130,7 @@ export class TradePanelComponent implements OnInit {
     // })};
     //
     // this.http.get<OrderModel[]>(
-    //   BaseUrl.BASEURL + '/api/v1/trader/active_orders', httpOptions
+    //   BaseUrl.B1 + '/api/v1/trader/active_orders', httpOptions
     // ).subscribe((data: OrderModel[]) =>
     //   this.activeOrders = data.reverse());
   }
