@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
       availableMargin: number,
       earned: number
     }>(
-      BaseUrl.BASEURL + '/api/v1/dashboard', httpOptions
+      BaseUrl.B1 + '/api/v1/dashboard', httpOptions
     ).subscribe(
       (data: {
         client: string,

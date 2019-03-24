@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
     })};
 
     this.http.get<ChatMessageModel[]>(
-      BaseUrl.BASEURL + '/api/v1/chat', httpOptions
+      BaseUrl.B1 + '/api/v1/chat', httpOptions
     ).subscribe(
       (data: ChatMessageModel[]) => {
         this.messages = data;
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
     const body = 'message=' + this.message.nativeElement.value;
     this.http.post<ChatMessageModel>(
-      BaseUrl.BASEURL + '/api/v1/chat', body, httpOptions
+      BaseUrl.B1 + '/api/v1/chat', body, httpOptions
     ).subscribe(
       (data: ChatMessageModel) => {
         // this.messages.push(data);

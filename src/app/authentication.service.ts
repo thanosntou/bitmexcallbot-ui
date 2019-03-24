@@ -26,7 +26,7 @@ export class AuthenticationService {
       + '&grant_type=' + 'password';
 
     this.http.post<TokenModel>(
-      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
+      BaseUrl.B1 + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {
@@ -46,7 +46,7 @@ export class AuthenticationService {
     };
 
     this.http.get<UserDetailsModel>(
-      BaseUrl.BASEURL + '/api/v1/user/authenticate', httpOptions
+      BaseUrl.B1 + '/api/v1/user/authenticate', httpOptions
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
@@ -74,7 +74,7 @@ export class AuthenticationService {
     const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
 
     this.http.post<TokenModel>(
-      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
+      BaseUrl.B1 + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {

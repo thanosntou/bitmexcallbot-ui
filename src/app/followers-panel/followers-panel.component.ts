@@ -36,7 +36,7 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
     })};
     this.http.get<UserModel[]>(
-      BaseUrl.BASEURL + '/api/v1/trader/followers', httpOptions
+      BaseUrl.B1 + '/api/v1/trader/followers', httpOptions
     ).subscribe((data: UserModel[]) => {
       data.forEach(f => {
         if (f.enabled) {
@@ -56,7 +56,7 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/status', 'followerId=' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
         // let user = this.followers.find(follower => follower.id === id);
@@ -72,7 +72,7 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
-    this.http.post<UserModel>(BaseUrl.BASEURL + '/api/v1/trader/status', 'followerId=' + id, httpOptions
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/status', 'followerId=' + id, httpOptions
     ).subscribe(
       (data: UserModel) => {
         this.enabledFollowers = this.enabledFollowers.filter(i => i.id !== id);
@@ -85,7 +85,7 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
-    this.http.post<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/statusAll', 'status=enable', httpOptions
+    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/statusAll', 'status=enable', httpOptions
     ).subscribe(
       (data: UserModel[]) => {
         this.disabledFollowers = [];
@@ -98,7 +98,7 @@ export class FollowersPanelComponent implements OnInit {
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
-    this.http.post<UserModel[]>(BaseUrl.BASEURL + '/api/v1/trader/statusAll', 'status=disable', httpOptions
+    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/statusAll', 'status=disable', httpOptions
     ).subscribe(
       (data: UserModel[]) => {
         this.enabledFollowers = [];

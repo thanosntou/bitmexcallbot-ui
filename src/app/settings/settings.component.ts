@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
     const apiSecret = this.apiSecretRef.nativeElement.value;
     const body = 'apiKey=' + apiKey + '&apiSecret=' + apiSecret;
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/keys', body, httpOptions
+      BaseUrl.B1 + '/api/v1/user/keys', body, httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
     const confirmPass = this.confirmPass.nativeElement.value;
     const body = 'oldPass=' + oldPass + '&newPass=' + newPass + '&confirmPass=' + confirmPass;
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/pass', body, httpOptions
+      BaseUrl.B1 + '/api/v1/user/pass', body, httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
@@ -125,7 +125,7 @@ export class SettingsComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], '', httpOptions
+      BaseUrl.B1 + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], '', httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);
@@ -151,7 +151,7 @@ export class SettingsComponent implements OnInit {
     };
     const body = 'client=' + this.clientInput.nativeElement.value;
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/client', body, httpOptions
+      BaseUrl.B1 + '/api/v1/user/client', body, httpOptions
     ).subscribe((data: UserModel) => {
       this.userDetailsInfo.user = data;
       this.authService.refreshUser(data);

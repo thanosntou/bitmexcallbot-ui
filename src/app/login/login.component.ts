@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.post<UserModel>(
-      BaseUrl.BASEURL + '/api/v1/user/new', body, httpOptions
+      BaseUrl.B1 + '/api/v1/user/new', body, httpOptions
     ).subscribe((data: UserModel) =>
       this.authService.getAndSetAccessToken(data.username, data.password));
   }

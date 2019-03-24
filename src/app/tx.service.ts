@@ -25,7 +25,7 @@ export class TxService {
       url = url + '?id=' + user.id;
     }
     this.http.get<TxModel[]>(
-      BaseUrl.BASEURL + url, httpOptions
+      BaseUrl.B1 + url, httpOptions
     ).subscribe((data: TxModel[]) => {
         this.tx = data.reverse();
         this.txUser = user;
