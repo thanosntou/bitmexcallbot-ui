@@ -37,7 +37,7 @@ export class UserService {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     this.http.get<UserWalletModel>(
-      BaseUrl.B1 + '/api/v1/user/wallet?id=' + id, httpOptions
+      BaseUrl.B1 + '/api/v1/user/follower/wallet?id=' + id, httpOptions
     ).subscribe(
       (data: UserWalletModel) => this.userWallet = data,
       error => console.log(error)
@@ -50,7 +50,7 @@ export class UserService {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
     this.http.get<BitmexTransactionModel[]>(
-      BaseUrl.B1 + '/api/v1/user/wallet/history?id=' + id, httpOptions
+      BaseUrl.B1 + '/api/v1/user/follower/wallet/history?id=' + id, httpOptions
     ).subscribe(
       (data: BitmexTransactionModel[]) => this.bitmexTransactions = data,
       error => console.log(error)
@@ -63,7 +63,7 @@ export class UserService {
         'Content-Type': 'application/x-www-form-urlencoded'
       })};
     this.http.get<BitmexTransactionModel[]>(
-      BaseUrl.B1 + '/api/v1/user/wallet/summary?id=' + id, httpOptions
+      BaseUrl.B1 + '/api/v1/user/follower/wallet/summary?id=' + id, httpOptions
     ).subscribe(
       (data: BitmexTransactionModel[]) => this.bitmexTransactionsSummary = data,
       error => console.log(error)
