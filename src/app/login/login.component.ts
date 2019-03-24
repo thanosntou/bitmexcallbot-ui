@@ -41,11 +41,7 @@ export class LoginComponent implements OnInit {
   onSignIn() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
-    if ('jegejo' === username || 'athan' === username) {
-      this.authService.getAndSetAccessToken(username, password, BaseUrl.B2);
-    } else {
-      this.authService.getAndSetAccessToken(username, password, BaseUrl.BASEURL);
-    }
+    this.authService.getAndSetAccessToken(username, password);
   }
 
   onSignUp() {
@@ -67,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.http.post<UserModel>(
       BaseUrl.BASEURL + '/api/v1/user/new', body, httpOptions
     ).subscribe((data: UserModel) =>
-      this.authService.getAndSetAccessToken(data.username, data.password, BaseUrl.BASEURL));
+      this.authService.getAndSetAccessToken(data.username, data.password));
   }
 
   onShowSignUp() {

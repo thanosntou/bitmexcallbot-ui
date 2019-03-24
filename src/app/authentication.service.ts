@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getAndSetAccessToken(username: string, password: string, url: BaseUrl) {
+  getAndSetAccessToken(username: string, password: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -26,18 +26,18 @@ export class AuthenticationService {
       + '&grant_type=' + 'password';
 
     this.http.post<TokenModel>(
-      url + '/oauth/token', body, httpOptions
+      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {
         console.log(error);
         this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
       },
-      () => this.authenticate(this.tempToken, url)
+      () => this.authenticate(this.tempToken)
     );
   }
 
-  authenticate(token: TokenModel, url: BaseUrl) {
+  authenticate(token: TokenModel) {
     token.timestamp = Date.now();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -46,7 +46,7 @@ export class AuthenticationService {
     };
 
     this.http.get<UserDetailsModel>(
-      url + '/api/v1/user/authenticate', httpOptions
+      BaseUrl.BASEURL + '/api/v1/user/authenticate', httpOptions
     ).subscribe(
       (data: UserDetailsModel) => {
         sessionStorage.setItem('userConnection', JSON.stringify(new UserConnectionModel(token, data)));
@@ -65,7 +65,7 @@ export class AuthenticationService {
     );
   }
 
-  refreshToken(token: TokenModel, url: BaseUrl) {
+  refreshToken(token: TokenModel) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -74,7 +74,7 @@ export class AuthenticationService {
     const body = 'grant_type=refresh_token&refresh_token=' + token.refresh_token;
 
     this.http.post<TokenModel>(
-      url + '/oauth/token', body, httpOptions
+      BaseUrl.BASEURL + '/oauth/token', body, httpOptions
     ).subscribe(
       (data: TokenModel) => this.tempToken = data,
       error => {
@@ -83,7 +83,7 @@ export class AuthenticationService {
       },
       () => {
         console.log('Access Token refreshed');
-        this.authenticate(this.tempToken, url);
+        this.authenticate(this.tempToken);
       }
     );
   }
@@ -96,9 +96,9 @@ export class AuthenticationService {
     } else {
       if (this.isExpired(token)) {
         if (this.isTrader()) {
-          this.refreshToken(token, BaseUrl.B2);
+          this.refreshToken(token);
         } else {
-          this.refreshToken(token, BaseUrl.BASEURL);
+          this.refreshToken(token);
         }
         token = this.findToken();
         if (this.isExpired(token)) {
