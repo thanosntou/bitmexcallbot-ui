@@ -41,9 +41,10 @@ export class LoginComponent implements OnInit {
   onSignIn() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
-    this.authService.getAndSetAccessToken(username, password, BaseUrl.BASEURL);
-    if (this.authService.isTrader()) {
+    if ('jegejo' === username || 'athan' === username) {
       this.authService.getAndSetAccessToken(username, password, BaseUrl.B2);
+    } else {
+      this.authService.getAndSetAccessToken(username, password, BaseUrl.BASEURL);
     }
   }
 
