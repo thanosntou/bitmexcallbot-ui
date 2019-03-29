@@ -31,7 +31,7 @@ export class ActiveOrdersService {
         'Content-Type': 'application/json'
     })};
     this.http.get<ActiveOrderModel[]>(
-      BaseUrl.B1 + '/api/v1/user/follower/active_orders?id=' + userId, httpOptions
+      BaseUrl.B1 + '/api/v1/follower/active_orders?id=' + userId, httpOptions
     ).subscribe((data: ActiveOrderModel[]) => {
         this.activeOrders = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol));
       }, error => console.log(error)

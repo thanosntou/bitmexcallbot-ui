@@ -1,7 +1,7 @@
 export enum Symbol {
   XBTUSD = 'XBTUSD',
   ETHUSD = 'ETHUSD',
-  ADAXXX = 'ADAH19',
+  ADAXXX = 'ADAM19',
   BCHXXX = 'BCHH19',
   EOSXXX = 'EOSH19',
   ETHXXX = 'ETHH19',
