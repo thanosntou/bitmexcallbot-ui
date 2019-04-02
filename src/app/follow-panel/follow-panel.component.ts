@@ -26,7 +26,7 @@ export class FollowPanelComponent implements OnInit {
       })
     };
     this.http.get<UserModel>(
-      BaseUrl.B1 + '/api/v1/follower/personal', httpOptions
+      BaseUrl.B1 + '/api/v1/follower/personal?', httpOptions
     ).subscribe(
       (data: UserModel) => this.personalTrader = data,
       error => console.log(JSON.stringify(error))

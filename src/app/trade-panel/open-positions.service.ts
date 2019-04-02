@@ -63,7 +63,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     const body = 'symbol=' + symbol +
-      '&orderType=Limit' +
+      '&ordType=Limit' +
       '&side=' + side +
       '&percentage=' + qtyPerc +
       '&price=' + price +
