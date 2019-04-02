@@ -50,7 +50,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/json'
     })};
     this.http.get<PositionModel[]>(
-      BaseUrl.B1 + '/api/v1/user/follower/active_positions?id=' + userId, httpOptions
+      BaseUrl.B1 + '/api/v1/follower/active_positions?id=' + userId, httpOptions
     ).subscribe(
       (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
       error => console.log(error)
@@ -63,7 +63,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
     const body = 'symbol=' + symbol +
-      '&orderType=Limit' +
+      '&ordType=Limit' +
       '&side=' + side +
       '&percentage=' + qtyPerc +
       '&price=' + price +

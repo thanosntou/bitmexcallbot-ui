@@ -4,16 +4,20 @@
     <thead class="thead bg-info">
     <tr>
       <th scope="col">Symbol</th>
+      <th scope="col">Size</th>
+      <th scope="col">Value</th>
       <th scope="col">Entry Price</th>
       <th scope="col">Mark Price</th>
+      <th scope="col">Liq. Price</th>
+      <th scope="col">Leverage</th>
       <th scope="col">Margin</th>
-      <th scope="col">Unrealised Pnl</th>
-      <th scope="col">Roe%</th>
-      <th scope="col">Realised Pnl</th>
-      <th scope="col">Exec Cost</th>
-      <th scope="col">Current Cost</th>
-      <th scope="col">Unrealised Cost</th>
-      <th scope="col">Pos Margin</th>
+      <!--<th scope="col">Unrealised Pnl</th>-->
+      <!--<th scope="col">Roe%</th>-->
+      <!--<th scope="col">Realised Pnl</th>-->
+      <!--<th scope="col">Exec Cost</th>-->
+      <!--<th scope="col">Current Cost</th>-->
+      <!--<th scope="col">Unrealised Cost</th>-->
+      <!--<th scope="col">Pos Margin</th>-->
       <th scope="col">
         Qty(%)
         <input
@@ -40,16 +44,20 @@
     <tbody>
     <tr *ngFor="let position of openPositionService.openPositions">
       <th scope="row"> {{ position.symbol }}</th>
+      <td>{{ position.currentQty }}</td>
+      <td>{{ (position.homeNotional).toFixed(4) }} XBT</td>
       <td>{{ position.avgEntryPrice }}</td>
       <td>{{ position.markPrice }}</td>
-      <td>{{ position.maintMargin }}</td>
-      <td>{{ position.unrealisedPnl }}</td>
-      <td>{{ position.unrealisedRoePcnt }}</td>
-      <td>{{ position.realisedPnl }}</td>
-      <td>{{ position.execCost }}</td>
-      <td>{{ position.currentCost }}</td>
-      <td>{{ position.unrealisedCost }}</td>
-      <td>{{ position.posMargin }}</td>
+      <td>{{ (position.liquidationPrice).toFixed(1) }}</td>
+      <td>{{ position.leverage }}x</td>
+      <td>{{ (position.maintMargin / 100000000).toFixed(4) }} XBT</td>
+      <!--<td>{{ position.unrealisedPnl }}</td>-->
+      <!--<td>{{ position.unrealisedRoePcnt }}</td>-->
+      <!--<td>{{ position.realisedPnl }}</td>-->
+      <!--<td>{{ position.execCost }}</td>-->
+      <!--<td>{{ position.currentCost }}</td>-->
+      <!--<td>{{ position.unrealisedCost }}</td>-->
+      <!--<td>{{ position.posMargin }}</td>-->
       <td>
         <!--<input-->
           <!--type="number"-->

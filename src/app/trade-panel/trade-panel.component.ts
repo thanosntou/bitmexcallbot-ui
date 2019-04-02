@@ -34,6 +34,7 @@ export class TradePanelComponent implements OnInit {
   @ViewChild('profitTriggerManual') profitTriggerManual: ElementRef;
   @ViewChild('leverageManual') leverageManual: ElementRef;
   @ViewChild('hidden') hidden: ElementRef;
+  @ViewChild('percentage') percentage: ElementRef;
 
   @ViewChild(OpenPositionsComponent) openPositionsComp: OpenPositionsComponent;
   @ViewChild(ActiveOrdersComponent) activeOrdersComp: ActiveOrdersComponent;
@@ -165,6 +166,7 @@ export class TradePanelComponent implements OnInit {
     const side = this.sideManual.nativeElement.value;
     const ordType = this.manualTab;
     const hidden = this.hidden.nativeElement.value;
+    const percentage = this.percentage.nativeElement.value;
     let price;
     let stopPx;
     let execInst;
@@ -174,7 +176,8 @@ export class TradePanelComponent implements OnInit {
       + '&side=' + side
       + '&ordType=' + ordType
       + '&leverage=' + leverage
-      + '&hidden=' + hidden;
+      + '&hidden=' + hidden
+      + '&percentage=' + percentage;
 
     if (ordType === 'Limit') {
       price = this.priceManual.nativeElement.value;
