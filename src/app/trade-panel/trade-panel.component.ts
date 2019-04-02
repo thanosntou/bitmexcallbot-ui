@@ -226,11 +226,9 @@ export class TradePanelComponent implements OnInit {
       () => {
         this.activeOrdersComp.onClearAll();
         this.openPositionsComp.onClearAll();
+        this._success.next('Panic Button Done');
       },
-      error => console.log(JSON.stringify(error)),
-      () => {
-
-      }
+      error => console.log(JSON.stringify(error))
     );
   }
 
