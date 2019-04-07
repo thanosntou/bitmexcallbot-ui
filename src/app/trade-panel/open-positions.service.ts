@@ -36,7 +36,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/json'
     })};
     this.http.get<PositionModel[]>(
-      BaseUrl.B1 + '/api/v1/trader/active_positions', httpOptions
+      BaseUrl.B1 + '/api/v1/trader/open_positions', httpOptions
     ).subscribe(
       (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
       error => error,
@@ -50,7 +50,7 @@ export class OpenPositionsService implements OnInit {
         'Content-Type': 'application/json'
     })};
     this.http.get<PositionModel[]>(
-      BaseUrl.B1 + '/api/v1/follower/active_positions?id=' + userId, httpOptions
+      BaseUrl.B1 + '/api/v1/customer/open_positions?id=' + userId, httpOptions
     ).subscribe(
       (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
       error => console.log(error)
