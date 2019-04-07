@@ -180,8 +180,7 @@ export class TradePanelComponent implements OnInit {
       + '&percentage=' + percentage;
 
     if (ordType === 'Limit') {
-      price = this.priceManual.nativeElement.value;
-      body += '&price=' + price;
+      body += '&price=' + this.priceManual.nativeElement.value;
 
     } else if (ordType === 'Stop') {
       stopPx = this.stopPxManual.nativeElement.value;

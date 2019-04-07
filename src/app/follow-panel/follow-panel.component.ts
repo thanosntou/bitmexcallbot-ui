@@ -48,7 +48,7 @@ export class FollowPanelComponent implements OnInit {
     };
     const body = 'traderId=' + trader.id;
     this.http.post<UserModel>(
-      BaseUrl.B1 + '/api/v1/user/customer/follow', body, httpOptions
+      BaseUrl.B1 + '/api/v1/customer/follow', body, httpOptions
     ).subscribe(
       (data: UserModel) => this.personalTrader = data,
       error => console.log(JSON.stringify(error))
