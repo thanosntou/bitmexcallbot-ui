@@ -99,7 +99,7 @@ export class UserListComponent implements OnInit {
           if (!this.adminService.usersBalanceMap[b.username]) {
             return -1;
           }
-          return this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username];
+          return this.adminService.usersBalanceMap[b.username] - this.adminService.usersBalanceMap[a.username];
         }
       );
     }
