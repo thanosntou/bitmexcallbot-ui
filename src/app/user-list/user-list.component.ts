@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp, faSortNumericUp, faSortNumericDown} from '@fortawesome/free-solid-svg-icons';
+import {
+  faSortAlphaDown,
+  faSortAlphaUp,
+  faSortAmountDown,
+  faSortAmountUp,
+  faSortNumericUp,
+  faSortNumericDown
+} from '@fortawesome/free-solid-svg-icons';
 import {AdminService} from '../admin.service';
 import {UserModel} from '../_model/user.model';
 import {Router} from '@angular/router';
@@ -78,13 +85,22 @@ export class UserListComponent implements OnInit {
   sortByBalance() {
     if (this.sortByBalanceIcon === faSortNumericDown) {
       this.sortByBalanceIcon = faSortNumericUp;
-      this.adminService.users.sort((a, b) =>
-          this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username]
+      this.adminService.users.sort((a, b) => {
+        if (!this.adminService.usersBalanceMap[b.username]) {
+          return -1;
+        }
+        return this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username];
+      }
+
       );
     } else {
       this.sortByBalanceIcon = faSortNumericDown;
-      this.adminService.users.sort((a, b) =>
-        this.adminService.usersBalanceMap[b.username] - this.adminService.usersBalanceMap[a.username]
+      this.adminService.users.sort((a, b) => {
+          if (!this.adminService.usersBalanceMap[b.username]) {
+            return -1;
+          }
+          return this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username];
+        }
       );
     }
   }
