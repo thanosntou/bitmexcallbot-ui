@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp} from '@fortawesome/free-solid-svg-icons';
+import {faSortAlphaDown, faSortAlphaUp, faSortAmountDown, faSortAmountUp, faSortNumericUp, faSortNumericDown} from '@fortawesome/free-solid-svg-icons';
 import {AdminService} from '../admin.service';
 import {UserModel} from '../_model/user.model';
 import {Router} from '@angular/router';
@@ -14,6 +14,8 @@ export class UserListComponent implements OnInit {
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
   sortByEmailIcon = faSortAlphaDown;
+  sortByBalanceIcon = faSortNumericDown;
+  sortByIdIcon = faSortNumericDown;
 
   constructor(public adminService: AdminService,
               private router: Router) { }
@@ -36,11 +38,13 @@ export class UserListComponent implements OnInit {
     if (this.sortByNameIcon === faSortAlphaDown) {
       this.sortByNameIcon = faSortAlphaUp;
       this.adminService.users.sort((a, b) =>
-        a.username.localeCompare(b.username));
+        a.username.localeCompare(b.username)
+      );
     } else {
       this.sortByNameIcon = faSortAlphaDown;
       this.adminService.users.sort((a, b) =>
-        b.username.localeCompare(a.username));
+        b.username.localeCompare(a.username)
+      );
     }
   }
 
@@ -48,11 +52,13 @@ export class UserListComponent implements OnInit {
     if (this.sortByEmailIcon === faSortAmountDown) {
       this.sortByEmailIcon = faSortAmountUp;
       this.adminService.users.sort((a, b) =>
-        a.email.localeCompare(b.email));
+        a.email.localeCompare(b.email)
+      );
     } else {
       this.sortByEmailIcon = faSortAmountDown;
       this.adminService.users.sort((a, b) =>
-        a.email.localeCompare(b.email));
+        a.email.localeCompare(b.email)
+      );
     }
   }
 
@@ -60,11 +66,40 @@ export class UserListComponent implements OnInit {
     if (this.sortByDateIcon === faSortAmountDown) {
       this.sortByDateIcon = faSortAmountUp;
       this.adminService.users.sort((a, b) =>
-        new Date(a.create_date).getTime() - (new Date(b.create_date).getTime()));
+        new Date(a.create_date).getTime() - (new Date(b.create_date).getTime())
+      );
     } else {
       this.sortByDateIcon = faSortAmountDown;
       this.adminService.users.sort((a, b) =>
         new Date(b.create_date).getTime() - (new Date(a.create_date).getTime()));
+    }
+  }
+
+  sortByBalance() {
+    if (this.sortByBalanceIcon === faSortNumericDown) {
+      this.sortByBalanceIcon = faSortNumericUp;
+      this.adminService.users.sort((a, b) =>
+          this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username]
+      );
+    } else {
+      this.sortByBalanceIcon = faSortNumericDown;
+      this.adminService.users.sort((a, b) =>
+        this.adminService.usersBalanceMap[b.username] - this.adminService.usersBalanceMap[a.username]
+      );
+    }
+  }
+
+  sortById() {
+    if (this.sortByIdIcon === faSortNumericDown) {
+      this.sortByIdIcon = faSortNumericUp;
+      this.adminService.users.sort((a, b) =>
+        a.id - b.id
+      );
+    } else {
+      this.sortByIdIcon = faSortNumericDown;
+      this.adminService.users.sort((a, b) =>
+        b.id - a.id
+      );
     }
   }
 

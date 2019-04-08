@@ -21,10 +21,10 @@
               User <fa-icon [icon]="sortByNameIcon" (click)="sortByUsername()"></fa-icon>
             </th>
             <th scope="col">
-              ID <fa-icon></fa-icon>
+              ID <fa-icon [icon]="sortByIdIcon" (click)="sortById()"></fa-icon>
             </th>
             <th scope="col">
-              Balance
+              Balance <fa-icon [icon]="sortByBalanceIcon" (click)="sortByBalance()"></fa-icon>
             </th>
             <th scope="col">
               Enabled
@@ -49,7 +49,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <th scope="row"><a (click)="onSelect(user)" role="button">{{ user.username }}</a></th>
             <th scope="row">{{ user.id }}</th>
-            <td>{{ adminService.usersBalanceMap[user.username] }}</td>
+            <td *ngIf="adminService.usersBalanceMap">{{ adminService.usersBalanceMap[user.username] }}</td>
             <td>{{ user.enabled }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.apiKey }}</td>
