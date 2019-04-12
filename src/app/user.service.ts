@@ -48,7 +48,7 @@ export class UserService {
     const httpOptions = {headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
+    })};
     this.http.get<BitmexTransactionModel[]>(
       BaseUrl.B1 + '/api/v1/customer/wallet/history?id=' + id, httpOptions
     ).subscribe(
@@ -61,7 +61,7 @@ export class UserService {
     const httpOptions = {headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
-      })};
+    })};
     this.http.get<BitmexTransactionModel[]>(
       BaseUrl.B1 + '/api/v1/customer/wallet/summary?id=' + id, httpOptions
     ).subscribe(

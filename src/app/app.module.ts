@@ -21,7 +21,6 @@ import { OpenPositionDirective } from './trade-panel/open-position.directive';
 import { ActiveOrdersComponent } from './trade-panel/active-orders/active-orders.component';
 import { OpenPositionsComponent } from './trade-panel/open-positions/open-positions.component';
 import { SettingItemDirective} from './setting-item.directive';
-import { RouterModule, Routes} from '@angular/router';
 import { AppInComponent } from './app-in/app-in.component';
 import { LoginListComponent } from './login-list/login-list.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -32,28 +31,12 @@ import { BitmexWalletSummaryComponent } from './user/bitmex-wallet-summary/bitme
 import { BitmexWalletHistoryComponent } from './user/bitmex-wallet-history/bitmex-wallet-history.component';
 import { ChatComponent } from './chat/chat.component';
 import {NgbdButtonsRadio} from './buttons-radio';
-
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'login/:message', component: LoginComponent },
-  { path: '', component: AppInComponent, children: [
-      { path: 'faq', component: FaqComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'follow', component: FollowPanelComponent },
-      { path: 'followers', component: FollowersPanelComponent },
-      { path: 'followers/:id', component: UserComponent },
-      { path: 'trade', component: TradePanelComponent },
-      { path: 'tx', component: TxComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'users', component: UserListComponent },
-      { path: 'users/:id', component: UserComponent },
-      { path: 'logins', component: LoginListComponent },
-    ]
-  },
-];
+import {AppRoutingModule} from './app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
+    AppRoutingModule,
     AppComponent,
     TradePanelComponent,
     FollowersPanelComponent,
@@ -79,7 +62,8 @@ const appRoutes: Routes = [
     BitmexWalletSummaryComponent,
     BitmexWalletHistoryComponent,
     ChatComponent,
-    NgbdButtonsRadio
+    NgbdButtonsRadio,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +71,6 @@ const appRoutes: Routes = [
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    RouterModule.forRoot(appRoutes)
   ],
   bootstrap: [AppComponent]
 })
