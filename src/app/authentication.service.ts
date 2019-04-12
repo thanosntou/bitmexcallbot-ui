@@ -11,6 +11,7 @@ import {UserConnectionModel} from './user-connection.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  loggedIn = false;
   private tempToken: TokenModel;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -176,6 +177,24 @@ export class AuthenticationService {
 
   isExpired(token: TokenModel) {
     return (token.timestamp + (token.expires_in * 1000)) <= (Date.now() + 10000);
+  }
+
+  isAuthenticated() {
+    return new Promise(
+      (resolve, reject) => {
+        setTimeout(() => {
+          resolve(this.loggedIn);
+        }, 1000);
+      }
+    );
+  }
+
+  login() {
+    this.loggedIn = true;
+  }
+
+  logout() {
+    this.loggedIn = false;
   }
 
 }
