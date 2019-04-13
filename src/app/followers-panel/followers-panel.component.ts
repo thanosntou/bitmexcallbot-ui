@@ -122,12 +122,12 @@ export class FollowersPanelComponent implements OnInit {
   sortByCreateDate() {
     if (this.sortByDateIcon === faSortAmountDown) {
       this.sortByDateIcon = faSortAmountUp;
-      this.adminService.users.sort((a, b) =>
+      this.enabledFollowers.sort((a, b) =>
         new Date(a.create_date).getTime() - (new Date(b.create_date).getTime())
       );
     } else {
       this.sortByDateIcon = faSortAmountDown;
-      this.adminService.users.sort((a, b) =>
+      this.enabledFollowers.sort((a, b) =>
         new Date(b.create_date).getTime() - (new Date(a.create_date).getTime()));
     }
   }
@@ -135,7 +135,7 @@ export class FollowersPanelComponent implements OnInit {
   sortByBalance() {
     if (this.sortByBalanceIcon === faSortNumericDown) {
       this.sortByBalanceIcon = faSortNumericUp;
-      this.adminService.users.sort((a, b) => {
+      this.enabledFollowers.sort((a, b) => {
           if (!this.adminService.usersBalanceMap[b.username]) {
             return -1;
           }
@@ -145,7 +145,7 @@ export class FollowersPanelComponent implements OnInit {
       );
     } else {
       this.sortByBalanceIcon = faSortNumericDown;
-      this.adminService.users.sort((a, b) => {
+      this.enabledFollowers.sort((a, b) => {
           if (!this.adminService.usersBalanceMap[b.username]) {
             return -1;
           }
