@@ -9,10 +9,14 @@
           <tr>
             <th scope="col">Id</th>
             <th scope="col">User</th>
-            <th scope="col">Balance</th>
+            <th scope="col">
+              Balance <fa-icon [icon]="sortByBalanceIcon" (click)="sortByBalance()"></fa-icon>
+            </th>
             <th scope="col">Enabled</th>
             <th scope="col">Email</th>
-            <th scope="col">Sign Up</th>
+            <th scope="col">
+              Sign Up <fa-icon [icon]="sortByDateIcon" (click)="sortByCreateDate()"></fa-icon>
+            </th>
             <th scope="col">
               <button class="btn btn-danger" (click)="onDisableAll()">Disable All</button>
             </th>
