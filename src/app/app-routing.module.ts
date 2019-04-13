@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+
 import {TxComponent} from './tx/tx.component';
 import {AuthGuard} from './auth-guard.service';
 import {FaqComponent} from './faq/faq.component';
 import {UserComponent} from './user/user.component';
-import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {AppInComponent} from './app-in/app-in.component';
 import {SettingsComponent} from './settings/settings.component';
