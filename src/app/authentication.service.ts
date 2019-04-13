@@ -184,7 +184,7 @@ export class AuthenticationService {
       (resolve, reject) => {
         setTimeout(() => {
           resolve(this.loggedIn);
-        }, 1000);
+        }, 0);
       }
     );
   }

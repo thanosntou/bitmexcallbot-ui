@@ -30,13 +30,13 @@ import { WalletInfoComponent } from './user/wallet-info/wallet-info.component';
 import { BitmexWalletSummaryComponent } from './user/bitmex-wallet-summary/bitmex-wallet-summary.component';
 import { BitmexWalletHistoryComponent } from './user/bitmex-wallet-history/bitmex-wallet-history.component';
 import { ChatComponent } from './chat/chat.component';
-import {NgbdButtonsRadio} from './buttons-radio';
-import {AppRoutingModule} from './app-routing.module';
+import { NgbdButtonsRadio } from './buttons-radio';
+import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {AuthGuard} from './auth-guard.service';
 
 @NgModule({
   declarations: [
-    AppRoutingModule,
     AppComponent,
     TradePanelComponent,
     FollowersPanelComponent,
@@ -66,12 +66,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     PageNotFoundComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
   ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
