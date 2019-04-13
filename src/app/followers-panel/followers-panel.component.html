@@ -50,6 +50,7 @@
           <th scope="col">Balance</th>
           <th scope="col">Enabled</th>
           <th scope="col">Email</th>
+          <th scope="col">Sign Up</th>
           <th scope="col">
             <button class="btn btn-success" (click)="onEnableAll()">Enable All</button>
           </th>
@@ -66,6 +67,7 @@
               <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
             </td>
             <td>{{ follower.email }}</td>
+            <td>{{ follower.create_date }}</td>
             <td>
               <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
               <ng-template #enableButton>
