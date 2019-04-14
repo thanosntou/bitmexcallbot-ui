@@ -12,6 +12,7 @@ import {debounceTime} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {OrderReportModel} from '../_model/order-report.model';
 
 
 @Component({
@@ -198,13 +199,11 @@ export class TradePanelComponent implements OnInit {
       })
     };
 
-    this.http.post<any>(
-      BaseUrl.B2 + '/api/v1/trade/orderAll', body, httpOptions
-    ).subscribe(
+    this.http.post<OrderReportModel>(BaseUrl.B2 + '/api/v1/trade/orderAll', body, httpOptions).subscribe(
       (data) => {
         this.activeOrdersComp.fetchActiveOrders();
         this.openPositionsComp.fetchOpenPositions();
-        this._success.next('Order placed successfully');
+        this._success.next('Order placed successfully: ' + data.succeeded + '/' + data.total);
       },
       error => console.log(JSON.stringify(error))
     );
