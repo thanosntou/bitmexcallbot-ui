@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenModel} from './_model/token.model';
 import {BaseUrl} from './_enum/BaseUrl.enum';
 import {UserDetailsModel} from './_model/user-details.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserModel} from './_model/user.model';
 import {UserConnectionModel} from './user-connection.model';
 
@@ -11,10 +11,10 @@ import {UserConnectionModel} from './user-connection.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  loggedIn = false;
   private tempToken: TokenModel;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient,
+              private router: Router) {}
 
   getAndSetAccessToken(username: string, password: string) {
     const httpOptions = {
@@ -29,12 +29,14 @@ export class AuthenticationService {
     this.http.post<TokenModel>(
       BaseUrl.B1 + '/oauth/token', body, httpOptions
     ).subscribe(
-      (data: TokenModel) => this.tempToken = data,
+      (data: TokenModel) => {
+        this.tempToken = data;
+        this.authenticate(this.tempToken);
+      },
       error => {
         console.log(error);
-        this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
+        this.router.navigate(['login'], {queryParams: {message: 'Wrong credentials'}});
       },
-      () => this.authenticate(this.tempToken)
     );
   }
 
@@ -54,7 +56,7 @@ export class AuthenticationService {
       },
       error => {
         console.log(error);
-        this.router.navigate(['/login'], {queryParams: {message: 'Wrong credentials'}});
+        this.router.navigate(['login'], {queryParams: {message: 'Could not authenticate'}});
       },
       () => {
         if (this.isTrader()) {
@@ -145,6 +147,7 @@ export class AuthenticationService {
 
   deleteUserConnection() {
     sessionStorage.removeItem('userConnection');
+    this.tempToken = null;
   }
 
   refreshUser(user: UserModel) {
@@ -165,6 +168,28 @@ export class AuthenticationService {
     return status;
   }
 
+  isSuperAdmin() {
+    let status = false;
+    this.findUserRoles().forEach(auth => {
+      if (auth.authority === 'ROLE_SUPER_ADMIN') {
+        status = true;
+      }
+    });
+    return status;
+  }
+
+  isAdmin2() {
+    return new Promise((resolve) => {
+      resolve(this.isAdmin());
+    });
+  }
+
+  isSuperAdmin2() {
+    return new Promise((resolve) => {
+      resolve(this.isSuperAdmin());
+    });
+  }
+
   isTrader() {
     let status = false;
     this.findUserRoles().forEach(auth => {
@@ -175,26 +200,20 @@ export class AuthenticationService {
     return status;
   }
 
+  isTrader2() {
+    return new Promise((resolve) => {
+      resolve(this.isTrader());
+    });
+  }
+
   isExpired(token: TokenModel) {
     return (token.timestamp + (token.expires_in * 1000)) <= (Date.now() + 10000);
   }
 
   isAuthenticated() {
-    return new Promise(
-      (resolve, reject) => {
-        setTimeout(() => {
-          resolve(this.loggedIn);
-        }, 0);
-      }
-    );
-  }
-
-  login() {
-    this.loggedIn = true;
-  }
-
-  logout() {
-    this.loggedIn = false;
+    return new Promise((resolve) => {
+        resolve(this.tempToken);
+    });
   }
 
 }
