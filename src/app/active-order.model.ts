@@ -4,6 +4,7 @@ export class ActiveOrderModel {
   symbol: string;
   side: string;
   ordStatus: string;
+  orderQty: string;
   ordType: string;
   price: number;
   stopPx: number;
