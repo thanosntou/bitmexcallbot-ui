@@ -104,9 +104,6 @@ export class TradePanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.authService.isTrader()) {
-      this.router.navigate(['/dashboard']);
-    }
     this._success.subscribe((message) => this.successMessage = message);
     this._success.pipe(
       debounceTime(2500)

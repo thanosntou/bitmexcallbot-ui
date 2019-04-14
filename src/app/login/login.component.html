@@ -33,89 +33,12 @@
         </div>
         <br>
         <div class="row justify-content-center">
-          <a (click)="onShowSignUp()"><u>...or click here to Sign Up</u></a>
+          <a routerLink="/signup"><u>...or click here to Register</u></a>
         </div>
-        <br>
-        <br>
       </div>
     </form>
     <br>
     <ngb-alert *ngIf="successMessage" type="danger" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
     <br>
-    <form *ngIf="showSignUp">
-      <div class="form-group">
-        <br><br>
-        <div class="row justify-content-center">
-          <div class="col-sm-1">
-            <strong>Username </strong>
-          </div>
-          <div class="col-sm-2">
-            <input
-              type="text"
-              class="form-control"
-              #username2
-            >
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-sm-1">
-            <strong>Email </strong>
-          </div>
-          <div class="col-sm-2">
-            <input
-              type="email"
-              class="form-control"
-              #email
-            >
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-sm-1">
-            <strong>Password </strong>
-          </div>
-          <div class="col-sm-2">
-            <input
-              type="password"
-              class="form-control"
-              #pass
-            >
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-sm-1">
-            <strong>Confirm Password </strong>
-          </div>
-          <div class="col-sm-2">
-            <input
-              type="password"
-              class="form-control"
-              #confirmPass
-            >
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-sm-1">
-            <strong>PIN</strong>
-          </div>
-          <div class="col-sm-2">
-            <input
-              type="password"
-              class="form-control"
-              #PIN
-            >
-          </div>
-        </div>
-        <br>
-        <div class="row">
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-xs" style="margin-left: 20px">
-            <button class="btn btn-outline-secondary" (click)="onSignUp()">Sign Up</button>
-          </div>
-        </div>
-        <br>
-        <br>
-      </div>
-    </form>
   </div>
 </div>

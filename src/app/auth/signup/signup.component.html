@@ -1,0 +1,61 @@
+<div class="container" style="min-height: 100vh">
+  <br>
+  <div class=".col-xs-12 col-sm-10 col-md8 col-sm-offset-1 col-md-offset-2"  >
+    <form (ngSubmit)="onSignUp(f)" #f="ngForm">
+      <div><strong style="font-size: 1.4rem">Sign Up</strong></div>
+      <br><br>
+      <div class="form-group">
+        <label for="username"><strong>Username</strong></label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          ngModel
+        >
+      </div>
+      <div class="form-group">
+        <label for="email"><strong>Email</strong></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          ngModel
+        >
+      </div>
+      <div class="form-group">
+        <label for="pass"><strong>Password</strong></label>
+        <input
+          type="password"
+          id="pass"
+          name="pass"
+          class="form-control"
+          ngModel
+        >
+      </div>
+      <div class="form-group">
+        <label for="confirmPass"><strong>Confirm Password </strong></label>
+        <input
+          type="password"
+          id="confirmPass"
+          name="confirmPass"
+          class="form-control"
+          ngModel
+        >
+      </div>
+      <div class="form-group">
+        <label for="pin"><strong>PIN</strong></label>
+        <input
+          type="text"
+          id="pin"
+          name="pin"
+          class="form-control"
+          ngModel
+        >
+      </div>
+      <button class="btn btn-outline-secondary" type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>
+

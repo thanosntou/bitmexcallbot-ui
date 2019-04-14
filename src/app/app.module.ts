@@ -33,7 +33,12 @@ import { ChatComponent } from './chat/chat.component';
 import { NgbdButtonsRadio } from './buttons-radio';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {AuthGuard} from './auth-guard.service';
+import {AuthGuard} from './auth/guards/auth-guard.service';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import {TraderGuard} from './auth/guards/trader-guard.service';
+import {AdminGuard} from './auth/guards/admin-guard.service';
+import {SuperAdminGuard} from './auth/guards/super-admin-guard.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +68,9 @@ import {AuthGuard} from './auth-guard.service';
     BitmexWalletHistoryComponent,
     ChatComponent,
     NgbdButtonsRadio,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     AppRoutingModule,
@@ -73,7 +80,7 @@ import {AuthGuard} from './auth-guard.service';
     FontAwesomeModule,
     NgbModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, TraderGuard, AdminGuard, SuperAdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
