@@ -3,6 +3,7 @@ import {PositionModel} from '../_model/position.model';
 import {BaseUrl} from '../_enum/BaseUrl.enum';
 import {AuthenticationService} from '../authentication.service';
 import {Injectable, OnInit} from '@angular/core';
+import {OrderReportModel} from '../_model/order-report.model';
 
 @Injectable()
 export class OpenPositionsService implements OnInit {
@@ -58,7 +59,8 @@ export class OpenPositionsService implements OnInit {
   }
 
   closeLimitOrder(symbol: string, side: string, qtyPerc: number, price: number) {
-    const httpOptions = {headers: new HttpHeaders({
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/x-www-form-urlencoded'
     })};
@@ -69,7 +71,7 @@ export class OpenPositionsService implements OnInit {
       '&price=' + price +
       '&execInst=Close';
 
-    this.http.post<void>(
+    this.http.post<OrderReportModel>(
       BaseUrl.B2 + '/api/v1/trade/orderAll2', body, httpOptions
     ).subscribe(
       () => this.fetchOpenPositions(),
@@ -78,10 +80,12 @@ export class OpenPositionsService implements OnInit {
   }
 
   onCloseMarketPosition(symbol: string) {
-    const httpOptions = {headers: new HttpHeaders({
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': this.authService.findAccessToken(),
         'Content-Type': 'application/json'
-    })};
+      })
+    };
     this.http.delete<void>(
       BaseUrl.B2 + '/api/v1/trade/position?symbol=' + symbol, httpOptions
     ).subscribe(
