@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {AuthenticationService} from '../../authentication.service';
+import {AuthenticationService} from '../../_services/authentication.service';
 
 @Injectable()
 export class SuperAdminGuard implements CanActivate, CanActivateChild {

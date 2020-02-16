@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ChatMessageModel} from '../_model/chat-message.model';
-import {BaseUrl} from '../_enum/BaseUrl.enum';
-import {AuthenticationService} from '../authentication.service';
+import {ChatMessageModel} from '../_models/chat-message.model';
+import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'app-chat',

@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from '../authentication.service';
-import {BaseUrl} from '../_enum/BaseUrl.enum';
-import {UserModel} from '../_model/user.model';
-import {Symbol} from '../_enum/Symbol.enum';
-import {UserDetailsModel} from '../_model/user-details.model';
+import {HttpClient} from '@angular/common/http';
+import {AuthenticationService} from '../_services/authentication.service';
+import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {UserModel} from '../_models/user.model';
+import {Symbol} from '../_enums/Symbol.enum';
+import {UserDetailsModel} from '../_models/user-details.model';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
@@ -56,47 +56,35 @@ export class SettingsComponent implements OnInit {
   }
 
   onSaveKeys() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
+    const body = {
+      apiKey:  this.apiKeyRef.nativeElement.value,
+      apiSecret: this.apiSecretRef.nativeElement.value
     };
-    const apiKey = this.apiKeyRef.nativeElement.value;
-    const apiSecret = this.apiSecretRef.nativeElement.value;
-    const body = 'apiKey=' + apiKey + '&apiSecret=' + apiSecret;
-    this.http.post<UserModel>(
-      BaseUrl.B1 + '/api/v1/user/keys', body, httpOptions
-    ).subscribe((data: UserModel) => {
-      this.userDetailsInfo.user = data;
-      this.authService.refreshUser(data);
-      this._successKeys.next('API Keys saved');
-      this.apiKeyRef.nativeElement.value = '';
-      this.apiSecretRef.nativeElement.value = '';
-    });
+    this.http.put<UserModel>(BaseUrl.B1 + '/api/v1/user', body, this.authService.jsonHeaders())
+      .subscribe((data: UserModel) => {
+        this.userDetailsInfo.user = data;
+        this.authService.refreshUser(data);
+        this._successKeys.next('API Keys saved');
+        this.apiKeyRef.nativeElement.value = '';
+        this.apiSecretRef.nativeElement.value = '';
+      });
   }
 
   onSavePass() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
+    const body = {
+      oldPass:  this.oldPass.nativeElement.value,
+      newPass: this.newPass.nativeElement.value,
+      confirmPass: this.confirmPass.nativeElement.value
     };
-    const oldPass = this.oldPass.nativeElement.value;
-    const newPass = this.newPass.nativeElement.value;
-    const confirmPass = this.confirmPass.nativeElement.value;
-    const body = 'oldPass=' + oldPass + '&newPass=' + newPass + '&confirmPass=' + confirmPass;
-    this.http.post<UserModel>(
-      BaseUrl.B1 + '/api/v1/user/pass', body, httpOptions
-    ).subscribe((data: UserModel) => {
-      this.userDetailsInfo.user = data;
-      this.authService.refreshUser(data);
-      this._successPass.next('Password changed');
-      this.oldPass.nativeElement.value = '';
-      this.newPass.nativeElement.value = '';
-      this.confirmPass.nativeElement.value = '';
-    });
+    this.http.put<UserModel>(BaseUrl.B1 + '/api/v1/user/pass', body, this.authService.jsonHeaders())
+      .subscribe((data: UserModel) => {
+        this.userDetailsInfo.user = data;
+        this.authService.refreshUser(data);
+        this._successPass.next('Password changed');
+        this.oldPass.nativeElement.value = '';
+        this.newPass.nativeElement.value = '';
+        this.confirmPass.nativeElement.value = '';
+      });
   }
 
   onSavefixedQty(symbol: string) {
@@ -120,41 +108,31 @@ export class SettingsComponent implements OnInit {
     } else if (Symbol.XRPXXX === Symbol[symbol]) {
       qty = this.fixedQtyXRPXXX.nativeElement.value;
     }
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-    })};
-    this.http.post<UserModel>(
-      BaseUrl.B1 + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], '', httpOptions
-    ).subscribe((data: UserModel) => {
-      this.userDetailsInfo.user = data;
-      this.authService.refreshUser(data);
-      this._successQty.next('Quantity saved');
-      this.fixedQtyXBTUSD.nativeElement.value = '';
-      this.fixedQtyETHUSD.nativeElement.value = '';
-      this.fixedQtyADAXXX.nativeElement.value = '';
-      this.fixedQtyBCHXXX.nativeElement.value = '';
-      this.fixedQtyEOSXXX.nativeElement.value = '';
-      this.fixedQtyETHXXX.nativeElement.value = '';
-      this.fixedQtyLTCXXX.nativeElement.value = '';
-      this.fixedQtyTRXXXX.nativeElement.value = '';
-      this.fixedQtyXRPXXX.nativeElement.value = '';
-    });
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/user/fixedQty?fixedQty=' + qty + '&symbol=' + Symbol[symbol], null, this.authService.jsonHeaders())
+      .subscribe((data: UserModel) => {
+        this.userDetailsInfo.user = data;
+        this.authService.refreshUser(data);
+        this._successQty.next('Quantity saved');
+        this.fixedQtyXBTUSD.nativeElement.value = '';
+        this.fixedQtyETHUSD.nativeElement.value = '';
+        this.fixedQtyADAXXX.nativeElement.value = '';
+        this.fixedQtyBCHXXX.nativeElement.value = '';
+        this.fixedQtyEOSXXX.nativeElement.value = '';
+        this.fixedQtyETHXXX.nativeElement.value = '';
+        this.fixedQtyLTCXXX.nativeElement.value = '';
+        this.fixedQtyTRXXXX.nativeElement.value = '';
+        this.fixedQtyXRPXXX.nativeElement.value = '';
+      });
   }
 
   onChangeClient() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
+    const body = {
+      client:  this.clientInput.nativeElement.value
     };
-    const body = 'client=' + this.clientInput.nativeElement.value;
-    this.http.post<UserModel>(
-      BaseUrl.B1 + '/api/v1/user/client', body, httpOptions
-    ).subscribe((data: UserModel) => {
-      this.userDetailsInfo.user = data;
-      this.authService.refreshUser(data);
-    });
+    this.http.put<UserModel>(BaseUrl.B1 + '/api/v1/user', body, this.authService.jsonHeaders())
+      .subscribe((data: UserModel) => {
+        this.userDetailsInfo.user = data;
+        this.authService.refreshUser(data);
+      });
   }
 }

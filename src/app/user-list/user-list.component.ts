@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   faSortAlphaDown,
   faSortAlphaUp,
@@ -7,49 +7,100 @@ import {
   faSortNumericUp,
   faSortNumericDown
 } from '@fortawesome/free-solid-svg-icons';
-import {AdminService} from '../admin.service';
-import {UserModel} from '../_model/user.model';
+import {AdminService} from '../_services/admin.service';
+import {UserModel} from '../_models/user.model';
 import {Router} from '@angular/router';
+import {UserDetailsModel} from '../_models/user-details.model';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css'],
-  providers: [AdminService]
+  styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  userDetails: UserDetailsModel;
   sortByNameIcon = faSortAlphaDown;
   sortByDateIcon = faSortAmountDown;
   sortByEmailIcon = faSortAlphaDown;
   sortByBalanceIcon = faSortNumericDown;
   sortByIdIcon = faSortNumericDown;
+  isRoot = false;
+  users: UserModel[] = [];
+  traders: UserModel[] = [];
+  totalVolume: number;
+  activeVolume: number;
+  usersBalanceMap: Map<string, number>;
 
-  constructor(public adminService: AdminService,
+  constructor(private adminService: AdminService,
+              private authService: AuthenticationService,
               private router: Router) { }
 
   ngOnInit() {
-    this.adminService.fetchUsers();
-    this.adminService.fetchVolumes();
-    this.adminService.fetchUsersWalletBalance();
+    this.userDetails = this.authService.findUserDetails();
+    this.authService.findUserRoles().forEach(auth => {
+      if (auth.role === 'ROOT') {
+        this.isRoot = true;
+      }
+    });
+    this.fetchAndSetUsers();
+  }
+
+  onChangeTrader(event): void {
+    this.fetchAndSetVolumes(event.target.value);
+    this.fetchAndSetUsersWalletBalance(event.target.value);
+  }
+
+  fetchAndSetUsers() {
+    this.adminService.fetchUsers().subscribe(response => {
+      this.users = response;
+      this.traders = this.users.filter(i => i.authorities.indexOf('TRADER') > -1);
+    });
+  }
+
+  fetchAndSetVolumes(traderName: string) {
+    this.adminService.fetchVolumes(traderName).subscribe(
+      (data: {totalVolume: number, activeVolume: number}) => {
+        this.totalVolume = data.totalVolume;
+        this.activeVolume = data.activeVolume;
+      },
+      error => console.log(JSON.stringify(error))
+    );
+  }
+
+  fetchAndSetUsersWalletBalance(traderName: string) {
+    this.adminService.fetchUsersWalletBalance(traderName).subscribe(
+      (data: Map<string, number>) => this.usersBalanceMap = data,
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onDeleteUser(user: UserModel) {
-    this.adminService.deleteUser(user.id);
+    this.adminService.deleteUser(user.id).subscribe(
+      (data: UserModel) => {
+        // this.users.splice(this.users.indexOf(data), 1);
+        this.users = this.users.filter(i => i.id !== user.id);
+      },
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   onMakeHiddenUser(user: UserModel) {
-    this.adminService.hideUser(user.id);
+    this.adminService.hideUser(user.id).subscribe(
+      (data: UserModel) => this.users = this.users.filter(i => i.id !== user.id),
+      error => console.log(JSON.stringify(error))
+    );
   }
 
   sortByUsername() {
     if (this.sortByNameIcon === faSortAlphaDown) {
       this.sortByNameIcon = faSortAlphaUp;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         a.username.localeCompare(b.username)
       );
     } else {
       this.sortByNameIcon = faSortAlphaDown;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         b.username.localeCompare(a.username)
       );
     }
@@ -58,12 +109,12 @@ export class UserListComponent implements OnInit {
   sortByEmail() {
     if (this.sortByEmailIcon === faSortAmountDown) {
       this.sortByEmailIcon = faSortAmountUp;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         a.email.localeCompare(b.email)
       );
     } else {
       this.sortByEmailIcon = faSortAmountDown;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         a.email.localeCompare(b.email)
       );
     }
@@ -72,34 +123,34 @@ export class UserListComponent implements OnInit {
   sortByCreateDate() {
     if (this.sortByDateIcon === faSortAmountDown) {
       this.sortByDateIcon = faSortAmountUp;
-      this.adminService.users.sort((a, b) =>
-        new Date(a.create_date).getTime() - (new Date(b.create_date).getTime())
+      this.users.sort((a, b) =>
+        new Date(a.createdOn).getTime() - (new Date(b.createdOn).getTime())
       );
     } else {
       this.sortByDateIcon = faSortAmountDown;
-      this.adminService.users.sort((a, b) =>
-        new Date(b.create_date).getTime() - (new Date(a.create_date).getTime()));
+      this.users.sort((a, b) =>
+        new Date(b.createdOn).getTime() - (new Date(a.createdOn).getTime()));
     }
   }
 
   sortByBalance() {
     if (this.sortByBalanceIcon === faSortNumericDown) {
       this.sortByBalanceIcon = faSortNumericUp;
-      this.adminService.users.sort((a, b) => {
-        if (!this.adminService.usersBalanceMap[b.username]) {
+      this.users.sort((a, b) => {
+        if (!this.usersBalanceMap[b.username]) {
           return -1;
         }
-        return this.adminService.usersBalanceMap[a.username] - this.adminService.usersBalanceMap[b.username];
+        return this.usersBalanceMap[a.username] - this.usersBalanceMap[b.username];
       }
 
       );
     } else {
       this.sortByBalanceIcon = faSortNumericDown;
-      this.adminService.users.sort((a, b) => {
-          if (!this.adminService.usersBalanceMap[b.username]) {
+      this.users.sort((a, b) => {
+          if (!this.usersBalanceMap[b.username]) {
             return -1;
           }
-          return this.adminService.usersBalanceMap[b.username] - this.adminService.usersBalanceMap[a.username];
+          return this.usersBalanceMap[b.username] - this.usersBalanceMap[a.username];
         }
       );
     }
@@ -108,12 +159,12 @@ export class UserListComponent implements OnInit {
   sortById() {
     if (this.sortByIdIcon === faSortNumericDown) {
       this.sortByIdIcon = faSortNumericUp;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         a.id - b.id
       );
     } else {
       this.sortByIdIcon = faSortNumericDown;
-      this.adminService.users.sort((a, b) =>
+      this.users.sort((a, b) =>
         b.id - a.id
       );
     }

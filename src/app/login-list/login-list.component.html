@@ -20,10 +20,10 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let login of adminService.logins">
+          <tr *ngFor="let login of logins">
             <th scope="row">{{ login.user.username }}</th>
             <td>{{ login.id }}</td>
-            <td>{{ login.create_date }}</td>
+            <td>{{ login.createdOn }}</td>
           </tr>
           </tbody>
         </table>

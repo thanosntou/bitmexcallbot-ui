@@ -1,14 +1,13 @@
-export class TxModel {
+export interface ActiveOrderModel {
+  orderID: string;
+  clOrdID: string;
   symbol: string;
   side: string;
-  ordType: string;
   ordStatus: string;
   orderQty: string;
+  ordType: string;
   price: number;
   stopPx: number;
-  currency: string;
   transactTime: string;
-  cumQty: number;
-  avgPx: number;
-  text: string;
+
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../user.service';
-import {AuthenticationService} from '../../authentication.service';
+import {UserService} from '../../_services/user.service';
+import {AuthenticationService} from '../../_services/authentication.service';
 import {ActivatedRoute} from '@angular/router';
+import {BitmexTransactionModel} from '../../_models/bitmex-transaction.model';
 
 @Component({
   selector: 'app-bitmex-wallet-summary',
@@ -9,6 +10,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./bitmex-wallet-summary.component.css']
 })
 export class BitmexWalletSummaryComponent implements OnInit {
+  bitmexTransactionsSummary: BitmexTransactionModel[] = [];
 
   constructor(
     public userService: UserService,
@@ -17,7 +19,10 @@ export class BitmexWalletSummaryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.fetchWalletSummary(this.route.snapshot.params['id']);
+    this.userService.fetchWalletSummary(this.route.snapshot.params['id']).subscribe(
+      (data: BitmexTransactionModel[]) => this.bitmexTransactionsSummary = data,
+      error => console.log(error)
+    );
   }
 
 }

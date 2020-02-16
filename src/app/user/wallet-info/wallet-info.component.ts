@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../user.service';
-import {AuthenticationService} from '../../authentication.service';
+import {UserService} from '../../_services/user.service';
+import {AuthenticationService} from '../../_services/authentication.service';
 import {ActivatedRoute, Params} from '@angular/router';
+import {UserWalletModel} from '../../_models/user-wallet.model';
 
 @Component({
   selector: 'app-wallet-info',
@@ -9,6 +10,7 @@ import {ActivatedRoute, Params} from '@angular/router';
   styleUrls: ['./wallet-info.component.css']
 })
 export class WalletInfoComponent implements OnInit {
+  userWallet: UserWalletModel;
 
   constructor(
     public userService: UserService,
@@ -17,7 +19,10 @@ export class WalletInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.fetchWallet(this.route.snapshot.params['id']);
+    this.userService.fetchWallet(this.route.snapshot.params['id']).subscribe(
+      (data: UserWalletModel) => this.userWallet = data,
+      error => console.log(error)
+    );
   }
 
 }
