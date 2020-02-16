@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let order of activeOrdersService.activeOrders">
+    <tr *ngFor="let order of activeOrders">
       <th scope="row"> {{ order.symbol }}</th>
       <td>{{ order.side }}</td>
       <td>{{ order.ordStatus }}</td>

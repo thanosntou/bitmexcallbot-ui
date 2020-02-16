@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Renderer2, OnInit, HostBinding, Input} from '@angular/core';
-import {SymbolService} from '../symbol.service';
+import {SymbolService} from '../_services/symbol.service';
 
 @Directive({
   selector: '[appOpenPosition]'

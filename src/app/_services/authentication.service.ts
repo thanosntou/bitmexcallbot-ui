@@ -1,17 +1,32 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {TokenModel} from './_model/token.model';
-import {BaseUrl} from './_enum/BaseUrl.enum';
-import {UserDetailsModel} from './_model/user-details.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserModel} from './_model/user.model';
-import {UserConnectionModel} from './user-connection.model';
+import {TokenModel} from '../_models/token.model';
+import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {UserDetailsModel} from '../_models/user-details.model';
+import {Router} from '@angular/router';
+import {UserModel} from '../_models/user.model';
+import {UserConnectionModel} from '../_models/user-connection.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private tempToken: TokenModel;
+
+  public jsonHeaders() {
+    return {
+      headers: new HttpHeaders()
+        .append('Authorization', this.findAccessToken())
+        .append('Content-Type', 'application/json')
+    };
+  }
+
+  public simpleHeaders() {
+    return {
+      headers: new HttpHeaders()
+        .append('Authorization', this.findAccessToken())
+    };
+  }
 
   constructor(private http: HttpClient,
               private router: Router) {}
@@ -161,7 +176,7 @@ export class AuthenticationService {
   isAdmin() {
     let status = false;
     this.findUserRoles().forEach(auth => {
-      if (auth.authority === 'ROLE_ADMIN') {
+      if (auth.role === 'ADMIN') {
         status = true;
       }
     });
@@ -171,7 +186,7 @@ export class AuthenticationService {
   isSuperAdmin() {
     let status = false;
     this.findUserRoles().forEach(auth => {
-      if (auth.authority === 'ROLE_SUPER_ADMIN') {
+      if (auth.role === 'ROLE_SUPER_ADMIN') {
         status = true;
       }
     });
@@ -193,7 +208,7 @@ export class AuthenticationService {
   isTrader() {
     let status = false;
     this.findUserRoles().forEach(auth => {
-      if (auth.authority === 'ROLE_TRADER') {
+      if (auth.role === 'TRADER') {
         status = true;
       }
     });

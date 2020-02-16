@@ -1,25 +1,23 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../_enum/BaseUrl.enum';
-import {AuthenticationService} from '../authentication.service';
-import {Symbol} from '../_enum/Symbol.enum';
-import {SymbolService} from '../symbol.service';
+import {AuthenticationService} from '../_services/authentication.service';
+import {Symbol} from '../_enums/Symbol.enum';
+import {SymbolService} from '../_services/symbol.service';
 import {OpenPositionsComponent} from './open-positions/open-positions.component';
-import {OpenPositionsService} from './open-positions.service';
-import {ActiveOrdersService} from './active-orders.service';
+import {OpenPositionsService} from '../_services/open-positions.service';
+import {ActiveOrdersService} from '../_services/active-orders.service';
 import {ActiveOrdersComponent} from './active-orders/active-orders.component';
 import {debounceTime} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {OrderReportModel} from '../_model/order-report.model';
+import {TradeService} from '../_services/trade.service';
+import {PositionModel} from '../_models/position.model';
+import {ActiveOrderModel} from '../_models/active-order.model';
 
 
 @Component({
   selector: 'app-trade-panel',
   templateUrl: './trade-panel.component.html',
-  styleUrls: ['./trade-panel.component.css'],
-  providers: [OpenPositionsService, ActiveOrdersService]
+  styleUrls: ['./trade-panel.component.css']
 })
 export class TradePanelComponent implements OnInit {
   @ViewChild('symbol') symbol: ElementRef;
@@ -49,17 +47,22 @@ export class TradePanelComponent implements OnInit {
   isHidden2 = true;
   manualTab = 'Limit';
 
+  activeOrders: ActiveOrderModel[];
+  openPositions: PositionModel[];
+
   defValues = new Map<string>();
   priceSteps = new Map<string>();
   maxLeverages = new Map<string>();
 
-  constructor(private http: HttpClient,
-              public authService: AuthenticationService,
-              private openPositionsService: OpenPositionsService,
-              private activeOrdersService: ActiveOrdersService,
-              public symbolService: SymbolService,
-              private modalService: NgbModal,
-              private router: Router) {
+  constructor(
+    private authService: AuthenticationService,
+    private openPositionsService: OpenPositionsService,
+    private activeOrdersService: ActiveOrdersService,
+    public symbolService: SymbolService,
+    private modalService: NgbModal,
+    private tradeService: TradeService
+  ) {
+
     this.priceSteps.set(Symbol.XBTUSD.valueOf(), 0.1);
     this.priceSteps.set(Symbol.ETHUSD.valueOf(), 0.01);
     this.priceSteps.set(Symbol.ADAXXX.valueOf(), 0.00000001);
@@ -135,24 +138,22 @@ export class TradePanelComponent implements OnInit {
   }
 
   onSendSignal() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
     const body = 'symbol=' + this.symbolService.symbolGlobal
       + '&side=' + this.side.nativeElement.value
       + '&stopLoss=' + this.stopLoss.nativeElement.value
       + '&profitTrigger=' + this.profitTrigger.nativeElement.value
       + '&leverage=' + this.leverage.nativeElement.value;
 
-    this.http.post<void>(
-      BaseUrl.B2 + '/api/v1/trade/signal', body, httpOptions
-    ).subscribe(
+    this.tradeService.sendSignal(body).subscribe(
       (data) => {
-        this.activeOrdersComp.fetchActiveOrders();
-        this.openPositionsComp.fetchOpenPositions();
+        this.activeOrdersComp.fetchActiveOrders().subscribe(
+          (data2: ActiveOrderModel[]) => this.activeOrders = data2.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
+          error => error,
+        );
+        this.openPositionsComp.fetchOpenPositions().subscribe(
+          (data3: PositionModel[]) => this.openPositions = data3.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
+          error => error
+        );
         this._success.next('Signal placed successfully');
       },
       error => console.log(JSON.stringify(error))
@@ -191,15 +192,7 @@ export class TradePanelComponent implements OnInit {
       execInst = 'Close,LastPrice';
       body += '&price=' + price + '&stopPx=' + stopPx + '&execInst=' + execInst;
     }
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
-
-    this.http.post<OrderReportModel>(BaseUrl.B2 + '/api/v1/trade/orderAll', body, httpOptions).subscribe(
+    this.tradeService.orderAll(body).subscribe(
       (data) => {
         this.activeOrdersComp.fetchActiveOrders();
         this.openPositionsComp.fetchOpenPositions();
@@ -210,14 +203,7 @@ export class TradePanelComponent implements OnInit {
   }
 
   onPanicButton() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken()
-      })
-    };
-    this.http.delete<void>(
-      BaseUrl.B2 + '/api/v1/trade/panic', httpOptions
-    ).subscribe(
+    this.tradeService.panicButton().subscribe(
       () => {
         this.activeOrdersComp.onClearAll();
         this.openPositionsComp.onClearAll();
@@ -228,15 +214,7 @@ export class TradePanelComponent implements OnInit {
   }
 
   onCancelAll() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    };
-    this.http.delete<void>(
-      BaseUrl.B2 + '/api/v1/trade/order', httpOptions
-    ).subscribe(
+    this.tradeService.cancelAll().subscribe(
       () => {},
       error => console.log(JSON.stringify(error))
     );

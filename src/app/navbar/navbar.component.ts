@@ -4,9 +4,9 @@ import {
   faSatelliteDish, faSignOutAlt, faUser,
   faUsers, faComments, faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
-import {AuthenticationService} from '../authentication.service';
+import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
-import {UserDetailsModel} from '../_model/user-details.model';
+import {UserDetailsModel} from '../_models/user-details.model';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   userDetails: UserDetailsModel;
   isAdmin = false;
   isTrader = false;
-  isCustomer = false;
+  isFollower = false;
   @Output() userSignedOut = new EventEmitter<{signedOut: boolean}>();
   @Output() tabSelected = new EventEmitter<string>();
 
@@ -26,19 +26,19 @@ export class NavbarComponent implements OnInit {
   faSatelliteDish = faSatelliteDish; faQuestionCircle = faQuestionCircle;  faUser = faUser;
 
   constructor(private router: Router,
-              public authService: AuthenticationService) { }
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.userDetails = this.authService.findUserDetails();
     this.authService.findUserRoles().forEach(auth => {
-      if (auth.authority === 'ROLE_ADMIN') {
+      if (auth.role === 'ADMIN') {
         this.isAdmin = true;
       }
-      if (auth.authority === 'ROLE_TRADER') {
+      if (auth.role === 'TRADER') {
         this.isTrader = true;
       }
-      if (auth.authority === 'ROLE_CUSTOMER') {
-        this.isCustomer = true;
+      if (auth.role === 'FOLLOWER') {
+        this.isFollower = true;
       }
     });
   }
@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
   onSignOut() {
     this.isAdmin = false;
     this.isTrader = false;
-    this.isCustomer = false;
+    this.isFollower = false;
     this.userDetails = null;
     this.authService.deleteUserConnection();
     this.router.navigate(['/login']);

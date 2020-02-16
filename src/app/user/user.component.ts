@@ -1,18 +1,17 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {UserService} from '../user.service';
+import {UserService} from '../_services/user.service';
 import {Subscription} from 'rxjs';
-import {AuthenticationService} from '../authentication.service';
-import {ActiveOrdersService} from '../trade-panel/active-orders.service';
-import {OpenPositionsService} from '../trade-panel/open-positions.service';
+import {AuthenticationService} from '../_services/authentication.service';
+import {UserModel} from '../_models/user.model';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
-  providers: [UserService, ActiveOrdersService, OpenPositionsService]
+  styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit, OnDestroy {
+  user: UserModel;
   paramsSubscription: Subscription;
 
   constructor(
@@ -22,7 +21,10 @@ export class UserComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userService.findById(this.route.snapshot.params['id']);
+    this.userService.findById(this.route.snapshot.params['id']).subscribe(
+      (data: UserModel) => this.user = data,
+      error => console.log(error)
+    );
     this.paramsSubscription = this.route.params.subscribe((params: Params) => {
           this.userService.findById(params['id']);
     });

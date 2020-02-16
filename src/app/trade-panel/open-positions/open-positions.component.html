@@ -42,7 +42,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let position of openPositionService.openPositions">
+    <tr *ngFor="let position of openPositions">
       <th scope="row"> {{ position.symbol }}</th>
       <td>{{ position.currentQty }}</td>
       <td>{{ (position.homeNotional).toFixed(4) }} XBT</td>

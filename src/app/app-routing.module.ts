@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {TxComponent} from './tx/tx.component';
 import {AuthGuard} from './auth/guards/auth-guard.service';
 import {FaqComponent} from './faq/faq.component';
 import {UserComponent} from './user/user.component';
@@ -28,7 +27,6 @@ const appRoutes: Routes = [
       { path: 'followers', component: FollowersPanelComponent },
       { path: 'followers/:id', component: UserComponent },
       { path: 'trade', canActivate: [TraderGuard], component: TradePanelComponent },
-      { path: 'tx', component: TxComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'users', canActivate: [AdminGuard], component: UserListComponent },
       { path: 'users/:id', canActivate: [AdminGuard], component: UserComponent },

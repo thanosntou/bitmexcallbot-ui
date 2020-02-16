@@ -1,4 +1,4 @@
-export class UserWalletModel {
+export interface UserWalletModel {
   account: number;
   currency: string;
   prevDeposited: number;

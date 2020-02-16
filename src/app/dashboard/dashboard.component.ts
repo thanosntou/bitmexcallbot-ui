@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BaseUrl} from '../_enum/BaseUrl.enum';
-import {AuthenticationService} from '../authentication.service';
-import {ActiveOrdersService} from '../trade-panel/active-orders.service';
+import {BaseUrl} from '../_enums/BaseUrl.enum';
+import {AuthenticationService} from '../_services/authentication.service';
+import {ActiveOrdersService} from '../_services/active-orders.service';
 
 @Component({
   selector: 'app-dashboard',

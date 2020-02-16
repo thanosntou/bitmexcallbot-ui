@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthenticationService} from '../../authentication.service';
-import {OpenPositionsService} from '../open-positions.service';
-import {PositionModel} from '../../_model/position.model';
+import {AuthenticationService} from '../../_services/authentication.service';
+import {OpenPositionsService} from '../../_services/open-positions.service';
+import {PositionModel} from '../../_models/position.model';
 import {Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 
@@ -14,6 +14,7 @@ export class OpenPositionsComponent implements OnInit {
   @ViewChild('qtyPercentageInput') qtyPerc: ElementRef;
   @ViewChild('priceInput') price: ElementRef;
   successMessage: string;
+  openPositions: PositionModel[];
   private _success = new Subject<string>();
 
   constructor(public authService: AuthenticationService,
@@ -22,14 +23,21 @@ export class OpenPositionsComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params['id']) {
-      this.openPositionService.fetchOpenPositionsOf(this.route.snapshot.params['id']);
+      this.openPositionService.fetchOpenPositionsOf(this.route.snapshot.params['id']).subscribe(
+        (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
+        error => console.log(error)
+      );
     } else {
-      this.openPositionService.fetchOpenPositions();
+      this.openPositionService.fetchOpenPositions().subscribe(
+        (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol)),
+        error => error,
+        () => (data: PositionModel[]) => this.openPositions = data.sort((n1, n2) => n1.symbol.localeCompare(n2.symbol))
+      );
     }
   }
 
   fetchOpenPositions() {
-    this.openPositionService.fetchOpenPositions();
+    return this.openPositionService.fetchOpenPositions();
   }
 
   onCloseLimitOrder(position: PositionModel) {
@@ -38,13 +46,19 @@ export class OpenPositionsComponent implements OnInit {
       this.calculateSide(position.currentQty),
       this.qtyPerc.nativeElement.value,
       this.price.nativeElement.value
+    ).subscribe(
+      () => this.fetchOpenPositions(),
+      error => console.log(error)
     );
     this.qtyPerc.nativeElement.value = '';
     this.price.nativeElement.value = '';
   }
 
   onCloseMarketPosition(position: PositionModel) {
-    this.openPositionService.onCloseMarketPosition(position.symbol);
+    this.openPositionService.onCloseMarketPosition(position.symbol).subscribe(
+      () => this.openPositions = this.openPositions.filter(p => p.symbol !== position.symbol),
+      error => console.log(error)
+    );
   }
 
   private calculateSide(currentQty: number) {
@@ -56,7 +70,7 @@ export class OpenPositionsComponent implements OnInit {
   }
 
   public onClearAll() {
-    this.openPositionService.clearAll();
+    this.openPositions = null;
   }
 
 }
