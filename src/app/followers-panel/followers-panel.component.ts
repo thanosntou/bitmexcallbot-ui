@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {
   faCheckCircle,
@@ -13,6 +13,7 @@ import {BaseUrl} from '../_enums/BaseUrl.enum';
 import {UserModel} from '../_models/user.model';
 import {Router} from '@angular/router';
 import {AdminService} from '../_services/admin.service';
+import {TraderService} from '../_services/trader.service';
 
 @Component({
   selector: 'app-followers-panel',
@@ -20,6 +21,7 @@ import {AdminService} from '../_services/admin.service';
   styleUrls: ['./followers-panel.component.css']
 })
 export class FollowersPanelComponent implements OnInit {
+  @ViewChild('newGuideFollowerInput') newGuideFollowerInput: ElementRef;
   sortByDateIcon = faSortAmountDown;
   sortByBalanceIcon = faSortNumericDown;
   faCheckedCircle = faCheckCircle;
@@ -30,26 +32,20 @@ export class FollowersPanelComponent implements OnInit {
   followersBalanceMap: Map<string, number>;
   enabledAmount = 0;
   disabledAmount = 0;
+  guideFollower: UserModel;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     public adminService: AdminService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private traderService: TraderService
   ) { }
 
   ngOnInit() {
-    this.adminService.fetchFollowersWalletBalance().subscribe(
-      (data: Map<string, number>) => this.followersBalanceMap = data,
-      error => console.log(JSON.stringify(error))
-    );
-
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-    })};
-    this.http.get<UserModel[]>(
-      BaseUrl.B1 + '/api/v1/trader/followers', httpOptions
-    ).subscribe((data: UserModel[]) => {
+    this.traderService.fetchGuideFollower().subscribe((guide => this.guideFollower = guide));
+    this.traderService.fetchFollowers().subscribe((data: UserModel[]) => {
+      this.followers = data;
       data.forEach(f => {
         if (f.enabled) {
           this.enabledFollowers.push(f);
@@ -59,13 +55,23 @@ export class FollowersPanelComponent implements OnInit {
           this.disabledAmount = this.disabledAmount + 1;
         }
       });
-    }
+    });
+
+    this.adminService.fetchFollowersWalletBalance().subscribe(
+      (data: Map<string, number>) => this.followersBalanceMap = data,
+      error => console.log(JSON.stringify(error))
     );
+  }
+
+  onChangeGuideFollower() {
+    const followerId = this.newGuideFollowerInput.nativeElement.value;
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/followers/' + followerId + '/guide', null).subscribe(
+      (guide) => this.guideFollower = guide);
   }
 
   onEnable(followerId: number) {
     const params = 'followerId=' + followerId + '&status=enable';
-    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/status?' + params, null, this.authService.jsonHeaders())
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/followers/status?' + params, null, this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel) => {
         // let user = this.followers.find(follower => follower.id === id);
@@ -78,7 +84,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onDisable(followerId: number) {
     const params = 'followerId=' + followerId + '&status=disable';
-    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/status?' + params, null, this.authService.jsonHeaders())
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/trader/followers/status?' + params, null, this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel) => {
           this.enabledFollowers = this.enabledFollowers.filter(i => i.id !== followerId);
@@ -88,7 +94,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onEnableAll() {
     const params = 'status=enable';
-    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/status-all?' + params, null, this.authService.jsonHeaders())
+    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/followers/status-all?' + params, null, this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel[]) => {
           this.disabledFollowers = [];
@@ -98,7 +104,7 @@ export class FollowersPanelComponent implements OnInit {
 
   onDisableAll() {
     const params = 'status=disable';
-    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/status-all?' + params, null, this.authService.jsonHeaders())
+    this.http.post<UserModel[]>(BaseUrl.B1 + '/api/v1/trader/followers/status-all?' + params, null, this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel[]) => {
           this.enabledFollowers = [];

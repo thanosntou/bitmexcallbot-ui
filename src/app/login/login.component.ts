@@ -2,8 +2,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../_services/authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +9,8 @@ import {debounceTime} from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private _fail = new Subject<string>();
-  successMessage: string;
+  isLoading = false;
+  errorMessage: string;
   @ViewChild('username') username: ElementRef;
   @ViewChild('password') password: ElementRef;
 
@@ -24,15 +22,38 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._fail.subscribe((message) => this.successMessage = message);
-    this._fail.pipe(debounceTime(2500)).subscribe(() => this.successMessage = null);
-    this._fail.next(this.route.snapshot.queryParams['message']);
   }
 
   onSignIn() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
-    this.authService.getAndSetAccessToken(username, password);
+    this.authService.getAndSetAccessToken(username, password).subscribe(
+      (token) => {
+        this.authService.authenticate(token).subscribe(
+          () => {
+            if (this.authService.isFollower()) {
+              this.router.navigate(['/settings']);
+            } else if (this.authService.isTrader()) {
+              this.router.navigate(['/trade']);
+            } else if (this.authService.isAdmin()) {
+              this.router.navigate(['/settings/admin']);
+            } else if (this.authService.isRoot()) {
+              this.router.navigate(['/settings/root']);
+            }
+          },
+          error => {
+            this.isLoading = false;
+            this.errorMessage = 'error';
+            setTimeout(() => this.errorMessage = null, 2500);
+          }
+        );
+      },
+      error => {
+        this.isLoading = false;
+        this.errorMessage = 'Wrong username or password.';
+        setTimeout(() => this.errorMessage = null, 2500);
+      }
+    );
   }
 }
 

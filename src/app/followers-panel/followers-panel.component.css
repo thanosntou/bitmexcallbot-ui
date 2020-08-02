@@ -2,3 +2,7 @@
   min-height: 100vh;
   margin: 15px 0;
 }
+
+#guide {
+  padding-left: 10px;
+}

@@ -28,13 +28,15 @@
             <td>
               <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
             </td>
-            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>
+            <td></td>
+<!--            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>-->
 
             <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
               <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
             </td>
             <td>{{ follower.email }}</td>
-            <td>{{ follower.create_date }}</td>
+            <td></td>
+<!--            <td>{{ follower.create_date }}</td>-->
             <td>
               <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
               <ng-template #enableButton>
@@ -68,12 +70,15 @@
             <td>
               <a (click)="onSelect(follower)" role="button">{{ follower.username }}</a>
             </td>
-            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>
+<!--            TODO fix-->
+            <td> </td>
+<!--            <td>{{ adminService.followersBalanceMap[follower.username] }}</td>-->
             <td><span *ngIf="follower.enabled;else disabledIcon"><fa-icon [icon]="faCheckedCircle"></fa-icon></span>
               <ng-template #disabledIcon><fa-icon [icon]="faMinus"></fa-icon></ng-template>
             </td>
             <td>{{ follower.email }}</td>
-            <td>{{ follower.create_date }}</td>
+            <td> </td>
+<!--            <td>{{ follower.create_date }}</td>-->
             <td>
               <button class="btn btn-danger" *ngIf="follower.enabled; else enableButton" (click)="onDisable(follower.id)">Disable</button>
               <ng-template #enableButton>
@@ -83,6 +88,21 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <br>
+    <div class="container-fluid">
+      <div class="row col-4">Your Guide Follower:<span id="guide"><strong>{{ guideFollower.username }}</strong></span></div>
+      <br>
+      <div class="row col-4">
+        <select name="client" class="form-control" #newGuideFollowerInput>
+          <option [style.font-weight]="'bold'" [selected]="guideFollower.username"></option>
+          <option *ngFor="let follower of followers" [value]="follower.id">{{ follower.username }}</option>
+        </select>
+      </div>
+      <br>
+      <div class="row col-4">
+        <button class="btn btn-primary" (click)="onChangeGuideFollower()">Change Your Guide Follower</button>
+      </div>
     </div>
   </div>
 </div>

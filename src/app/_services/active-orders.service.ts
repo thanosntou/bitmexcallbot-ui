@@ -13,19 +13,19 @@ export class ActiveOrdersService {
               public authService: AuthenticationService) {}
 
   fetchActiveOrders() {
-    return this.http.get<ActiveOrderModel[]>(BaseUrl.B1 + '/api/v1/trader/active-orders', this.authService.jsonHeaders());
+    return this.http.get<ActiveOrderModel[]>(BaseUrl.B1 + '/api/v1/trader/followers/active-orders/guide');
   }
 
   fetchActiveOrdersOf(userId: number) {
-    return this.http.get<ActiveOrderModel[]>(BaseUrl.B1 + '/api/v1/customer/active-orders?id=' + userId, this.authService.jsonHeaders());
+    return this.http.get<ActiveOrderModel[]>(BaseUrl.B1 + '/api/v1/customer/active-orders?id=' + userId);
   }
 
   cancelOne(clOrdID: string) {
-    return this.http.delete<any>(BaseUrl.B1 + '/api/v1/trade/order?clOrdID=' + clOrdID, this.authService.jsonHeaders());
+    return this.http.delete<any>(BaseUrl.B1 + '/api/v1/trade/order?clOrdID=' + clOrdID);
   }
 
   cancelAll(symbol: string) {
-    return this.http.delete<any>(BaseUrl.B1 + '/api/v1/trade/order?symbol=' + symbol, this.authService.jsonHeaders());
+    return this.http.delete<any>(BaseUrl.B1 + '/api/v1/trade/order?symbol=' + symbol);
   }
 
 }

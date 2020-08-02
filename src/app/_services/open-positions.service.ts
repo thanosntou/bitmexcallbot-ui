@@ -33,11 +33,11 @@ export class OpenPositionsService implements OnInit {
   ngOnInit() {}
 
   fetchOpenPositions() {
-    return this.http.get<PositionModel[]>(BaseUrl.B1 + '/api/v1/trader/open-positions', this.authService.jsonHeaders());
+    return this.http.get<PositionModel[]>(BaseUrl.B1 + '/api/v1/trader/followers/open-positions/guide');
   }
 
   fetchOpenPositionsOf(userId: number) {
-    return this.http.get<PositionModel[]>(BaseUrl.B1 + '/api/v1/customer/open-positions?id=' + userId, this.authService.jsonHeaders());
+    return this.http.get<PositionModel[]>(BaseUrl.B1 + '/api/v1/customer/open-positions?id=' + userId);
   }
 
   closeLimitOrder(symbol: string, side: string, qtyPerc: number, price: number) {
@@ -48,11 +48,11 @@ export class OpenPositionsService implements OnInit {
       '&price=' + price +
       '&execInst=Close';
 
-    return this.http.post<OrderReportModel>(BaseUrl.B2 + '/api/v1/trade/close-limit-all', body, this.authService.jsonHeaders());
+    return this.http.post<OrderReportModel>(BaseUrl.B2 + '/api/v1/trade/close-limit-all', body);
   }
 
   onCloseMarketPosition(symbol: string) {
-    return this.http.delete<void>(BaseUrl.B2 + '/api/v1/trade/position?symbol=' + symbol, this.authService.jsonHeaders());
+    return this.http.delete<void>(BaseUrl.B2 + '/api/v1/trade/position?symbol=' + symbol);
   }
 
 }

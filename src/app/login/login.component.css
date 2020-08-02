@@ -1,3 +1,28 @@
 #main{
   /*background-image: url('/assets/images/t1.jpg');*/
 }
+
+.pop-up {
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+  box-sizing: border-box;
+  position: fixed;
+  left: 140vh;
+  right: 0;
+  top: 5vh;
+  padding: 1ch;
+  height: 100vh;
+}
+
+.pop-up-box {
+  overflow-y: auto;
+  max-height: 100vh;
+  margin: 0 auto;
+  width: auto;
+  padding: 1rem;
+  box-shadow: 6px 6px 0 #000000;
+  background: #e60000;
+  color: #ffffff;
+}

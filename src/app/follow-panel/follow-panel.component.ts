@@ -17,7 +17,7 @@ export class FollowPanelComponent implements OnInit {
               private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.http.get<UserModel>(BaseUrl.B1 + '/api/v1/follower/personal-trader', this.authService.jsonHeaders())
+    this.http.get<UserModel>(BaseUrl.B1 + '/api/v1/follower/trader', this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel) => this.personalTrader = data,
         error => console.log(JSON.stringify(error))
@@ -31,7 +31,7 @@ export class FollowPanelComponent implements OnInit {
 
   onFollow(trader: UserModel) {
     const params = 'traderId=' + trader.id;
-    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/follower/personal-trader?' + params, null, this.authService.jsonHeaders())
+    this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/follower/trader?' + params, null, this.authService.jsonHeaders())
       .subscribe(
         (data: UserModel) => this.personalTrader = data,
         error => console.log(JSON.stringify(error))
@@ -39,7 +39,7 @@ export class FollowPanelComponent implements OnInit {
   }
 
   onUnfollow() {
-    this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/follower/personal-trader', this.authService.jsonHeaders())
+    this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/follower/trader', this.authService.jsonHeaders())
       .subscribe(
         () => this.personalTrader = null,
         error => console.log(JSON.stringify(error))

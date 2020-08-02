@@ -22,19 +22,14 @@ export class DashboardComponent implements OnInit {
               public authService: AuthenticationService) { }
 
   ngOnInit() {
-    const httpOptions = { headers: new HttpHeaders({
-        'Authorization': this.authService.findAccessToken(),
-        'Content-Type': 'application/json'
-    })};
     this.http.get<{
       client: string,
       walletBalance: number,
       activeBalance: number,
       availableMargin: number,
       earned: number
-    }>(
-      BaseUrl.B1 + '/api/v1/dashboard', httpOptions
-    ).subscribe(
+    }>(BaseUrl.B1 + '/api/v1/follower/dashboard')
+      .subscribe(
       (data: {
         client: string,
         walletBalance: number,
