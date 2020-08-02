@@ -18,39 +18,36 @@ export class AdminService {
   ) {}
 
   fetchVolumes(traderName: string): Observable<{totalVolume: number, activeVolume: number}> {
-    const headers = new HttpHeaders().set('Authorization', this.authService.findAccessToken());
     const httpParams: HttpParamsOptions = { fromObject: { trader: traderName } } as HttpParamsOptions;
-    const options = { params: new HttpParams(httpParams), headers: headers };
+    const options = { params: new HttpParams(httpParams) };
     return this.http.get<{totalVolume: number, activeVolume: number}>(BaseUrl.B1 + '/api/v1/admin/volume', options);
   }
 
   fetchUsersWalletBalance(traderName: string): Observable<Map<string, number>> {
-    const headers = new HttpHeaders().set('Authorization', this.authService.findAccessToken());
     const httpParams: HttpParamsOptions = { fromObject: { trader: traderName } } as HttpParamsOptions;
-    const options = { params: new HttpParams(httpParams), headers: headers };
+    const options = { params: new HttpParams(httpParams) };
     return this.http.get<Map<string, number>>(BaseUrl.B1 + '/api/v1/admin/balances', options);
   }
 
   fetchFollowersWalletBalance() {
-    const httpOptions = { headers: new HttpHeaders().set('Authorization', this.authService.findAccessToken())};
-    return this.http.get<Map<string, number>>(BaseUrl.B1 + '/api/v1/trader/balances', httpOptions);
+    const httpOptions = { headers: new HttpHeaders()};
+    return this.http.get<Map<string, number>>(BaseUrl.B1 + '/api/v1/trader/followers/balances', httpOptions);
   }
 
   fetchLogins() {
-    const httpOptions = { headers: new HttpHeaders().set('Authorization', this.authService.findAccessToken())};
-    return this.http.get<LoginModel[]>(BaseUrl.B1 + '/api/v1/admin/logins', httpOptions);
+    return this.http.get<LoginModel[]>(BaseUrl.B1 + '/api/v1/admin/logins');
   }
 
   fetchUsers(): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/user', this.authService.jsonHeaders());
+    return this.http.get<UserModel[]>(BaseUrl.B1 + '/api/v1/admin/users');
   }
 
   deleteUser(id: number) {
-    return this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/user/' + id, this.authService.jsonHeaders());
+    return this.http.delete<UserModel>(BaseUrl.B1 + '/api/v1/root/users/' + id);
   }
 
   hideUser(id: number) {
-    return this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/user/hide', 'id=' + id, this.authService.jsonHeaders());
+    return this.http.post<UserModel>(BaseUrl.B1 + '/api/v1/user/hide', 'id=' + id);
   }
 
 }

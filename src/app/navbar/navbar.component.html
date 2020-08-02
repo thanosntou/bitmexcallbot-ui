@@ -13,21 +13,12 @@
     <a class="nav-link" *ngIf="isFollower" routerLinkActive="active" routerLink="/follow" role="button"><fa-icon [icon]="faHandshake"></fa-icon> Follow a Trader</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/followers" role="button"><fa-icon [icon]="faUsers"></fa-icon> Followers</a>
     <a class="nav-link" *ngIf="isTrader" routerLinkActive="active" routerLink="/trade" role="button"><fa-icon [icon]="faSatelliteDish"></fa-icon> Trade</a>
-    <a class="nav-link" *ngIf="isFollower" routerLinkActive="active" routerLink="/settings" role="button"><fa-icon [icon]="faCogs"></fa-icon> Settings</a>
-    <a class="nav-link" routerLinkActive="active" routerLink="/faq" role="button"><fa-icon [icon]="faQuestionCircle"></fa-icon> F.A.Q.</a>
-    <!--<a class="nav-link" routerLinkActive="active" routerLink="/chat" role="button"><fa-icon [icon]="faComment"></fa-icon> Chat</a>-->
-    <br>
-    <div class="row" *ngIf="isAdmin">
-      <div class="col">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-block" id="dropdownBasic1" ngbDropdownToggle>Admin Panel</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button routerLink="/users" class="dropdown-item"><b>Users</b></button>
-            <button routerLink="/logins" class="dropdown-item"><b>Logins</b></button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <a class="nav-link" *ngIf="isFollower" routerLinkActive="active" routerLink="/settings/follower" role="button"><fa-icon [icon]="faCogs"></fa-icon> Follower Settings</a>
+    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/settings/admin" role="button"><fa-icon [icon]="faCogs"></fa-icon> Admin Settings</a>
+    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/settings/root" role="button"><fa-icon [icon]="faCogs"></fa-icon> Root Settings</a>
+    <a class="nav-link" *ngIf="isRoot" routerLinkActive="active" routerLink="/root/tenants" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
+    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/users" role="button"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
+    <a class="nav-link" *ngIf="isAdmin" routerLinkActive="active" routerLink="/logins" role="button"><fa-icon [icon]="faUsers"></fa-icon> Logins</a>
     <br>
   </div>
 </div>

@@ -1,8 +1,11 @@
+<div class="pop-up" *ngIf="errorMessage">
+  <div class="pop-up-box">{{ errorMessage }}</div>
+</div>
 <div class="row">
-  <div class="col-md-2" id="navbar">
+  <div class="col-md-2 rest" id="navbar">
     <app-navbar></app-navbar>
   </div>
-  <div class="col-md-10">
+  <div class="col-md-10 rest">
     <router-outlet></router-outlet>
   </div>
 </div>

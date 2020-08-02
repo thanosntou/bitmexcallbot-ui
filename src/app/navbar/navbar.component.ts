@@ -15,6 +15,7 @@ import {UserDetailsModel} from '../_models/user-details.model';
 })
 export class NavbarComponent implements OnInit {
   userDetails: UserDetailsModel;
+  isRoot = false;
   isAdmin = false;
   isTrader = false;
   isFollower = false;
@@ -31,6 +32,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.userDetails = this.authService.findUserDetails();
     this.authService.findUserRoles().forEach(auth => {
+      if (auth.role === 'ROOT') {
+        this.isRoot = true;
+      }
       if (auth.role === 'ADMIN') {
         this.isAdmin = true;
       }

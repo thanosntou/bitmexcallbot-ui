@@ -16,7 +16,7 @@ export class TraderGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isTrader2()
+    return this.authService.isTraderPromise()
       .then(
         (isTrader: boolean) => {
           if (isTrader) {

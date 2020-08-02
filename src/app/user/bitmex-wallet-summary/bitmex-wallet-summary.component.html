@@ -16,15 +16,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let transaction of userService.bitmexTransactionsSummary; let i = index">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>{{ transaction.currency }}</td>
-          <td>{{ transaction.transactType }}</td>
-          <td>{{ (transaction.amount / 100000000).toFixed(5) }}</td>
-          <td>{{ transaction.symbol }}</td>
-          <td>{{ (transaction.pendingDebit / 100000000).toFixed(5) }}</td>
-          <td>{{ (transaction.walletBalance / 100000000).toFixed(5) }}</td>
-        </tr>
+<!--        <tr *ngFor="let transaction of userService.bitmexTransactionsSummary; let i = index">-->
+<!--          <th scope="row">{{ i + 1 }}</th>-->
+<!--          <td>{{ transaction.currency }}</td>-->
+<!--          <td>{{ transaction.transactType }}</td>-->
+<!--          <td>{{ (transaction.amount / 100000000).toFixed(5) }}</td>-->
+<!--          <td>{{ transaction.symbol }}</td>-->
+<!--          <td>{{ (transaction.pendingDebit / 100000000).toFixed(5) }}</td>-->
+<!--          <td>{{ (transaction.walletBalance / 100000000).toFixed(5) }}</td>-->
+<!--        </tr>-->
         </tbody>
       </table>
     </div>

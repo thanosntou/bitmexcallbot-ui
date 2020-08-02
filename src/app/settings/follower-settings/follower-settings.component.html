@@ -1,0 +1,133 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Settings</h3>
+    <hr>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <select name="client" class="form-control" #clientInput>
+          <option [style.font-weight]="'bold'" [selected]="userDetailsInfo.user.client">{{ userDetailsInfo.user.client }}</option>
+          <option
+            [style.font-weight]="userDetailsInfo.user.client == 'TESTNET' ? 'bold' : null"
+            [selected]="userDetailsInfo.user.client == 'TESTNET'" value="TESTNET"
+          >
+            Testnet
+          </option>
+          <option
+            [style.font-weight]="userDetailsInfo.user.client == 'BITMEX' ? 'bold' : null"
+            [selected]="userDetailsInfo.user.client == 'BITMEX'"
+            value="BITMEX"
+          >
+            Bitmex
+          </option>
+        </select>
+      </div>
+      <div class="row justify-content-center">
+        <button class="btn btn-primary" (click)="onChangeClient()">Change client</button>
+      </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs" style="margin-right: 20px">
+            <strong>Api Key:</strong>
+          </div>
+          <div class="col-xs">
+            {{ userDetailsInfo.user.apiKey }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs" style="margin-right: 20px">
+            <strong>Api Secret:</strong>
+          </div>
+          <div class="col-xs">
+            {{ userDetailsInfo.user.apiSecret }}
+          </div>
+        </div>
+        <br>
+        <div class="alert alert-info">
+          <strong>The API Keys are stored with encryption.</strong>
+        </div>
+      </div>
+      <br>
+      <hr>
+
+      <div class="container-fluid">
+        <div class="row">
+          <h5><span><fa-icon [icon]=""></fa-icon></span> Edit Api Keys </h5>
+        </div>
+        <div>
+          <form>
+            <div class="form-group">
+              <div class="row">
+                <label for="api_key">Api Key</label>
+                <input
+                  type="text"
+                  id="api_key"
+                  class="form-control"
+                  #apiKeyInput
+                >
+              </div>
+              <div class="row">
+                <label for="api_secret">Api Secret</label>
+                <input
+                  type="text"
+                  id="api_secret"
+                  class="form-control"
+                  #apiSecretInput
+                >
+              </div>
+              <div class="row">
+                <button class="btn btn-success" (click)="onSaveKeys()">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ngb-alert *ngIf="successMessageKeys" type="success" (close)="successMessageKeys = null">{{ successMessageKeys }}</ngb-alert>
+      </div>
+
+      <br>
+      <hr>
+
+      <div class="container-fluid">
+        <div class="row">
+          <h5> Change Password </h5>
+        </div>
+        <br>
+        <div>
+          <form>
+            <div class="form-group">
+              <div class="row">
+                <label for="api_key">Old Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  #oldPass
+                />
+              </div>
+              <div class="row">
+                <label for="api_secret">New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  #newPass
+                />
+              </div>
+              <div class="row">
+                <label for="api_secret">Confirm New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  #confirmPass
+                />
+              </div>
+              <div class="row">
+                <button class="btn btn-success" (click)="onSavePass()">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ngb-alert *ngIf="successMessagePass" type="success" (close)="successMessagePass = null">{{ successMessagePass }}</ngb-alert>
+      </div>
+    </div>
+  </div>

@@ -3,8 +3,6 @@
     <h3 class="card-title">Admin Panel</h3>
     <hr>
     <h4> Users </h4>
-    <br/>
-    <br/>
     <div class="row" *ngIf="traders.length > 0">
       <label for="trader"><strong>Select Trader:</strong></label>
       <select id="trader" class="form-control" (change)="onChangeTrader($event)">
